@@ -1,0 +1,20 @@
+Pour la fiche d'intervention 
+
+1 - Un technicien genere la fiche ou il renseigne son nom, le nom, la direction ainsi que le service du demandeur
+puis le materiel sur lequel il va effectuer l'intervention ainsi que le model, la ref patrimoine et la date d'caquition
+et enfin il emet un diagnostique sur le materiel.
+
+2 - Ensuite la fiche doit etre valider par le chef du SIH qui peut emetre des suggestions .
+
+3 - Ensuite la fiche doit etre par valider par le  chef de service du demandeur.
+
+4 - Enfin la fiche doit valider par le chef du DIN.
+
+
+Pour la fiche d'acquisition
+
+1 - La fiche d'acquisition est generé par soit le SIH ou par un directeur ou chef de departement.
+
+2 - La fiche doit etre valide par le chef du SIH 
+
+3 - La fiche doit enfin etre valide par soit le chef du DIN soit le directeur de la DSI
