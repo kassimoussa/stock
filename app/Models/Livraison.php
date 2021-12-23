@@ -14,7 +14,8 @@ class Livraison extends Model
         'nom_demandeur',
         'direction',
         'service',
-        'fiche_intervention',
+        'fiche',
+        'numero_fiche',
         'date_livraison',
         'sign_chef',
     ];

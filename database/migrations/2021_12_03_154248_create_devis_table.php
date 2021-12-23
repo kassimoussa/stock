@@ -17,7 +17,8 @@ class CreateDevisTable extends Migration
             $table->id();
             $table->integer('numero_devis')->nullable();
             $table->string('fournisseur')->nullable();
-            $table->string('fiche_intervention')->nullable();
+            $table->string('fiche')->nullable();
+            $table->string('numero_fiche')->nullable();
             $table->string('file_name')->nullable();
             $table->string('path')->nullable();
             $table->timestamps();

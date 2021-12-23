@@ -33,6 +33,7 @@ class CreateAcquisitionsTable extends Migration
             $table->string('date_sih')->nullable();
             $table->string('date_dsi')->nullable();
             $table->string('recu');
+            $table->string('livre');
             $table->integer('fiche_intervention')->nullable();
             $table->tinyInteger('status')->default('1');
             $table->integer('num_demande')->nullable();
