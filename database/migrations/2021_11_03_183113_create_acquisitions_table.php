@@ -28,7 +28,7 @@ class CreateAcquisitionsTable extends Migration
             $table->timestamp('date_submit')->nullable();
             $table->string('status_dir')->nullable();
             $table->string('status_sih')->nullable();
-            $table->string('status_sih')->nullable();
+            $table->string('status_dsi')->nullable();
             $table->string('date_dir')->nullable();
             $table->string('date_sih')->nullable();
             $table->string('date_dsi')->nullable();
