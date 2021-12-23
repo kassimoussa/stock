@@ -27,6 +27,7 @@
                     <th scope="col">Nom</th>
                     <th scope="col">Email</th>
                     <th scope="col">Direction</th>
+                    <th scope="col">Service</th>
                     <th scope="col">Level</th>
                     <th scope="col">Action</th>
                 </thead>
@@ -37,6 +38,7 @@
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->direction }}</td>
+                            <td>{{ $user->service }}</td>
                             <td>{{ $user->level }}</td>
                             <td class="td-actions ">
                                 <a href="{{ url('/admin/useredit', $user) }}" class="btn btn-link" data-bs-toggle="tooltip" data-bs-placement="bottom"
