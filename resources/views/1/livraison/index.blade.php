@@ -19,7 +19,7 @@
         @endif
 
         <div>
-            <table class="table tablesorter " id="">
+            <table class="table tablesorter table-sm table-hover" id="">
                 <thead class=" text-primary">
                     <th scope="col">N° Fiche</th>
                     <th scope="col">Nom de l'intervenant</th>
