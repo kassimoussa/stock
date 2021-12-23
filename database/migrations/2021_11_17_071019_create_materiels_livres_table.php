@@ -17,7 +17,7 @@ class CreateMaterielsLivresTable extends Migration
             $table->id();
             $table->integer('livraison_id')->nullable();
             $table->string('nom_materiel')->nullable();
-            $table->string('description_mat')->nullable();
+            $table->string('marque_mat')->nullable();
             $table->string('description_mat')->nullable();
             $table->string('quantite')->nullable();
             $table->string('observation')->nullable();
