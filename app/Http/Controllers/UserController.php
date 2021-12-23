@@ -92,7 +92,7 @@ class UserController extends Controller
         if(session('userLevel') == '1'){
             return view('1.index', compact('user'));
         }elseif(session('userLevel') == '2'){ 
-            if (session('dir') == 'DSI') {
+            if (session('service') == 'IT HelpDesk') {
                 return view('2.sih.index', compact('user'));
             } else {
                 return view('2.index', compact('user'));
