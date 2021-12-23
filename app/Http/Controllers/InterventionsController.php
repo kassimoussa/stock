@@ -36,7 +36,7 @@ class InterventionsController extends Controller
             $interventions = Intervention::orderBy('id', 'desc')->paginate(5);
             return view('1.intervention.index', compact('interventions'));
         } elseif (session('userLevel') == '2') {
-            if (session('dir') == 'DSI' || session('service') == 'IT HelpDesk') {
+            if (session('service') == 'IT HelpDesk') {
                 $interventions = Intervention::orderBy('id', 'desc')->paginate(10);
                 return view('2.sih.intervention.index', compact('interventions'));
             } else {
