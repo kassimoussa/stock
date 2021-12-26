@@ -6,6 +6,7 @@ use App\Models\Devis;
 use App\Models\Intervention;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use File;
 
 class DevisController extends Controller
 {
@@ -112,8 +113,14 @@ class DevisController extends Controller
      */
     public function destroy(Devis $devi)
     {
-        $devi->delete();
-
-        return back()->with('success', 'fiche supprimé');
+        $path = storage_path('app/'.$devi->path);
+        if(File::exists($path)){
+            File::delete($path);
+            $devi->delete();
+            return back()->with('success', 'fiche supprimé');
+        }else{
+            return back()->with('fail','File does not exists.');
+        }
+        
     }
 }
