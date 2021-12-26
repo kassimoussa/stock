@@ -8,6 +8,16 @@ use App\Models\Livraison;
         <div class="d-flex justify-content-between mb-2">
             <h3 class="over-title ">Fiches d'intervention </h3>
         </div>
+        <div class="d-flex justify-content-start mb-2">
+            <div class="row">
+                <form action="" class="">
+                    <div class="input-group  mb-3">
+                        <button class="btn btn-dark" type="submit">Chercher</button>
+                        <input type="text" class="form-control " name="search" placeholder="" value="{{ $search }}">
+                    </div>
+                </form>
+            </div>
+        </div>
 
         @if ($message = Session::get('success'))
             <div class="alert alert-success">
@@ -26,6 +36,7 @@ use App\Models\Livraison;
                     <th scope="col">N° Fiche</th>
                     <th scope="col">Demandeur</th>
                     <th scope="col">Direction</th>
+                    <th scope="col">Service</th>
                     <th scope="col">Materiel</th>
                     <th scope="col" colspan="3">Status</th>
                     <th scope="col">Date d'intervention</th>
@@ -84,6 +95,7 @@ use App\Models\Livraison;
                                 <td>{{ $intervention->id }}</td>
                                 <td>{{ $intervention->nom_demandeur }}</td>
                                 <td>{{ $intervention->dir_demandeur }}</td>
+                                <td>{{ $intervention->service_demandeur }}</td>
                                 <td>{{ $intervention->materiel }}</td>
                                 <td style="background: {{ $status_sih }}">SIH</td>
                                 <td style="background: {{ $status_dir }}">{{ $intervention->dir_demandeur }}</td>

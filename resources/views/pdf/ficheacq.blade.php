@@ -16,6 +16,9 @@ use App\Models\Direction;
             margin: auto;
         }
 
+        $primary-color: #00005c; // Change color here. C'mon, try it! 
+        $text-color: mix(#000, $primary-color, 64%);
+
         .card {
             /* Add shadows to create the "card" effect */
             transition: 0.3s;
@@ -87,6 +90,7 @@ use App\Models\Direction;
         .input-group>input {
             flex: 1 0 auto;
         }
+
         .right {
             float: right;
             margin-right: 20px;
@@ -106,27 +110,40 @@ use App\Models\Direction;
         .col {
             margin-bottom: 5px;
         }
+
         .table,
         .td,
         .th {
             border: 1px solid black;
         }
-        th,td{
+
+        th,
+        td {
             text-align: left;
         }
 
         .table {
             border-collapse: collapse;
         }
-        
-        td{
+
+        td {
             font-size: 18px;
         }
-        .tt, th{
+
+        .tt,
+        th {
             font-size: 20px;
             font-weight: bold;
         }
-        
+
+        .radio:checked {
+                background-color: mix(#fff, $primary-color, 84%);
+
+                &:before {
+                    box-shadow: inset 0 0 0 0.4375em $primary-color;
+                }
+            
+        }
 
     </style>
 </head>
@@ -169,7 +186,7 @@ use App\Models\Direction;
                         </tr>
                         <tr>
                             <td class="tt">Service</td>
-                            <td class="tc"> {{ $acquisition->service_demandeur}}</td>
+                            <td class="tc"> {{ $acquisition->service_demandeur }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -264,31 +281,31 @@ use App\Models\Direction;
 
         <div class="container">
             <label class="container-radio">
-                <input type="radio" name="radio" {{ $pcb }}> PC Bureau
+                <input type="radio" name="radio" class="radio" {{ $pcb }}> PC Bureau
                 <span class="checkmark"></span>
             </label>
             <label class="container-radio">
-                <input type="radio" name="radio" {{ $pcp }}> PC Portable
+                <input type="radio" name="radio" class="radio" {{ $pcp }}> PC Portable
                 <span class="checkmark"></span>
             </label>
             <label class="container-radio">
-                <input type="radio" name="radio" {{ $ai }}> Accessoires informatiques
+                <input type="radio" name="radio" class="radio" {{ $ai }}> Accessoires informatiques
                 <span class="checkmark"></span>
             </label>
             <label class="container-radio">
-                <input type="radio" name="radio" {{ $imp }}> Imprimante
+                <input type="radio" name="radio" class="radio" {{ $imp }}> Imprimante
                 <span class="checkmark"></span>
             </label>
             <label class="container-radio">
-                <input type="radio" name="radio" {{ $fax }}> Fax
+                <input type="radio" name="radio" class="radio" {{ $fax }}> Fax
                 <span class="checkmark"></span>
             </label>
             <label class="container-radio">
-                <input type="radio" name="radio" {{ $log }}> Logiciel
+                <input type="radio" name="radio" class="radio" {{ $log }}> Logiciel
                 <span class="checkmark"></span>
             </label>
             <label class="container-radio">
-                <input type="radio" name="radio" {{ $autre }}> Autre
+                <input type="radio" name="radio" class="radio" {{ $autre }}> Autre
                 <span class="checkmark"></span>
             </label>
         </div>
@@ -301,11 +318,11 @@ use App\Models\Direction;
                     </tr>
                     <tr>
                         <td class="tt" {{ $descdiv }}>Description &nbsp;</td>
-                        <td class="tc" {{ $descdiv }}> {{ $acquisition->description_mat  }}</td>
+                        <td class="tc" {{ $descdiv }}> {{ $acquisition->description_mat }}</td>
                     </tr>
                     <tr>
                         <td class="tt">Marque</td>
-                        <td class="tc"> {{ $acquisition->marque_mat}}</td>
+                        <td class="tc"> {{ $acquisition->marque_mat }}</td>
                     </tr>
                     <tr>
                         <td class="tt" {{ $procediv }}>Processeur</td>
@@ -313,15 +330,15 @@ use App\Models\Direction;
                     </tr>
                     <tr>
                         <td class="tt" {{ $ramdiv }}>Mémoire</td>
-                        <td class="tc" {{ $ramdiv }}> {{ $acquisition->ram_mat  }}</td>
+                        <td class="tc" {{ $ramdiv }}> {{ $acquisition->ram_mat }}</td>
                     </tr>
                     <tr>
                         <td class="tt" {{ $ramdiv }}>Stockage</td>
-                        <td class="tc" {{ $ramdiv }}> {{ $acquisition->stockage_mat}}</td>
+                        <td class="tc" {{ $ramdiv }}> {{ $acquisition->stockage_mat }}</td>
                     </tr>
                     <tr>
                         <td class="tt" {{ $sediv }}>S.E</td>
-                        <td class="tc" {{ $sediv }}> {{ $acquisition->os_mat}}</td>
+                        <td class="tc" {{ $sediv }}> {{ $acquisition->os_mat }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -367,7 +384,7 @@ use App\Models\Direction;
             <div class="container flex">
                 <div class="row left">
                     <label for=""><b> Date : </b></label>
-                    <label for=""> Le {{ date('d/m/Y', strtotime($acquisition->date_dir_ok)) }}</label>
+                    <label for=""> Le {{ date('d/m/Y', strtotime($acquisition->date_dir)) }}</label>
                 </div>
                 <div class="right">
                     <label class="container-radio">
@@ -379,7 +396,10 @@ use App\Models\Direction;
             </div>
         </div>
     @endif
-
+        
+    <br>
+    <br>
+    
     <div class="card">
         <div class="card-title">
             <h2>Visa DSI </h2>
@@ -388,7 +408,7 @@ use App\Models\Direction;
         <div class="container flex">
             <div class="row left">
                 <label for=""><b> Date : </b></label>
-                <label for="">Le {{ date('d/m/Y', strtotime($acquisition->date_ok)) }} </label>
+                <label for="">Le {{ date('d/m/Y', strtotime($acquisition->date_dsi)) }} </label>
             </div>
             <div class="right">
                 <label class="container-radio">

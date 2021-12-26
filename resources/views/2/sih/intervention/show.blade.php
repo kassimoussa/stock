@@ -1,7 +1,17 @@
 @extends('2.sih.layout', ['page' => 'Fiche Intervention', 'pageSlug' => 'intervention'])
 @section('content')
-    <div class="row mt-3">
-        <h3 class="fw-bold mt-3">FICHE D'INTERVENTION</h3>
+
+<br>
+
+    <div class="container mt-3">
+        {{-- <div class="d-flex justify-content-between mb-4 " >
+            <h3 class="fw-bold mt-3">FICHE D'INTERVENTION</h3>
+            <a href="{{ url('/generate-intervention', $intervention) }}" class="btn  btn-primary  fw-bold text-white">IMPRIMER</a>
+        </div> --}}
+        <div class="d-flex justify-content-between mb-4 " >
+            <h3 class="over-title ">FICHE D'INTERVENTION  </h3>
+            <a href="{{ url('/generate-intervention', $intervention) }}" class="btn  btn-primary  fw-bold text-white">IMPRIMER</a>
+        </div>
         <div class="row">
 
             @if ($message = Session::get('success'))
@@ -92,76 +102,6 @@
                                                     class="text-danger">*</span></label>
                                             <input type="text" class="form-control" name="service_demandeur"
                                                 value="{{ $intervention->service_demandeur }}" readonly>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="card ">
-                                    <h4 class="card-header ch2 text-center">Devis</h4>
-                                    <div class="card-body">
-                                        <div class="col mb-2">
-                                            @if (!empty($devis) && $devis->count())
-                                            <table class="table tablesorter  table-bordered" id="">
-                                                <thead class="table-dark ">
-                                                    <th scope="col">N° devis</th>
-                                                    <th scope="col">Fournisseur</th>
-                                                    <th scope="col">Actions</th>
-                                                </thead>
-                                                <tbody>
-                                                    @php
-                                                        $cnt = 1;
-                                                        $modaln = 'vdir' . $cnt;
-                                                    @endphp
-                                                    @foreach ($devis as $key => $devi)
-
-                                                        <tr>
-                                                            <td>{{ $devi->numero_devis }}</td>
-                                                            <td>{{ $devi->fournisseur }}</td>
-                                                            <td class="td-actions ">
-                                                                <a href="#" class="btn btn-link" data-bs-toggle="modal"
-                                                                    data-bs-target="#{{ $modaln }}">
-                                                                    <i class="fas fa-eye" data-bs-toggle="tooltip"
-                                                                        data-bs-placement="left"
-                                                                        title="Voir le devis"></i>
-                                                                </a>
-                                                                <a href="{{ url('/intervention/download', $devi) }}"
-                                                                    class="btn btn-link" data-bs-toggle="tooltip"
-                                                                    data-bs-placement="bottom" title="Télécharger le devis">
-                                                                    <i class="fas fa-download"></i>
-                                                                </a>
-                                                            </td>
-                                                        </tr>
-                                                        <div class="modal fade" id="{{ $modaln }}" tabindex="-1"
-                                                            aria-labelledby="voirtoutrTitle" aria-hidden="true">
-                                                            <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable"
-                                                                role="document">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <button type="button"
-                                                                            class="btn btn-primary fw-bold"
-                                                                            data-bs-dismiss="modal">Fermer</button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        <iframe height="900px" width="1000px"
-                                                                            src="{{ asset($devi->path) }}"
-                                                                            frameborder="0"></iframe>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        @php
-                                                            $cnt = $cnt + 1;
-                                                            $modaln = 'vdir' . $cnt;
-                                                        @endphp
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                            @else
-                                            <div class="alert alert-dark">
-                                                <h3 class="fw-bold"> Il n'y a pas de devis pour cette fiche  </h3>
-                                            </div>
-                                            @endif
                                         </div>
                                     </div>
                                 </div>

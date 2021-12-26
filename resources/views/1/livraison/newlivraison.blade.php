@@ -36,10 +36,6 @@
                             <input type="text" class="form-control" name="nom_intervenant">
                         </div>
                         <div class="input-group mb-3">
-                            <span class="input-group-text txt fw-bold ">N° fiche d'intervention</span>
-                            <input type="text" class="form-control" name="fiche_intervention" >
-                        </div>
-                        <div class="input-group mb-3">
                             <span class="input-group-text txt fw-bold ">Nom du demandeur</span>
                             <input type="text" class="form-control" name="nom_demandeur">
                         </div>
@@ -82,7 +78,7 @@
                                 </select>
                                 <input type="text" class="form-control" name="quantite[]" placeholder="Quantité" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')">
                                 <input type="text" class="form-control" name="observation[]" placeholder="Observation" >
-                                <input type="text" class="form-control" name="id" value="{{ time() }}" hidden>
+                                <input type="text" class="form-control" name="livraison_id" value="{{ time() }}" hidden>
                             </div>
                         </div>
                     </div>

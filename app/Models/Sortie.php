@@ -11,7 +11,8 @@ class Sortie extends Model
     protected $fillable = [
         'materiel',
         'quantite',
-        'fiche_intervention',
+        'raison',
+        'numero_fiche',
         'date_sortie',
     ];
 }

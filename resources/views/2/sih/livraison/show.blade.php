@@ -5,14 +5,8 @@ use App\Models\Direction;
 @section('content')
     <br>
     <div class="container ">
-        {{-- <div class="d-flex justify-content-between mb-3" style="width: 90%">
-            <h3 class="fw-bold mt-3">FICHE DE LIVRAISON</h3>
-            <a href="/acquisition" class="btn  btn-primary  fw-bold">RETOURNER</a>
-            <a href="{{ url('/generate-livraison', $livraison) }}" class="btn  btn-primary  fw-bold text-white">IMPRIMER</a>
-            
-        </div> --}}
         <div class="d-flex justify-content-between mb-4 " >
-            <h3 class="over-title ">Fiches de livraison  </h3>
+            <h3 class="over-title ">Fiche de livraison  </h3>
             <a href="{{ url('/generate-livraison', $livraison) }}" class="btn  btn-primary  fw-bold text-white">IMPRIMER</a>
         </div>
 

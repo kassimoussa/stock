@@ -38,7 +38,7 @@
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text txt fw-bold ">Demandeur</span>
-                            <input type="text" class="form-control" name="nom_demandeur">
+                            <input type="text" class="form-control" name="nom_demandeur" value="{{ $acquisition->nom_demandeur }}" readonly>
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text txt fw-bold ">Direction</span>
@@ -62,15 +62,15 @@
                             <div class="input-group">
                                 <div class="input-group mb-3">
                                     <span class="input-group-text txt fw-bold ">Materiel</span>
-                                    <input type="text" class="form-control" name="nom_materiel[]" value="{{ $materiels->nom_mat }}" readonly>
+                                    <input type="text" class="form-control" name="nom_materiel" value="{{ $materiels->nom_mat }}" readonly>
                                 </div>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text txt fw-bold ">Quantité</span>
-                                    <input type="text" class="form-control" name="quantite[]" value="{{ $materiels->quantite }}" readonly>
+                                    <input type="text" class="form-control" name="quantite" value="{{ $materiels->quantite }}" readonly>
                                 </div>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text txt fw-bold ">Observation</span>
-                                    <input type="text" class="form-control" name="observation[]" placeholder="Observation" >
+                                    <input type="text" class="form-control" name="observation" placeholder="Observation" >
                                 </div>                                 
                             </div>
                         </div>

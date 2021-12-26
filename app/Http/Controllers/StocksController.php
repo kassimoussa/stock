@@ -14,16 +14,26 @@ class StocksController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $stocks = Stock::all();
+        
+        $search = $request['search'] ?? "";
+        if($request->has('search')){
+            $search = $request['search'] ;
+            $stocks = Stock::where('materiel', 'Like', '%'.$search.'%')->get();
+        }else {
+            $stocks = Stock::all();
+        }
+        //$stocks = compact('stocks');
+        
         if (session('userLevel') == '1') {
-            return view('1.stock.index', compact('stocks'));
+            return view('1.stock.index', compact('stocks','search'));
         } elseif (session('userLevel') == '2') {
-            return view('2.sih.stock.index', compact('stocks'));
+             //return $search;
+           return view('2.sih.stock.index', compact('stocks','search'));
         }
         elseif (session('userLevel') == '3') {
-            return view('3.stock.index', compact('stocks'));
+            return view('3.stock.index', compact('stocks','search'));
         }
     }
 
@@ -106,10 +116,10 @@ class StocksController extends Controller
 
     public function sortie(Stock $stock)
     {
-        $rentrees = Rentree::where('materiel', $stock->materiel)->get();
-        $sorties = Sortie::where('materiel', $stock->materiel)->get();
-        if (session('userLevel') == '1') {
-            return view('1.stock.sortiee', compact('stock', "rentrees", "sorties"));
+        $rentrees = Rentree::where('materiel', $stock->materiel)->orderby('date_rentree','desc')->get();
+        $sorties = Sortie::where('materiel', $stock->materiel)->orderby('date_sortie','desc')->get();
+        if (session('userLevel') == '2') {
+            return view('2.sih.stock.sortiee', compact('stock', "rentrees", "sorties"));
         } elseif (session('userLevel') == '4') {
             return view('4.stock.sortiee', compact('stock', "rentrees", "sorties"));
         }
@@ -125,7 +135,7 @@ class StocksController extends Controller
         $sortie = new Sortie();
         $sortie->materiel = $stock->materiel;
         $sortie->quantite = $request->quantite;
-        $sortie->fiche_intervention = $request->fiche_intervention;
+        $sortie->raison = $request->raison;
         $sortie->date_sortie = $request->date_sortie;
         $query2 = $sortie->save();
         if ($query1 && $query2) {

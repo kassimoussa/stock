@@ -176,37 +176,22 @@ use App\Models\Direction;
 
             <div class="container">
 
-                {{-- <label class="input-group-lbl"><b style="margin-right: 2%">Nom de l'intervenant :</b> <span>
-                        {{ $livraison->nom_intervenant }} </span> </label> <br>
-
-                @php
-                    $dir = Direction::where('sigle', $livraison->direction)
-                        ->get()
-                        ->first();
-                    
-                @endphp
-
-                <label class="input-group-lbl"><b style="margin-right: 5%">Direction :</b> <span>
-                        {{ $dir->nom }} </span> </label> <br>
-
-                <label class="input-group-lbl"><b style="margin-right: 5%">Service :</b> <span>
-                        {{ $livraison->service }} </span> </label> <b></b> <br>
-                <label class="input-group-lbl"><b style="margin-right: 5%">Date d'acquisition :</b> <span>
-                        {{ date('d/m/Y', strtotime($livraison->date_livraison)) }}</span> </label> <b></b> --}}
-
+                
                 <div class="col mb-2">
                     <table>
                         <tbody>
-                            
                             <tr>
-                                <td class="tt">Nom du demandeur &nbsp;</td>
+                                <td class="tt">Intervenant </td>
                                 <td class="tc"> {{ $livraison->nom_intervenant }}</td>
+                            </tr>
+                            <tr>
+                                <td class="tt">Demandeur </td>
+                                <td class="tc"> {{ $livraison->nom_demandeur }}</td>
                             </tr>
                             @php
                                 $dir = Direction::where('sigle', $livraison->direction)
                                     ->get()
                                     ->first();
-                                
                             @endphp
                             <tr>
                                 <td class="tt">Direction</td>
@@ -216,17 +201,10 @@ use App\Models\Direction;
                                 <td class="tt">Service</td>
                                 <td class="tc"> {{ $livraison->service }}</td>
                             </tr>
-                            <br>
-                            <br>
+                            
                             <tr>
-                                <td class="tt">Nom de l'intervenant &nbsp;</td>
-                                <td class="tc"> {{ $livraison->nom_demadeur }}</td>
-                            </tr>
-                            <tr>
-                                <td class="tt">Date de dlivraision</td>
-
-                                <td class="tc"> {{ date('d/m/Y', strtotime($livraison->date_livraison)) }}
-                                </td>
+                                <td class="tt">Date de livraision &nbsp;</td>
+                                <td class="tc"> {{ date('d/m/Y', strtotime($livraison->date_livraison)) }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -248,7 +226,7 @@ use App\Models\Direction;
                     <tbody>
                         @foreach ($materiels as $key => $materiel)
                             <tr>
-                                <td class="td">{{ $materiel->nom_materiel }}</td>
+                                <td class="td">{{ $materiel->nom_materiel . " / " . $materiel->description_mat . " / " . $materiel->marque_mat }}</td>
                                 <td class="td">{{ $materiel->quantite }}</td>
                                 <td class="td">{{ $materiel->observation }}</td>
                             </tr>

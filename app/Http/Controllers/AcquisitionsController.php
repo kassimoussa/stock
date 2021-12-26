@@ -22,19 +22,42 @@ class AcquisitionsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $sih = 'IT HelpDesk';
+        
+        
 
         if (session('userLevel') == '1') {
-            $acquisitions = Acquisition::orderBy('id', 'desc')->paginate(5);
-            return view('1.acquisition.index', compact('acquisitions'));
-        } elseif (session('userLevel') == '2') {
+            $search = $request['search'] ?? "";
+            if($request->has('search')){
+                $search = $request['search'] ;
+                $acquisitions = Acquisition::where('id', 'Like', '%'.$search.'%')->orderBy('id', 'desc')->get();
+            }else {
+                $acquisitions = Acquisition::orderBy('id', 'desc')->paginate(10);
+            }
+            return view('1.acquisition.index', compact('acquisitions','search'));
+        } 
+        elseif (session('userLevel') == '2') {
             if (session('service') == $sih) {
-                $acquisitions = Acquisition::Where(function ($query) {
-                    $query->where('status_dir', 'approuve');
-                })->orderBy('updated_at', 'desc')->paginate(10);
-                return view('2.sih.acquisition.index', compact('acquisitions'));
+                $search = $request['search'] ?? "";
+                if($request->has('search')){
+                    $acquisitions = Acquisition::where(function ($query) {
+                        $query->where('status_dir', 'approuve');
+                    })->Where(function ($query) use ($search) {
+                                $query->where('dir_demandeur', 'Like', '%'.$search.'%')
+                                    ->orWhere('service_demandeur', 'Like', '%'.$search.'%')
+                                    ->orWhere('nom_mat', 'Like', '%'.$search.'%')
+                                    ->orWhere('id', 'Like', '%'.$search.'%');
+                        })->orderBy('updated_at', 'desc')->paginate(10);
+                    return view('2.sih.acquisition.index', compact('acquisitions','search'));
+                }else {
+                    $acquisitions = Acquisition::Where(function ($query) {
+                        $query->where('status_dir', 'approuve');
+                    })->orderBy('updated_at', 'desc')->paginate(10);
+                    return view('2.sih.acquisition.index', compact('acquisitions','search'));
+                }
+                
             } else {
                 $acquisitions = Acquisition::Where(function ($query) {
                     $query->where('dir_demandeur', session('dir'))
@@ -43,10 +66,23 @@ class AcquisitionsController extends Controller
                 return view('2.acquisition.index', compact('acquisitions'));
             }
         } elseif (session('userLevel') == '3') {
-            $acquisitions = Acquisition::Where(function ($query) {
-                $query->where('status_sih', 'approuve');
-            })->orderBy('id', 'desc')->paginate(10);
-            return view('3.acquisition.index', compact('acquisitions'));
+            $search = $request['search'] ?? "";
+            if($request->has('search')){
+                $acquisitions = Acquisition::where(function ($query) {
+                    $query->where('status_sih', 'approuve');
+                })->Where(function ($query) use ($search) {
+                            $query->where('dir_demandeur', 'Like', '%'.$search.'%')
+                                ->orWhere('service_demandeur', 'Like', '%'.$search.'%')
+                                ->orWhere('nom_mat', 'Like', '%'.$search.'%')
+                                ->orWhere('id', 'Like', '%'.$search.'%');
+                    })->orderBy('updated_at', 'desc')->paginate(10);
+                return view('3.acquisition.index', compact('acquisitions','search'));
+            }else {
+                $acquisitions = Acquisition::Where(function ($query) {
+                    $query->where('status_sih', 'approuve');
+                })->orderBy('updated_at', 'desc')->paginate(10);
+                return view('3.acquisition.index', compact('acquisitions','search'));
+            }
         } elseif (session('userLevel') == '4') {
             if (session('dir') == 'DSI') {
                 $acquisitions = Acquisition::Where(function ($query) {

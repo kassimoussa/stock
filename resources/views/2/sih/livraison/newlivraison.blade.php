@@ -25,7 +25,7 @@
                     <p>{{ $message }}</p>
                 </div>
             @endif
-            <form action="addlivraison" role="form" method="post" class="form">
+            <form action="/livraison/addlivraison" role="form" method="post" class="form">
                 @csrf
                 @method('PUT')
                 <div class="card col-md-12 mb-3">
@@ -85,7 +85,7 @@
                         
                         <input type="text" class="form-control" name="livraison_id" value="{{ time() }}" hidden>
                         <input type="text" class="form-control" name="fiche" value="intervention" hidden>
-                        <input type="text" class="form-control" name="numero_fiche" value="intervention" hidden>
+                        <input type="text" class="form-control" name="numero_fiche" value="{{ $intervention->id }}" hidden>
                     </div>
                 </div>
             </form>

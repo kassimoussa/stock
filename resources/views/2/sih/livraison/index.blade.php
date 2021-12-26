@@ -4,7 +4,7 @@
     <div class="row  py-3 px-3">
         <div class="d-flex justify-content-between mb-4 ">
             <h3 class="over-title ">Fiches de livraison  </h3>
-            <a href="/livraison/newlivraison" class="btn  btn-primary  fw-bold">Nouvelle Livraison</a>
+            {{-- <a href="/livraison/newlivraison" class="btn  btn-primary  fw-bold">Nouvelle Livraison</a> --}}
         </div>
 
         @if ($message = Session::get('success'))
@@ -22,9 +22,11 @@
             <table class="table tablesorter table-sm table-hover" id="">
                 <thead class=" text-primary">
                     <th scope="col">N° Fiche</th>
-                    <th scope="col">Nom de l'intervenant</th>
+                    <th scope="col">Intervenant</th>
+                    <th scope="col">Demandeur</th>
                     <th scope="col">Direction</th>
                     <th scope="col">Service</th>
+                    <th scope="col">Fiche</th>
                     <th scope="col">Action</th>
                 </thead>
                 <tbody>
@@ -37,11 +39,19 @@
                         <tr>
                             <td>{{ $livraison->id }}</td>
                             <td>{{ $livraison->nom_intervenant }}</td>
+                            <td>{{ $livraison->nom_demandeur }}</td>
                             <td>{{ $livraison->direction }}</td>
                             <td>{{ $livraison->service }}</td>
+                            <td>
+                                @php
+                                    $fiche = $livraison->fiche; 
+                                @endphp
+                                <a href="{{ url('/'.$fiche.'/fiche', $livraison->numero_fiche) }}" class="" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                title="Voir la fiche d' {{ $fiche }} associée">{{ ucfirst($fiche) }}
+                            </a></td>
                             <td class="td-actions ">
                                 <a href="{{ url('/livraison/show', $livraison) }}" class="btn btn-link" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                    title="Voir la fiche {{ $livraison->id }}">
+                                    title="Voir la fiche ">
                                     <i class="fas fa-eye"></i>
                                 </a>
                                 <form action="{{ url('/livraison/delete', $livraison) }}" method="post"

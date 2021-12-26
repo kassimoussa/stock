@@ -6,6 +6,7 @@ use App\Models\Direction;
 use Illuminate\Http\Request;
 use App\Models\Livraison;
 use App\Models\materiels_livres;
+use App\Models\Sortie;
 use App\Models\Stock;
 use PDF;
 
@@ -82,6 +83,14 @@ class LivraisonsController extends Controller
             $old_quantite = $stock->quantite;
             $new_quantite =  $old_quantite - $quantite[$i];
             $query3 = Stock::where('materiel', $nom_materiel[$i])->update(['quantite' => $new_quantite]);
+
+            $sortie = new Sortie;
+            $sortie->materiel = $nom_materiel[$i];
+            $sortie->quantite = $quantite[$i];
+            $sortie->raison = "livraison";
+            $sortie->date_sortie = $request->date_livraison;
+            $sortie->numero_fiche = $livraison_id;
+            $query5 = $sortie->save();
         }
 
         $livraison = new Livraison;
@@ -122,18 +131,16 @@ class LivraisonsController extends Controller
         $livraison_id = $request->input('livraison_id');
         $description_mat = $request->input('description_mat');
         $marque_mat = $request->input('marque_mat');
-        $nbr = count($nom_materiel);
+        
 
-        for ($i = 0; $i < $nbr; $i++) {
             $materiel = new materiels_livres;
-            $materiel->nom_materiel = $nom_materiel[$i];
-            $materiel->description_mat = $description_mat[$i];
-            $materiel->marque_mat = $marque_mat[$i];
-            $materiel->quantite = $quantite[$i];
-            $materiel->observation = $observation[$i];
+            $materiel->nom_materiel = $nom_materiel;
+            $materiel->description_mat = $description_mat;
+            $materiel->marque_mat = $marque_mat;
+            $materiel->quantite = $quantite;
+            $materiel->observation = $observation;
             $materiel->livraison_id = $livraison_id;
             $query = $materiel->save();
-        }
 
         $livraison = new Livraison;
         $livraison->id = $livraison_id;

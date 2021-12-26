@@ -28,17 +28,42 @@ class InterventionsController extends Controller
      * @return \Illuminate\Http\Response
      */
      
-    public function index()
+    public function index(Request $request)
     {
         $devis = Devis::all();
 
         if (session('userLevel') == '1') {
-            $interventions = Intervention::orderBy('id', 'desc')->paginate(5);
-            return view('1.intervention.index', compact('interventions'));
-        } elseif (session('userLevel') == '2') {
+            $search = $request['search'] ?? "";
+            if($request->has('search')){
+                $search = $request['search'] ;
+                $interventions = Intervention::where(function ($query) use ($search) {
+                            $query->where('dir_demandeur', 'Like', '%'.$search.'%')
+                                ->orWhere('service_demandeur', 'Like', '%'.$search.'%')
+                                ->orWhere('materiel', 'Like', '%'.$search.'%')
+                                ->orWhere('ref_patrimoine', 'Like', '%'.$search.'%')
+                                ->orWhere('id', 'Like', '%'.$search.'%');
+                    })->orderBy('updated_at', 'desc')->paginate(10);
+            }else {
+                $interventions = Intervention::orderBy('updated_at', 'desc')->paginate(10);
+            }
+            return view('1.intervention.index', compact('interventions','search'));
+        } 
+        elseif (session('userLevel') == '2') {
             if (session('service') == 'IT HelpDesk') {
-                $interventions = Intervention::orderBy('id', 'desc')->paginate(10);
-                return view('2.sih.intervention.index', compact('interventions'));
+                $search = $request['search'] ?? "";
+                if($request->has('search')){
+                    $search = $request['search'] ;
+                    $interventions = Intervention::where(function ($query) use ($search) {
+                                $query->where('dir_demandeur', 'Like', '%'.$search.'%')
+                                    ->orWhere('service_demandeur', 'Like', '%'.$search.'%')
+                                    ->orWhere('materiel', 'Like', '%'.$search.'%')
+                                    ->orWhere('ref_patrimoine', 'Like', '%'.$search.'%')
+                                    ->orWhere('id', 'Like', '%'.$search.'%');
+                        })->orderBy('updated_at', 'desc')->paginate(10);
+                }else {
+                    $interventions = Intervention::orderBy('updated_at', 'desc')->paginate(10);
+                }
+                return view('2.sih.intervention.index', compact('interventions','search'));
             } else {
                 $interventions = Intervention::Where(function ($query) {
                     $query->where('status_sih', 'approuve')
@@ -411,7 +436,7 @@ class InterventionsController extends Controller
             if (session('userLevel') == '2') {
                 if (session('service') == $sih) {
                     //return $materiels;
-                    return view('2.sih.intervention.newlivraison', compact('intervention', 'stocks','materiels', 'devis'));
+                    return view('2.sih.livraison.newlivraison', compact('intervention', 'stocks','materiels', 'devis'));
                 } else {
                     return view('2.intervention.show', compact('intervention', 'materiels', 'devis'));
                 }
@@ -425,5 +450,14 @@ class InterventionsController extends Controller
                 return view('4.intervention.show', compact('intervention', 'user', 'devis'));
             }
         }
+    }
+
+    public function generatePDF(Intervention $intervention)
+    {
+        //PDF::setOptions(['defaultFont' => 'sans-serif']);
+         $pdf = PDF::loadView('pdf.ficheintervention', compact('intervention'));
+
+        return $pdf->download('fiche_intervention.pdf'); 
+        /*return view('pdf.ficheintervention', compact('intervention'));*/
     }
 }

@@ -17,7 +17,7 @@ class CreateSortiesTable extends Migration
             $table->id();
             $table->string('materiel')->nullable();
             $table->integer('quantite')->nullable();
-            $table->integer('fiche_intervention')->nullable();
+            $table->string('raison')->nullable();
             $table->timestamp('date_sortie');
             $table->timestamps();
         });
