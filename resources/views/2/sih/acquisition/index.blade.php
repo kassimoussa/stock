@@ -11,14 +11,13 @@ use App\Models\Livraison;
         </div>
 
         <div class="d-flex justify-content-start mb-2">
-            <div class="row">
-                <form action="" class="">
-                    <div class="input-group  mb-3">
-                        <button class="btn btn-dark" type="submit">Chercher</button>
-                        <input type="text" class="form-control " name="search" placeholder="" value="{{ $search }}">
-                    </div>
-                </form>
-            </div>
+            <form action="" class="col-md-6">
+                <div class="input-group  mb-3">
+                    <button class="btn btn-dark" type="submit">Chercher</button>
+                    <input type="text" class="form-control " name="search"
+                        placeholder="Par numero de fiche, direction, service ou materiel" value="{{ $search }}">
+                </div>
+            </form>
         </div>
 
         @if ($message = Session::get('success'))

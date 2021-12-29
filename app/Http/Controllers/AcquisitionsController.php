@@ -26,8 +26,6 @@ class AcquisitionsController extends Controller
     {
         $sih = 'IT HelpDesk';
         
-        
-
         if (session('userLevel') == '1') {
             $search = $request['search'] ?? "";
             if($request->has('search')){
@@ -59,13 +57,30 @@ class AcquisitionsController extends Controller
                 }
                 
             } else {
-                $acquisitions = Acquisition::Where(function ($query) {
-                    $query->where('dir_demandeur', session('dir'))
-                    ->where('status_dsi', 'approuve');
-                })->orderBy('id', 'desc')->paginate(10);
-                return view('2.acquisition.index', compact('acquisitions'));
+                $search = $request['search'] ?? "";
+                if($request->has('search')){
+                    $acquisitions = Acquisition::where(function ($query) {
+                        $query->where('dir_demandeur', session('dir'))
+                        ->where('service_demandeur', session('service'))
+                         ->where('status_dsi', 'approuve');
+                    })->Where(function ($query) use ($search) {
+                                $query->where('nom_demandeur', 'Like', '%'.$search.'%')
+                                    ->orWhere('service_demandeur', 'Like', '%'.$search.'%')
+                                    ->orWhere('nom_mat', 'Like', '%'.$search.'%')
+                                    ->orWhere('id', 'Like', '%'.$search.'%');
+                        })->orderBy('updated_at', 'desc')->paginate(10);
+                        return view('2.acquisition.index', compact('acquisitions','search'));
+                }else {
+                    $acquisitions = Acquisition::Where(function ($query) {
+                        $query->where('dir_demandeur', session('dir'))
+                        ->where('service_demandeur', session('service'))
+                        ->where('status_dsi', 'approuve');
+                    })->orderBy('id', 'desc')->paginate(10);
+                    return view('2.acquisition.index', compact('acquisitions','search'));
+                }
             }
-        } elseif (session('userLevel') == '3') {
+        } 
+        elseif (session('userLevel') == '3') { 
             $search = $request['search'] ?? "";
             if($request->has('search')){
                 $acquisitions = Acquisition::where(function ($query) {

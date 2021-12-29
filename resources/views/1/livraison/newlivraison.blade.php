@@ -25,41 +25,36 @@
                     <p>{{ $message }}</p>
                 </div>
             @endif
-            <form action="addlivraison" role="form" method="post" class="form">
+            <form action="/livraison/addlivraison" role="form" method="post" class="form">
                 @csrf
                 @method('PUT')
-                <div class="card col-md-10 mb-3">
+                <div class="card col-md-12 mb-3">
                     <h4 class="card-header text-center">Informations</h4>
                     <div class="card-body">
                         <div class="input-group mb-3">
-                            <span class="input-group-text txt fw-bold ">Nom de l'intervenant</span>
-                            <input type="text" class="form-control" name="nom_intervenant">
+                            <span class="input-group-text txt fw-bold ">Intervenant</span>
+                            <input type="text" class="form-control" name="nom_intervenant" value="{{ $intervention->nom_intervenant }}" readonly>
                         </div>
                         <div class="input-group mb-3">
-                            <span class="input-group-text txt fw-bold ">Nom du demandeur</span>
-                            <input type="text" class="form-control" name="nom_demandeur">
+                            <span class="input-group-text txt fw-bold ">Demandeur</span>
+                            <input type="text" class="form-control" name="nom_demandeur" value="{{ $intervention->nom_demandeur }}" readonly>
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text txt fw-bold ">Direction</span>
-                            <select class="form-select js-select2" name="direction" id="direction">
-                                <option value="" disabled selected>Select Direction</option>
-                                @foreach ($directions as $direction)
-                                    <option value="{{ $direction['sigle'] }}">{{ $direction['nom'] }}</option>
-                                @endforeach
-                            </select>
+                            <input type="text" class="form-control" name="direction" value="{{ $intervention->dir_demandeur }}" readonly>
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text txt fw-bold ">Service</span>
-                            <select name="service" id="serv" class="form-select  js-select2"></select>
+                            <input type="text" class="form-control" name="service" value="{{ $intervention->service_demandeur }}" readonly>
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text txt fw-bold ">Date de livraison</span>
-                            <input type="date" class="form-control" name="date_livraison" id="">
+                            <input type="date" class="form-control" name="date_livraison" id="" required >
                         </div>
                     </div>
                 </div>
 
-                <div class="card col-md-10 mb-3">
+                <div class="card col-md-12 mb-3">
                     <h4 class="card-header text-center">Materiels</h4>
                     <div class="card-body">
                         <div class="field_wrapper col mb-2">
@@ -78,7 +73,6 @@
                                 </select>
                                 <input type="text" class="form-control" name="quantite[]" placeholder="Quantité" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')">
                                 <input type="text" class="form-control" name="observation[]" placeholder="Observation" >
-                                <input type="text" class="form-control" name="livraison_id" value="{{ time() }}" hidden>
                             </div>
                         </div>
                     </div>
@@ -88,6 +82,10 @@
                         <button type="submit" name="submit" class="btn btn-primary fw-bold">Soumettre</button>
                         <button type="reset" class="btn btn-default fw-bold">Annuler</button>
                         <input type="text" name="date_submit" value="{{ date('Y-m-d H:i:s') }}" hidden>
+                        
+                        <input type="text" class="form-control" name="livraison_id" value="{{ time() }}" hidden>
+                        <input type="text" class="form-control" name="fiche" value="intervention" hidden>
+                        <input type="text" class="form-control" name="numero_fiche" value="{{ $intervention->id }}" hidden>
                     </div>
                 </div>
             </form>

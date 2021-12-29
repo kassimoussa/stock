@@ -10,6 +10,17 @@ use App\Models\Livraison;
             <h3 class="over-title ">Fiches d'acquisiton </h3>
         </div>
 
+        <div class="d-flex justify-content-start mb-2">
+            <form action="" class="col-md-6">
+                <div class="input-group  mb-3">
+                    <button class="btn btn-dark" type="submit">Chercher</button>
+                    <input type="text" class="form-control " name="search"
+                        placeholder="Par numero de fiche, service, demandeur ou materiel" value="{{ $search }}">
+                </div>
+            </form>
+        </div>
+
+
         @if ($message = Session::get('success'))
             <div class="alert alert-success">
                 <p>{{ $message }}</p>
@@ -25,6 +36,7 @@ use App\Models\Livraison;
             <table class="table tablesorter table-sm table-hover" id="">
                 <thead class=" text-primary">
                     <th scope="col">N° Fiche</th>
+                    <th scope="col">Demandeur</th>
                     <th scope="col">Service</th>
                     <th scope="col">Materiel</th>
                     <th scope="col">Quantité</th>
@@ -116,10 +128,11 @@ use App\Models\Livraison;
                             @endphp
                             <tr>
                                 <td>{{ $acquisition->id }}</td>
+                                <td>{{ $acquisition->nom_demandeur }}</td>
                                 <td>{{ $acquisition->service_demandeur }}</td>
                                 <td>{{ $acquisition->nom_mat }}</td>
                                 <td>{{ $acquisition->quantite }}</td>
-                                <td>{{ date('d/m/Y à H:i:s', strtotime($acquisition->date_submit)) }}</td>
+                                <td>{{ date('d/m/Y', strtotime($acquisition->date_submit)) }}</td>
                                 <td style="background: {{ $status_sih }}">SIH</td>
                                 <td style="background: {{ $status_dsi }}">DSI</td>
                                 <td>
@@ -143,7 +156,7 @@ use App\Models\Livraison;
                                         <a href="{{ url('/livraison/show', $query->id) }}" class="btn btn-link"
                                             data-bs-toggle="tooltip" data-bs-placement="bottom"
                                             title="Voir la fiche de livraison ">
-                                            <i class="fas fa-truck"></i>
+                                            <i class="fas fa-truck fa-flip-horizontal"></i>
                                         </a>
                                     @endif
 

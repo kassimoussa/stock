@@ -7,6 +7,18 @@
             <a href="/stocks/newmateriel" class="btn  btn-primary  fw-bold">Ajouter Materiel</a>
         </div>
 
+        <div class="d-flex justify-content-start mb-2">
+            <div class="row">
+                <form action="" class="">
+                    <div class="input-group  mb-3">
+                        <button class="btn btn-dark" type="submit">Chercher</button>
+                        <input type="text" class="form-control " name="search" placeholder="" value="{{ $search }}">
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
         @if ($message = Session::get('success'))
             <div class="alert alert-success">
                 <p>{{ $message }}</p>

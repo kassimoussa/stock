@@ -9,14 +9,13 @@ use App\Models\Livraison;
             <h3 class="over-title ">Fiches d'intervention </h3>
         </div>
         <div class="d-flex justify-content-start mb-2">
-            <div class="row">
-                <form action="" class="">
-                    <div class="input-group  mb-3">
-                        <button class="btn btn-dark" type="submit">Chercher</button>
-                        <input type="text" class="form-control " name="search" placeholder="" value="{{ $search }}">
-                    </div>
-                </form>
-            </div>
+            <form action="" class="col-md-6">
+                <div class="input-group  mb-3">
+                    <button class="btn btn-dark" type="submit">Chercher</button>
+                    <input type="text" class="form-control " name="search"
+                        placeholder="Par numero de fiche, direction, service ou materiel" value="{{ $search }}">
+                </div>
+            </form>
         </div>
 
         @if ($message = Session::get('success'))
@@ -56,7 +55,7 @@ use App\Models\Livraison;
                                     $status_din = '';
                                     $btnhidden = '';
                                     $devishidden = '';
-                                    $btnlivraison = "hidden";
+                                    $btnlivraison = 'hidden';
                                     
                                     if ($intervention->status_dir == 'approuve') {
                                         $status_dir = '#089415';
@@ -83,7 +82,7 @@ use App\Models\Livraison;
                                     if ($intervention->status_din == 'approuve') {
                                         $status_din = '#089415';
                                         $btnhidden = 'hidden';
-                                        $btnlivraison = " ";
+                                        $btnlivraison = ' ';
                                     } elseif ($intervention->status_din == 'attente') {
                                         $status_din = '#efaa2d';
                                     } elseif ($intervention->status_din == 'rejete') {
@@ -127,7 +126,7 @@ use App\Models\Livraison;
                                         </button>
                                     </form>
                                     @php
-                                        $query = Livraison::where('fiche', 'acquisition')
+                                        $query = Livraison::where('fiche', 'intervention')
                                             ->where('numero_fiche', $intervention->id)
                                             ->first();
                                         

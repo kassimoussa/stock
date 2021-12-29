@@ -10,11 +10,13 @@ use App\Mail\ResetPass;
 
 class UserController extends Controller
 {
-    public function login(){
+    public function login()
+    {
         return view('auth.connexion');
     }
-    
-    public function register(){
+
+    public function register()
+    {
         $directions = Direction::all();
         return view('auth.register', compact('directions'));
     }
@@ -27,10 +29,10 @@ class UserController extends Controller
         } elseif (session('userLevel') == '3') {
             return view('3.admin.addUser', compact('directions'));
         }
-        
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         //validate the input
         $request->validate([
             "name" => 'required',
@@ -48,9 +50,9 @@ class UserController extends Controller
         $user->direction = $request->direction;
         $query = $user->save();
 
-        if($query){
+        if ($query) {
             return back()->with('success', 'Ajout réussi !!!');
-        }else{
+        } else {
             return back()->with('fail', 'Echec de l\'ajout !!!');
         }
 
@@ -58,56 +60,58 @@ class UserController extends Controller
 
     }
 
-    public function check(Request $request){
+    public function check(Request $request)
+    {
         //validate the input
         $request->validate([
             "email" => 'required|email',
             "password" => 'required|min:8|max:16',
-            
 
-        ]); 
+
+        ]);
 
         $user = User::where('email', '=', $request->email)->first();
-        if($user){
-            if($request->password = $user->password){
+        if ($user) {
+            if ($request->password = $user->password) {
                 $request->session()->put('Loggeduser', $user->id);
                 $request->session()->put('userLevel', $user->level);
                 $request->session()->put('username', $user->name);
                 $request->session()->put('dir', $user->direction);
                 $request->session()->put('service', $user->service);
                 return redirect('index');
-            }else{
+            } else {
                 return back()->with('fail', 'Invalide password');
             }
-        }else{
+        } else {
             return back()->with('fail', 'No account found for this email');
         }
     }
 
-    public function index(){
-        if(session()->has('Loggeduser')){
+    public function index()
+    {
+        if (session()->has('Loggeduser')) {
             $user = User::where('id', '=', session('Loggeduser'))->first();
-          
         }
-        if(session('userLevel') == '1'){
+        if (session('userLevel') == '1') {
             return view('1.index', compact('user'));
-        }elseif(session('userLevel') == '2'){ 
+        } elseif (session('userLevel') == '2') {
             if (session('service') == 'IT HelpDesk') {
                 return view('2.sih.index', compact('user'));
             } else {
                 return view('2.index', compact('user'));
-            } 
+            }
             return view('2.index', compact('user'));
-        }elseif(session('userLevel') == '3'){
+        } elseif (session('userLevel') == '3') {
             return view('3.index', compact('user'));
-        }elseif(session('userLevel') == '4'){
+        } elseif (session('userLevel') == '4') {
             return view('4.index', compact('user'));
-        }elseif(session('userLevel') == '5'){
+        } elseif (session('userLevel') == '5') {
             return view('admin.index', compact('user'));
-        }        
+        }
     }
-    public function logout(){
-        
+    public function logout()
+    {
+
         session()->flush();
         return redirect('/');
     }
@@ -122,7 +126,7 @@ class UserController extends Controller
                 return view('2.sih.profile', compact('user'));
             } else {
                 return view('2.profile', compact('user'));
-            } 
+            }
         } elseif (session('userLevel') == '3') {
             return view('3.profile', compact('user'));
         } elseif (session('userLevel') == '4') {
@@ -156,7 +160,7 @@ class UserController extends Controller
         $rand = rand(100000, 999999);
         User::where('email',  $to_email)
             ->update(['reset_pass' => $rand]);
-            
+
         Mail::to($to_email)
             ->later(now()->addSeconds(1), new ResetPass($rand));
         return view('auth.reset', compact('rand'));
@@ -168,35 +172,46 @@ class UserController extends Controller
         $rand =  $user->reset_pass;
         $pass1 = $request->password;
         $pass2 = $request->password2;
-        if($pass1 == $pass2){
-          User::where('email',  $to_email)
-            ->update(['password' => $pass1]);  
+        if ($pass1 == $pass2) {
+            User::where('email',  $to_email)
+                ->update(['password' => $pass1]);
             return redirect('/');
-        }
-        else{
+        } else {
             return back()->with('fail', 'Le mot de passe ne correspond pas à la verification');
         }
-        
     }
 
-    public function admin()
+    public function admin(Request $request)
     {
-        $user = User::where('id', session('Loggeduser'))->first();
-
+        $users = User::where('id', session('Loggeduser'))->first();
+        
         if (session('userLevel') == '2') {
-            return view('2.sih.admin.index');
+            return view('2.sih.admin.index', compact('users'));
         } elseif (session('userLevel') == '3') {
             return view('3.admin.index');
         }
     }
 
-    public function list(){
-        $users = User::orderBy('level', 'asc')->paginate(10);
-
+    public function list(Request $request)
+    {
+        // $users = User::orderBy('level', 'asc')->paginate(10);
+        $search = $request['search'] ?? "";
+        if ($request->has('search')) {
+            $search = $request['search'];
+            $users = User::Where('level',   $search )
+                         ->orWhere('name', 'Like', '%' . $search . '%')
+                         ->orWhere('email', $search )
+                         ->orWhere('direction', 'Like', '%' . $search . '%')
+                         ->orWhere('service', 'Like', '%' . $search . '%')
+                         ->orWhere('level',   $search )
+                         ->orderBy('name', 'asc')->paginate(10);;
+        } else { 
+            $users = User::orderBy('name', 'asc')->paginate(10);
+        }
         if (session('userLevel') == '2') {
-            return view('2.sih.admin.listusers', compact('users'));
+            return view('2.sih.admin.listusers', compact('users', 'search'));
         } elseif (session('userLevel') == '3') {
-            return view('3.admin.listusers', compact('users'));
+            return view('3.admin.listusers', compact('users', 'search'));
         }
     }
 
@@ -223,5 +238,4 @@ class UserController extends Controller
 
         return back()->with('success', 'Suppression réussie');
     }
-   
 }

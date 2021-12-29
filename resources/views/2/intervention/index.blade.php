@@ -1,9 +1,22 @@
+@php
+use App\Models\Livraison;
+@endphp
 @extends('2.layout', ['page' => 'Fiches d\'Intervention', 'pageSlug' => 'intervention'])
 @section('content')
 
     <div class="row  py-3 px-3">
         <div class="d-flex justify-content-between mb-2">
             <h3 class="over-title ">Fiches d'intervention  </h3>
+        </div>
+
+        <div class="d-flex justify-content-start mb-2">
+            <form action="" class="col-md-6">
+                <div class="input-group  mb-3">
+                    <button class="btn btn-dark" type="submit">Chercher</button>
+                    <input type="text" class="form-control " name="search"
+                        placeholder="Par numero de fiche ou materiel" value="{{ $search }}">
+                </div>
+            </form>
         </div>
 
         @if ($message = Session::get('success'))
@@ -74,7 +87,21 @@
                                     title="Modifier la fiche">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <form action="{{ url('/intervention/delete', $intervention) }}" method="post" class="d-inline">
+
+                                @php
+                                        $query = Livraison::where('fiche', 'intervention')
+                                            ->where('numero_fiche', $intervention->id)
+                                            ->first();
+                                        
+                                @endphp
+                                @if ($query)
+                                        <a href="{{ url('/livraison/show', $query->id) }}" class="btn btn-link"
+                                            data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                            title="Voir la fiche de livraison ">
+                                            <i class="fas fa-truck-loading"></i>
+                                        </a>
+                                @endif
+                                {{-- <form action="{{ url('/intervention/delete', $intervention) }}" method="post" class="d-inline">
                                     @csrf
                                     @method('delete')
                                     <button type="button" class="btn btn-link" data-bs-toggle="tooltip"
@@ -82,7 +109,7 @@
                                         onclick="confirm('Etes vous sûr de supprimer la fiche ?') ? this.parentElement.submit() : ''">
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
-                                </form>                               
+                                </form>   --}}                             
                             </td>
                         </tr>
                         @php

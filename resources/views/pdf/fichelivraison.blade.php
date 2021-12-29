@@ -226,7 +226,12 @@ use App\Models\Direction;
                     <tbody>
                         @foreach ($materiels as $key => $materiel)
                             <tr>
-                                <td class="td">{{ $materiel->nom_materiel . " / " . $materiel->description_mat . " / " . $materiel->marque_mat }}</td>
+                                @if ($materiel->description_mat != null)
+                                    <td class="td">{{ $materiel->nom_materiel . " / " . $materiel->description_mat . " / " . $materiel->marque_mat }}</td>
+                                @else
+                                <td class="td">{{ $materiel->nom_materiel }}</td>
+                                @endif
+                                
                                 <td class="td">{{ $materiel->quantite }}</td>
                                 <td class="td">{{ $materiel->observation }}</td>
                             </tr>

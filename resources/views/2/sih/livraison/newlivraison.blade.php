@@ -49,7 +49,7 @@
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text txt fw-bold ">Date de livraison</span>
-                            <input type="date" class="form-control" name="date_livraison" id="">
+                            <input type="date" class="form-control" name="date_livraison" id="" required >
                         </div>
                     </div>
                 </div>

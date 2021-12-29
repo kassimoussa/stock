@@ -84,7 +84,7 @@ Route::group(['middleware'=> ['logged']], function(){
     Route::put('/intervention/sihvalide/{intervention}', [InterventionsController::class, 'sihvalide']);
     Route::put('/intervention/commentaire/{intervention}', [InterventionsController::class, 'commentaire']);
     Route::put('/intervention/dinvalide/{intervention}', [InterventionsController::class, 'dinvalide']);
-    Route::get('/intervention/intervention/{intervention}', [InterventionsController::class, 'livraison']);
+    Route::get('/intervention/livraison/{intervention}', [InterventionsController::class, 'livraison']);
     Route::get('/generate-intervention/{intervention}', [InterventionsController::class, 'generatePDF']);
     Route::delete('/devis/delete/{devi}', [DevisController::class, 'destroy']);
     

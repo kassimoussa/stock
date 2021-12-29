@@ -17,22 +17,64 @@ class LivraisonsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $sih = 'IT HelpDesk';
         if (session('userLevel') == '1') {
-            $livraisons = Livraison::orderBy('id', 'desc')->paginate(5);
-            return view('1.livraison.index', compact('livraisons'));
-        } elseif (session('userLevel') == '2') {
-            if (session('service') == $sih) {
+            $search = $request['search'] ?? "";
+            if($request->has('search')){
+                $search = $request['search'] ;
+                $livraisons = Livraison::where(function ($query) use ($search) {
+                            $query->where('nom_intervenant', 'Like', '%'.$search.'%')
+                                ->orWhere('nom_demandeur', 'Like', '%'.$search.'%')
+                                ->orWhere('direction', 'Like', '%'.$search.'%')
+                                ->orWhere('service', 'Like', '%'.$search.'%')
+                                ->orWhere('fiche', 'Like', '%'.$search.'%')
+                                ->orWhere('numero_fiche', 'Like', '%'.$search.'%')
+                                ->orWhere('id', 'Like', '%'.$search.'%');
+                    })->orderBy('id', 'desc')->paginate(10);
+            }else {
                 $livraisons = Livraison::orderBy('id', 'desc')->paginate(10);
-                return view('2.sih.livraison.index', compact('livraisons'));
+            }
+            return view('1.livraison.index',  compact('livraisons','search'));
+        } 
+        elseif (session('userLevel') == '2') {
+            if (session('service') == $sih) {
+                $search = $request['search'] ?? "";
+            if($request->has('search')){
+                $search = $request['search'] ;
+                $livraisons = Livraison::where(function ($query) use ($search) {
+                            $query->where('nom_intervenant', 'Like', '%'.$search.'%')
+                                ->orWhere('nom_demandeur', 'Like', '%'.$search.'%')
+                                ->orWhere('direction', 'Like', '%'.$search.'%')
+                                ->orWhere('service', 'Like', '%'.$search.'%')
+                                ->orWhere('fiche', 'Like', '%'.$search.'%')
+                                ->orWhere('numero_fiche', 'Like', '%'.$search.'%')
+                                ->orWhere('id', 'Like', '%'.$search.'%');
+                    })->orderBy('id', 'desc')->paginate(10);
+            }else {
+                $livraisons = Livraison::orderBy('id', 'desc')->paginate(10);
+            }
+                return view('2.sih.livraison.index', compact('livraisons','search'));
             } else {
-                $livraisons = Livraison::where('direction', session('dir'))->orderBy('id', 'desc')->paginate(10);
-                return view('2.livraison.index', compact('livraisons'));
+                $search = $request['search'] ?? "";
+            if($request->has('search')){
+                $search = $request['search'] ;
+                $livraisons = Livraison::where('direction', session('dir'))->where('service', session('service'))->
+                where(function ($query) use ($search) {
+                            $query->where('nom_demandeur', 'Like', '%'.$search.'%')
+                                ->orWhere('fiche', 'Like', '%'.$search.'%')
+                                ->orWhere('numero_fiche', 'Like', '%'.$search.'%')
+                                ->orWhere('id', 'Like', '%'.$search.'%');
+                    })->orderBy('id', 'desc')->paginate(10);
+            }else {
+                $livraisons = Livraison::where('direction', session('dir'))->where('service', session('service'))->orderBy('id', 'desc')->paginate(10);
+            }
+                return view('2.livraison.index', compact('livraisons','search'));
             } 
             
-        } elseif (session('userLevel') == '3') {
+        } 
+        elseif (session('userLevel') == '3') {
             $livraisons = Livraison::orderBy('id', 'desc')->paginate(5);
             return view('3.livraison.index', compact('livraisons'));
         }

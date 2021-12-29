@@ -65,23 +65,58 @@ class InterventionsController extends Controller
                 }
                 return view('2.sih.intervention.index', compact('interventions','search'));
             } else {
-                $interventions = Intervention::Where(function ($query) {
-                    $query->where('status_sih', 'approuve')
-                        ->where('dir_demandeur', session('dir'))
-                        ->where('service_demandeur', session('service'));
-                })->orderBy('id', 'desc')->paginate(10);
-                return view('2.intervention.index', compact('interventions', 'devis'));
+            $search = $request['search'] ?? "";
+                if($request->has('search')){
+                    $search = $request['search'] ;
+                    $interventions = Intervention::where('status_sih', 'approuve')
+                    ->where('dir_demandeur', session('dir'))
+                    ->where('service_demandeur', session('service'))->where(function ($query) use ($search) {
+                        $query->where('nom_demandeur', 'Like', '%'.$search.'%')
+                            ->orWhere('materiel', 'Like', '%'.$search.'%')
+                            ->orWhere('ref_patrimoine', 'Like', '%'.$search.'%')
+                            ->orWhere('id',$search);
+                        })->orderBy('updated_at', 'desc')->paginate(10);
+                }else {
+                    $interventions = Intervention::Where(function ($query) {
+                        $query->where('status_sih', 'approuve')
+                            ->where('dir_demandeur', session('dir'))
+                            ->where('service_demandeur', session('service'));
+                    })->orderBy('id', 'desc')->paginate(10);
+                }
+                return view('2.intervention.index', compact('interventions', 'search'));
             }
-        } elseif (session('userLevel') == '3') {
-            $interventions = Intervention::Where(function ($query) {
-                $query->where('status_dir', 'approuve');
-            })->orderBy('id', 'desc')->paginate(5);
-            return view('3.intervention.index', compact('interventions'));
-        } elseif (session('userLevel') == '4') {
-            $interventions = Intervention::Where(function ($query) {
-                $query->where('dir_demandeur', session('dir'));
-            })->orderBy('id', 'desc')->paginate(5);
-            return view('4.intervention.index', compact('interventions'));
+        } 
+        elseif (session('userLevel') == '3') {
+            $search = $request['search'] ?? "";
+            if($request->has('search')){
+                $search = $request['search'] ;
+                $interventions = Intervention::where('status_dir', 'approuve')->where(function ($query) use ($search) {
+                            $query->where('dir_demandeur', 'Like', '%'.$search.'%')
+                                ->orWhere('service_demandeur', 'Like', '%'.$search.'%')
+                                ->orWhere('materiel', 'Like', '%'.$search.'%')
+                                ->orWhere('ref_patrimoine', 'Like', '%'.$search.'%')
+                                ->orWhere('id',$search);
+                    })->orderBy('updated_at', 'desc')->paginate(10);
+            }else {
+                $interventions = Intervention::where('status_dir', 'approuve')->orderBy('updated_at', 'desc')->paginate(10);
+            }
+            return view('3.intervention.index', compact('interventions', 'search'));
+        } 
+        elseif (session('userLevel') == '4') {
+            $search = $request['search'] ?? "";
+            if($request->has('search')){
+                $search = $request['search'] ;
+                $interventions = Intervention::where('dir_demandeur', session('dir'))
+                                ->where(function ($query) use ($search) {
+                                $query->orWhere('service_demandeur', 'Like', '%'.$search.'%')
+                                ->orWhere('materiel', 'Like', '%'.$search.'%')
+                                ->orWhere('ref_patrimoine', 'Like', '%'.$search.'%')
+                                ->orWhere('id', 'Like', '%'.$search.'%');
+                    })->orderBy('updated_at', 'desc')->paginate(10);
+            }else {
+                $interventions = Intervention::orderBy('updated_at', 'desc')->paginate(10);
+            }
+            return view('4.intervention.index', compact('interventions','search'));
         }
     }
 
@@ -431,7 +466,7 @@ class InterventionsController extends Controller
         $sih = 'IT HelpDesk';
         $user = User::where('id', session('Loggeduser'))->first();
         if (session('userLevel') == '1') {
-            return view('1.acquisition.show', compact('acquisition', 'materiels', 'devis'));
+            return view('1.livraison.newlivraison', compact('intervention', 'stocks', 'materiels'));
         } elseif (session('userLevel') == '2') {
             if (session('userLevel') == '2') {
                 if (session('service') == $sih) {

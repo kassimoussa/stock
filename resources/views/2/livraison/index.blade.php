@@ -2,7 +2,21 @@
 @section('content')
 
     <div class="row  py-3 px-3">
+        <div class="d-flex justify-content-between mb-4 ">
+            <h3 class="over-title ">Fiches de livraison  </h3>
+            {{-- <a href="/livraison/newlivraison" class="btn  btn-primary  fw-bold">Nouvelle Livraison</a> --}}
+        </div>
 
+
+        <div class="d-flex justify-content-start mb-2">
+            <form action="" class="col-md-6">
+                <div class="input-group  mb-3">
+                    <button class="btn btn-dark" type="submit">Chercher</button>
+                    <input type="text" class="form-control " name="search"
+                        placeholder="Par numero de fiche, demandeur, intervenant ou materiel" value="{{ $search }}">
+                </div>
+            </form>
+        </div>
         @if ($message = Session::get('success'))
             <div class="alert alert-success">
                 <p>{{ $message }}</p>

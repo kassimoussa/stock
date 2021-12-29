@@ -6,6 +6,16 @@
             <h3 class="over-title ">Fiches d'intervention  </h3>
         </div>
 
+        <div class="d-flex justify-content-start mb-2">
+            <form action="" class="col-md-6">
+                <div class="input-group  mb-3">
+                    <button class="btn btn-dark" type="submit">Chercher</button>
+                    <input type="text" class="form-control " name="search"
+                        placeholder="Par numero de fiche, direction, service ou materiel" value="{{ $search }}">
+                </div>
+            </form>
+        </div>
+
         @if ($message = Session::get('success'))
             <div class="alert alert-success">
                 <p>{{ $message }}</p>
