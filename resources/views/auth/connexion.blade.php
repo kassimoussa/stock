@@ -50,7 +50,7 @@
                         <button type="submit" class="login100-form-btn fw-bold">SE CONNECTER</button>
 					</div>
                     <div class="d-flex justify-content-between">
-                        <a href="register" class="linky" >Ajouter un utilisateur</a>   
+                         
                         <a href="forgot" class="linky" >Mot de passe oublié ?</a> 
                     </div>
 
