@@ -39,7 +39,7 @@ class UserController extends Controller
             "email" => 'required|email|unique:users',
             "password" => 'required|min:8|max:16',
             "level" => 'required',
-            "direction" => 'required'
+            "direction" => 'required',
         ]);
 
         $user = new User;
@@ -48,6 +48,7 @@ class UserController extends Controller
         $user->password = $request->password;
         $user->level = $request->level;
         $user->direction = $request->direction;
+        $user->service = $request->service;
         $query = $user->save();
 
         if ($query) {

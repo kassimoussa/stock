@@ -22,18 +22,16 @@
                 @endif
                 <form action="store" role="form" method="post" class="form-card">
                     @csrf
-                    <div class="row ">
-                        <div class="form-group mb-2">
-                            <label for="materiel" class="h5">Matériel</label>
-                            <input type="text" class="form-control" name="materiel" placeholder="Taper le nom du materiel"
-                                value="{{ old('materiel') }}">
-                            <span class="text-danger">@error('materiel') {{ $message }} @enderror</span>
-                        </div>
-                        <div class="form-group mb-2">
-                            <label for="quantite" class="h5">Quantité</label>
-                            <input type="text" class="form-control" name="quantite" placeholder="taper la quantité"
-                                value="{{ old('quantite') }}">
-                            <span class="text-danger">@error('quantite') {{ $message }} @enderror</span>
+                    <div class="field_wrapper col mb-2">
+                            
+                        <div class="input-group">
+                            <a class="input-group-text icon add_button" onclick="addInput()">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                            </a>
+                            {{-- <input type="text" class="form-control" name="nom_materiel[]" placeholder="Nom du Materiel" > --}}
+                            <input type="text" class="form-control" name="nom_materiel[]" placeholder="Nom du matériel" required>
+                            <input type="text" class="form-control" name="quantite[]" placeholder="Quantité" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" required>
+                            
                         </div>
                     </div>
                     <div class="row" style="text-align: center; margin-top: 2%;">
@@ -50,7 +48,34 @@
         
 
     </div>
+    <script>
+        function addInput() {
+            $(document).ready(function() {
+                var maxField = 10; //Input fields increment limitation
+                var addButton = $('.add_button'); //Add button selector
+                var wrapper = $('.field_wrapper'); //Input field wrapper
+                var fieldHTML =
+                    "<div class='input-group'><a class='input-group-text icon remove_button' onclick='removeInput()'><i class='fa fa-minus' aria-hidden='true'></i></a><input type='text' class='form-control' name='nom_materiel[]'' placeholder='Nom du matériel' required ><input type='number' class='form-control' name='quantite[]' placeholder='Quantité' required ></div>"; //New input field html 
+                var x = 1; //Initial field counter is 1
 
+                //Once add button is clicked
+
+                //Check maximum number of input fields
+                if (x < maxField) {
+                    x++; //Increment field counter
+                    $(wrapper).append(fieldHTML); //Add field html
+                }
+
+
+                //Once remove button is clicked
+                $(wrapper).on('click', '.remove_button', function(e) {
+                    e.preventDefault();
+                    $(this).parent('div').remove(); //Remove field html
+                    x--; //Decrement field counter
+                });
+            });
+        }
+    </script>
     <style>
         .btn-default:hover {
             background-color: red !important;

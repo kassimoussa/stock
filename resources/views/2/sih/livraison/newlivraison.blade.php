@@ -58,7 +58,7 @@
                     <h4 class="card-header text-center">Materiels</h4>
                     <div class="card-body">
                         <div class="field_wrapper col mb-2">
-                            <label class="form-control-label">Participants<span class="text-danger"> *</span></label>
+                            
                             <div class="input-group">
                                 <a class="input-group-text icon add_button" onclick="addInput()">
                                     <i class="fa fa-plus" aria-hidden="true"></i>

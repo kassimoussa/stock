@@ -45,7 +45,7 @@ $user = User::where('id', session('Loggeduser'))->first();
                 <h3 style="font-weight: bold;">BIENVENUE DANS LE GESTIONNAIRE DE STOCK </h3>
             </div>
             <div class="navbar-nav float-end ">
-                <h5 class="fw-bold text-primary">{{ $user->name}} </h5>
+                <h5 class="fw-bold text-primary">{{ $user->service}} </h5>
             </div>
         </header>
         <!-- Page Sidebar -->
