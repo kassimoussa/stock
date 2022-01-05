@@ -1,12 +1,22 @@
-@extends('3.layout', ['page' => 'Liste des utilisateurs', 'pageSlug' => 'admin'])
+@extends('2.sih.layout', ['page' => 'Liste des utilisateurs', 'pageSlug' => 'admin'])
 @section('content')
 
     <div class="row  py-3 px-3">
         <div class="d-flex justify-content-between ">
-            <h3 class="over-title mb-2">La liste des users </h3>
+            <h3 class="over-title mb-2">La liste des utilisateurs </h3>
 
-            <a href="newuser" class="btn  btn-primary  fw-bold">New User</a>
+            <a href="newuser" class="btn  btn-primary  fw-bold">Nouvelle Utilisateur</a>
 
+        </div>
+
+        <div class="d-flex justify-content-start mb-2">
+            <form action="" class="col-md-6">
+                <div class="input-group  mb-3">
+                    <button class="btn btn-dark" type="submit">Chercher</button>
+                    <input type="text" class="form-control " name="search"
+                        placeholder="Par nom, direction ou service " value="{{ $search }}">
+                </div>
+            </form>
         </div>
 
         @if ($message = Session::get('success'))
@@ -27,6 +37,7 @@
                     <th scope="col">Nom</th>
                     <th scope="col">Email</th>
                     <th scope="col">Direction</th>
+                    <th scope="col">Service</th>
                     <th scope="col">Level</th>
                     <th scope="col">Action</th>
                 </thead>
@@ -37,6 +48,7 @@
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->direction }}</td>
+                            <td>{{ $user->service }}</td>
                             <td>{{ $user->level }}</td>
                             <td class="td-actions ">
                                 <a href="{{ url('/admin/useredit', $user) }}" class="btn btn-link" data-bs-toggle="tooltip" data-bs-placement="bottom"

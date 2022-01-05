@@ -31,16 +31,16 @@
                 <div class="card col mb-3">
                     <h4 class="card-header text-center">Technicien</h4>
                     <div class="card-body">
-                        <div class="form-group control-label">
-                            <label class="control-label">Nom Intervenant <span class="text-danger">*</span></label>
+                        <div class="input-group mb-2">
+                            <span class="input-group-text txt fw-bold ">Nom</span> 
                             <input type="text" class="form-control" name="nom_intervenant"
-                                value="{{ $intervention->nom_intervenant }}" required>
+                                value="{{ $intervention->nom_intervenant }}" required> 
                         </div>
-                        <div class="form-group control-label">
-                            <label class="control-label">Diagnostique <span class="text-danger">*</span></label>
+                        <div class="input-group ">
+                            <span class="input-group-text txt fw-bold ">Diagnostique</span>  
                             <textarea name="diagnostique" id="" class="form-control" cols="30" rows="2"
-                                required> {{ $intervention->diagnostique }}</textarea>
-                        </div>
+                                required> {{ $intervention->diagnostique }}</textarea> 
+                        </div> 
                     </div>
                 </div>
                 <div class="card col mb-3">
@@ -51,28 +51,25 @@
                                 <div class="card ">
                                     <h4 class="card-header ch2 text-center">Sur le materiel</h4>
                                     <div class="card-body">
-                                        <div class="form-group control-label">
-                                            <label class="control-label">Materiel <span
-                                                    class="text-danger">*</span></label>
+                                        <div class="form-group control-label mb-1">
+                                            <label class="control-label">Libellé </label>
                                             <input type="text" class="form-control" name="materiel"
                                                 value="{{ $intervention->materiel }}" required>
                                         </div>
-                                        <div class="form-group control-label">
-                                            <label class="control-label">Model <span
-                                                    class="text-danger">*</span></label>
+                                        <div class="form-group control-label mb-1">
+                                            <label class="control-label">Model  </label>
                                             <input type="text" class="form-control" name="model"
                                                 value="{{ $intervention->model }}" required>
                                         </div>
-                                        <div class="form-group control-label">
-                                            <label class="control-label">Réf patrimoine <span class="text-danger">
-                                                    *</span></label>
+                                        <div class="form-group control-label mb-1">
+                                            <label class="control-label">Réf patrimoine  </label>
                                             <input type="text" class="form-control" name="ref_patrimoine"
                                                 value="{{ $intervention->ref_patrimoine }}" required>
                                         </div>
-                                        <div class="form-group control-label">
+                                        <div class="form-group control-label mb-1">
                                             <label class="control-label">Date d'acquisition </label>
                                             <input type="date" class="form-control" name="date_acquisition"
-                                                value="{{ $intervention->date_acquisition }}">
+                                                value="{{  date('Y-m-d', strtotime($intervention->date_acquisition))  }}">
                                         </div>
                                     </div>
                                 </div>
@@ -82,16 +79,13 @@
                                 <div class="card ">
                                     <h4 class="card-header ch2 text-center">Sur le demandeur</h4>
                                     <div class="card-body">
-                                        <div class="form-group control-label">
-                                            <label class="control-label">Propriétaire <span
-                                                    class="text-danger">*</span></label>
+                                        <div class="form-group control-label mb-1">
+                                            <label class="control-label">Nom  </label>
                                             <input type="text" class="form-control" name="nom_demandeur"
                                                 value="{{ $intervention->nom_intervenant }}" required>
                                         </div>
-                                        <div class="form-group control-label">
-                                            <label class="control-label">Direction ou Département <span
-                                                    class="text-danger">
-                                                    *</span></label>
+                                        <div class="form-group control-label mb-1">
+                                            <label class="control-label">Direction ou Département  </label>
                                             <select class="form-select js-select2" name="dir_demandeur" id="direction">
                                                 @foreach ($directions as $direction)
                                                     @if ($direction['sigle'] == old('document') or $direction['sigle'] == $intervention->dir_demandeur)
@@ -105,9 +99,8 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class="form-group control-label">
-                                            <label class="control-label">Centre ou Service <span
-                                                    class="text-danger">*</span></label>
+                                        <div class="form-group control-label mb-1">
+                                            <label class="control-label">Centre ou Service  </label>
                                             <select name="service_demandeur" id="serv" class="form-select js-select2">
                                                 <option value="{{ $intervention->service_demandeur }}">
                                                     {{ $intervention->service_demandeur }}</option>
@@ -121,7 +114,7 @@
                         <div class="row" style="text-align: center; margin-top: 2%;">
                             <div class="col-md-12 form-group text-center">
                                 <button type="submit" name="submit" class="btn btn-primary fw-bold">Modifier</button>
-                                <button type="reset" class="btn btn-default fw-bold">Annuler</button>
+                                <button type="reset" class="btn btn-outline-danger  fw-bold">Annuler</button>
                                 <input type="text" name="date_intervention"
                                     value="{{ $intervention->date_intervention }}" hidden>
                             </div>
@@ -151,6 +144,9 @@
         .ch2 {
             background: #12151A;
             color: white;
+        }
+        .input-group-text {
+            width: 13%;
         }
 
     </style>

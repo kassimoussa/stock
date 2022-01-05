@@ -31,15 +31,15 @@
                 <div class="card col-md-12 mb-3">
                     <h4 class="card-header text-center">Demandeur</h4>
                     <div class="card-body">
-                        <div class="mb-1 row">
-                            <label class="col-sm-2 col-form-label">Nom: </label>
-                            <div class="col-sm-10">
+                        <div class="mb-1 row"  >
+                            <div class="input-group ">
+                                <span class="input-group-text txt fw-bold ">Nom</span>
                                 <input type="text" class="form-control" name="nom_demandeur">
                             </div>
-                        </div>
-                        <div class="mb-1 row">
-                            <label class="col-sm-2 col-form-label">Service: </label>
-                            <div class="col-sm-10">
+                        </div> 
+                        <div class="mb-1 row"  >
+                            <div class="input-group ">
+                                <span class="input-group-text txt fw-bold ">Service</span>
                                 <select class="form-select js-select2" name="service_demandeur" id="services">
                                     <option value="" disabled selected>Select service</option>
                                     @foreach ($services as $service)
@@ -47,7 +47,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                        </div>
+                        </div>  
                     </div>
                 </div>
                 <div class="card col-md-12 mb-3">
@@ -89,57 +89,60 @@
                             </div>
                             
                             <div class="mb-1 mt-2 row" id="quant" style="display:none">
-                                <label class="col-sm-2 col-form-label ">Quantité: </label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="quantite"
-                                        placeholder="" id="quant" >
+                                <div class="input-group ">
+                                    <span class="input-group-text txt fw-bold ">Quantité</span>
+                                    <input type="text" class="form-control" name="quantite">
                                 </div>
                             </div>
 
-                            <div class="mb-1 mt-2 row" id="inputautre" style="display:none">
-                                <label class="col-sm-2 col-form-label ">Nom: </label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="nom_mat"
+                            <div class="mb-1 mt-2 row" id="inputautre" style="display:none"> 
+                            <div class="input-group ">
+                                <span class="input-group-text txt fw-bold ">Nom</span>
+                                <input type="text" class="form-control" name="nom_mat"
                                         placeholder="Taper le nom du materiel" id="nom_mat_input" disabled>
-                                </div>
+                            </div> 
                             </div>
                             <div class="mb-1 row" id="desc" style="display:none">
-                                <label class="col-sm-2 col-form-label">Description: </label>
-
-                                <div class="col-sm-10">
-                                    <textarea name="description_mat" id="" class="form-control" cols="30"
-                                        rows="2"></textarea>
-                                </div>
+                                <div class="input-group ">
+                                    <span class="input-group-text txt fw-bold ">Description</span>
+                                    <input type="text" class="form-control" name="description_mat"  > 
+                                </div>  
                             </div>
                             <div class="mb-1 row" id="marque" style="display:none">
-                                <label class="col-sm-2 col-form-label">Marque: </label>
-                                <div class="col-sm-10">
+                                <div class="input-group ">
+                                    <span class="input-group-text txt fw-bold ">Marque</span>
                                     <input type="text" class="form-control" name="marque_mat">
-                                </div>
+                                </div>  
+                            </div>
+                            <div class="mb-1 row" id="model" style="display:none">
+                                <div class="input-group ">
+                                    <span class="input-group-text txt fw-bold ">Model</span>
+                                    <input type="text" class="form-control" name="model_mat">
+                                </div>  
                             </div>
                             <div class="mb-1 row" id="processeur" style="display:none">
-                                <label class="col-sm-2 col-form-label">Processeur: </label>
-                                <div class="col-sm-10">
+                                <div class="input-group ">
+                                    <span class="input-group-text txt fw-bold ">Processeur</span>
                                     <input type="text" class="form-control" name="processeur_mat">
-                                </div>
+                                </div>  
                             </div>
                             <div class="mb-1 row" id="ram" style="display:none">
-                                <label class="col-sm-2 col-form-label">Mémoire: </label>
-                                <div class="col-sm-10">
+                                <div class="input-group ">
+                                    <span class="input-group-text txt fw-bold ">Mémoire</span>
                                     <input type="text" class="form-control" name="ram_mat">
-                                </div>
+                                </div>  
                             </div>
                             <div class="mb-1 row" id="stockage" style="display:none">
-                                <label class="col-sm-2 col-form-label">Stockage: </label>
-                                <div class="col-sm-10">
+                                <div class="input-group ">
+                                    <span class="input-group-text txt fw-bold ">Stockage</span>
                                     <input type="text" class="form-control" name="stockage_mat">
-                                </div>
+                                </div>  
                             </div>
                             <div class="mb-1 row" id="os" style="display:none">
-                                <label class="col-sm-2 col-form-label">S.E: </label>
-                                <div class="col-sm-10">
+                                <div class="input-group ">
+                                    <span class="input-group-text txt fw-bold ">S.E</span>
                                     <input type="text" class="form-control" name="os_mat">
-                                </div>
+                                </div>  
                             </div>
 
                             <div class="p-3">
@@ -162,15 +165,16 @@
                               </div>
                         </div>
                     </div>
-                </div>
-                <div class="row mt-3 mb-5">
-                    <div class="col-md-12 form-group">
+                    <div class="row mt-3 mb-3">
+                    <div class="col-md-12 form-group text-center">
                         <button type="submit" name="submit" class="btn btn-primary fw-bold">Soumettre</button>
-                        <button type="reset" class="btn btn-default fw-bold">Annuler</button>
+                        <button type="reset" class="btn btn-outline-danger  fw-bold">Annuler</button>
                         <input type="text" name="date_submit" value="{{ date('Y-m-d H:i:s') }}" hidden>
                         <input type="text" class="form-control" name="id" value="{{ time() }}" hidden>
                     </div>
                 </div>
+                </div>
+                
             </form>
         </div>
     </div>
@@ -202,6 +206,7 @@
                     $("#desc").show();
                     $("#inputautre").show();
                     $("#marque").show();
+                    $("#model").show();
                     $("#processeur").hide();
                     $("#ram").hide();
                     $("#stockage").hide();
@@ -211,6 +216,7 @@
                     $("#nom_mat_input").prop('disabled', true);
                     $("#quant").show();
                     $("#marque").show();
+                    $("#model").show();
                     $("#processeur").show();
                     $("#ram").show();
                     $("#stockage").show();
@@ -224,6 +230,7 @@
                     $("#quant").show();
                     $("#desc").show();
                     $("#marque").show();
+                    $("#model").show();
                     $("#processeur").hide();
                     $("#ram").hide();
                     $("#stockage").hide();

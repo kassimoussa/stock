@@ -21,6 +21,7 @@ class CreateAcquisitionsTable extends Migration
             $table->string('nom_mat')->nullable();
             $table->text('description_mat')->nullable();
             $table->string('marque_mat')->nullable();
+            $table->string('model_mat')->nullable();
             $table->string('processeur_mat')->nullable();
             $table->string('ram_mat')->nullable();
             $table->string('stockage_mat')->nullable();

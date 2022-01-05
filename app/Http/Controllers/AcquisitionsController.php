@@ -186,7 +186,8 @@ class AcquisitionsController extends Controller
         $acquisition->nom_mat = $request->nom_mat;
         $acquisition->quantite = $request->quantite;
         $acquisition->description_mat = $request->description_mat;
-        $acquisition->marque_mat = $request->marque_mat;
+        $acquisition->marque_mat = $request->marque_mat; 
+        $acquisition->model_mat = $request->model_mat;
         $acquisition->processeur_mat = $request->processeur_mat;
         $acquisition->ram_mat = $request->ram_mat;
         $acquisition->stockage_mat = $request->stockage_mat;
@@ -297,7 +298,7 @@ class AcquisitionsController extends Controller
     public function edit(Acquisition $acquisition)
     {
         $directions = Direction::all();
-        return view('1.acquisition.edit', compact('acquisition', 'directions'));
+        return view('2.sih.acquisition.edit', compact('acquisition', 'directions'));
     }
 
     /**

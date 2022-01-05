@@ -171,8 +171,13 @@ use App\Models\Direction;
                 <div class="input-group mb-2">
                     <span class="input-group-text fw-bold">Marque</span>
                     <label class="form-control">{{ $acquisition->marque_mat }} </label>
-                </div>
+                </div> 
 
+                <div class="input-group mb-2">
+                    <span class="input-group-text fw-bold">Model</span>
+                    <label class="form-control">{{ $acquisition->model_mat }} </label>
+                </div>
+                
                 <div class="input-group mb-2" {{ $procediv }}>
                     <span class="input-group-text fw-bold">Processeur</span>
                     <label class="form-control">{{ $acquisition->processeur_mat }} </label>

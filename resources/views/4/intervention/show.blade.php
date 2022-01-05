@@ -201,7 +201,7 @@
                                 <div class="col-md-12 form-group text-center">
                                     <button type="submit" name="submit"
                                         class="btn btn-primary fw-bold">Soumettre</button>
-                                    <button type="reset" class="btn btn-default fw-bold">Annuler</button>
+                                    <button type="reset" class="btn btn-outline-danger fw-bold">Annuler</button>
                                     <input type="text" name="date_dir_approbation" value="{{ date('Y-m-d H:i:s') }}"
                                         hidden>
                                 </div>

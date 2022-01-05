@@ -1,14 +1,17 @@
+@php
+use App\Models\Direction;
+@endphp
 @extends('2.sih.layout', ['page' => 'Modification Fiche d\'Acquisition', 'pageSlug' => 'acquisition'])
 @section('content')
 
     <div class="row ">
-        <div class="d-flex justify-content-between mt-3 mb-3" style="width: 80%">
+        <div class="d-flex justify-content-between mt-3 mb-3"  >
             <h3 class="over-title ">FICHE D'ACQUISITION </h3>
             <a href="/acquisition" class="btn  btn-primary  fw-bold">RETOURNER</a>
         </div>
         <div class="row">
             @if ($errors->any())
-                <div class="alert alert-danger" style="width: 80%">
+                <div class="alert alert-danger"  >
                     <ul>
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
@@ -18,52 +21,41 @@
             @endif
 
             @if ($message = Session::get('success'))
-                <div class="alert alert-success" style="width: 80%">
+                <div class="alert alert-success"  >
                     <p>{{ $message }}</p>
                 </div>
             @endif
 
             @if ($message = Session::get('fail'))
-                <div class="alert alert-danger" style="width: 80%">
+                <div class="alert alert-danger"  >
                     <p>{{ $message }}</p>
                 </div>
             @endif
-            <form action="{{ url('/acquisition/update' , $acquisition) }}" role="form" method="post" class="form" style="width: 82%">
+            <form action="{{ url('/acquisition/update' , $acquisition) }}" role="form" method="post" class="form"  >
                 @csrf
                 @method("PUT")
 
                 <div class="card  mb-3" >
                     <h4 class="card-header text-center">Demandeur</h4>
                     <div class="card-body">
-                        <div class="mb-1 row">
-                            <label class="col-sm-2 col-form-label">Nom: </label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="nom_demandeur" value="{{ $acquisition->nom_demandeur }}">
-                            </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text fw-bold ">Nom</span>
+                            <label class="form-control">{{ $acquisition->nom_demandeur }} </label>
                         </div>
-                        <div class="mb-1 row">
-                            <label class="col-sm-2 col-form-label">Direction: </label>
-                            <div class="col-sm-10">
-                                <select class="form-select js-select2" name="dir_demandeur" id="direction">
-                                    @foreach ($directions as $direction)
-                                    @if ($direction['sigle'] == old('document') or $direction['sigle'] == $acquisition->dir_demandeur)
-                                        <option value="{{ $direction['sigle'] }}" selected>{{ $direction['nom'] }}
-                                        </option>
-                                    @else
-                                        <option value="{{ $direction['sigle'] }}">{{ $direction['nom'] }}</option>
-                                    @endif
-                                    @endforeach
-                                </select>
-                            </div>
+                        @php
+                            $dir = Direction::where('sigle', $acquisition->dir_demandeur)
+                                ->get()
+                                ->first();
+                        @endphp
+                        <div class="input-group mb-3">
+                            <span class="input-group-text fw-bold">Direction</span>
+        
+                            <label class="form-control">{{ $dir->nom }} </label>
                         </div>
-                        <div class="mb-1 row">
-                            <label class="col-sm-2 col-form-label">Service: </label>
-                            <div class="col-sm-10">
-                                <select name="service_demandeur" id="serv" class="form-select js-select2">
-                                    <option value="{{ $acquisition->service_demandeur }}">{{ $acquisition->service_demandeur }}</option>
-                                </select>
-                            </div>
-                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text fw-bold">Service</span>
+                            <label class="form-control">{{ $acquisition->service_demandeur }} </label>
+                        </div>  
                     </div>
                 </div>
                 <div class="card mb-3">
@@ -85,6 +77,8 @@
                                     $pcp = $ai = $imp = $fax = $log = $autre = ' disabled ';
                                     $nomdiv = 'hidden';
                                     $descdiv = 'hidden';
+                                    $quantitediv = ' ';
+                                    $modeldiv = ' ';
                                     $procediv = ' ';
                                     $ramdiv = ' ';
                                     $stockdiv = ' ';
@@ -94,6 +88,7 @@
                                     $pcb = $ai = $imp = $fax = $log = $autre = ' disabled ';
                                     $nomdiv = 'hidden';
                                     $descdiv = 'hidden';
+                                    $modeldiv = ' ';
                                     $procediv = ' ';
                                     $ramdiv = ' ';
                                     $stockdiv = ' ';
@@ -104,6 +99,7 @@
                                     $pcb = $pcp = $imp = $fax = $log = $autre = ' disabled ';
                                     $nomdiv = 'hidden';
                                     $descdiv = ' ';
+                                    $modeldiv = ' ';
                                     $procediv = 'hidden';
                                     $ramdiv = 'hidden';
                                     $stockdiv = 'hidden';
@@ -114,6 +110,7 @@
                                     $pcb = $pcp = $ai = $fax = $log = $autre = ' disabled ';
                                     $nomdiv = 'hidden';
                                     $descdiv = ' ';
+                                    $modeldiv = ' ';
                                     $procediv = 'hidden';
                                     $ramdiv = 'hidden';
                                     $stockdiv = 'hidden';
@@ -124,6 +121,7 @@
                                     $pcb = $pcp = $imp = $ai = $log = $autre = ' disabled ';
                                     $nomdiv = 'hidden';
                                     $descdiv = '';
+                                    $modeldiv = ' ';
                                     $procediv = 'hidden';
                                     $ramdiv = 'hidden';
                                     $stockdiv = 'hidden';
@@ -134,6 +132,7 @@
                                     $pcb = $pcp = $imp = $fax = $ai = $autre = ' disabled ';
                                     $nomdiv = 'hidden';
                                     $descdiv = '';
+                                    $modeldiv = ' ';
                                     $procediv = 'hidden';
                                     $ramdiv = 'hidden';
                                     $stockdiv = 'hidden';
@@ -144,6 +143,7 @@
                                     $pcb = $pcp = $imp = $fax = $log = $ai = ' disabled ';
                                     $nomdiv = ' ';
                                     $descdiv = '';
+                                    $modeldiv = ' ';
                                     $procediv = 'hidden';
                                     $ramdiv = 'hidden';
                                     $stockdiv = 'hidden';
@@ -186,58 +186,72 @@
                                 <label class="form-check-label" for="autre">Autre</label>
                             </div>
                         </div>
-                        <div class="mb-1 mt-2 row" id="inputautre" {{ $nomdiv }}>
-                            <label class="col-sm-2 col-form-label ">Nom: </label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="nom_mat"
-                                    placeholder="Taper le nom du materiel" id="nom_mat_input" value="{{ $acquisition->nom_mat }}">
+
+                        <div class="mb-1 mt-2 row" id="quant"  >
+                            <div class="input-group ">
+                                <span class="input-group-text txt fw-bold ">Quantité</span>
+                                <input type="text" class="form-control" name="quantite" value="{{ $acquisition->quantite }}">
                             </div>
+                        </div>
+
+                        <div class="mb-1 mt-2 row" id="inputautre" {{ $nomdiv }}> 
+                        <div class="input-group ">
+                            <span class="input-group-text txt fw-bold ">Nom</span>
+                            <input type="text" class="form-control" name="nom_mat"
+                                    placeholder="Taper le nom du materiel" id="nom_mat_input" value="{{ $acquisition->nom_mat }}">
+                        </div> 
                         </div>
                         <div class="mb-1 row" id="desc" {{ $descdiv }}>
-                            <label class="col-sm-2 col-form-label">Description: </label>
-                            
-                            <div class="col-sm-10">
-                                <textarea name="description_mat" id="" class="form-control" cols="30" rows="2">{{ $acquisition->description_mat }}</textarea>
-                            </div>
+                            <div class="input-group ">
+                                <span class="input-group-text txt fw-bold ">Description</span>
+                                <input type="text" class="form-control" name="description_mat" value="{{ $acquisition->description_mat }}">
+                            </div>  
                         </div>
-                        <div class="mb-1 row" id="marque" >
-                            <label class="col-sm-2 col-form-label">Marque: </label>
-                            <div class="col-sm-10">
+                        <div class="mb-1 row" id="marque"  >
+                            <div class="input-group ">
+                                <span class="input-group-text txt fw-bold ">Marque</span>
                                 <input type="text" class="form-control" name="marque_mat" value="{{ $acquisition->marque_mat }}">
-                            </div>
+                            </div>  
+                        </div>
+                        <div class="mb-1 row" id="model" {{ $modeldiv }}>
+                            <div class="input-group ">
+                                <span class="input-group-text txt fw-bold ">Model</span>
+                                <input type="text" class="form-control" name="model_mat" value="{{ $acquisition->model_mat }}">
+                            </div>  
                         </div>
                         <div class="mb-1 row" id="processeur" {{ $procediv }}>
-                            <label class="col-sm-2 col-form-label">Processeur: </label>
-                            <div class="col-sm-10">
+                            <div class="input-group ">
+                                <span class="input-group-text txt fw-bold ">Processeur</span>
                                 <input type="text" class="form-control" name="processeur_mat" value="{{ $acquisition->processeur_mat }}">
-                            </div>
+                            </div>  
                         </div>
                         <div class="mb-1 row" id="ram" {{ $ramdiv }}>
-                            <label class="col-sm-2 col-form-label">Mémoire: </label>
-                            <div class="col-sm-10">
+                            <div class="input-group ">
+                                <span class="input-group-text txt fw-bold ">Mémoire</span>
                                 <input type="text" class="form-control" name="ram_mat" value="{{ $acquisition->ram_mat }}">
-                            </div>
+                            </div>  
                         </div>
                         <div class="mb-1 row" id="stockage" {{ $stockdiv }}>
-                            <label class="col-sm-2 col-form-label">Stockage: </label>
-                            <div class="col-sm-10">
+                            <div class="input-group ">
+                                <span class="input-group-text txt fw-bold ">Stockage</span>
                                 <input type="text" class="form-control" name="stockage_mat" value="{{ $acquisition->stockage_mat }}">
-                            </div>
+                            </div>  
                         </div>
                         <div class="mb-1 row" id="os" {{ $sediv }}>
-                            <label class="col-sm-2 col-form-label">S.E: </label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="os_mat" value="{{ $acquisition->os_mat }}">
-                            </div>
-                        </div>
+                            <div class="input-group ">
+                                <span class="input-group-text txt fw-bold ">S.E</span>
+                                <input type="text" class="form-control" name="os_mat"  value="{{ $acquisition->os_mat }}">
+                            </div>  
+                        </div> 
                     </div>
-                </div>
-                <div class="row mt-3 mb-5 text-center" >
+                    <div class="row mt-3 mb-3 text-center" >
                     <div class="col-md-12 form-group">
                         <button type="submit" name="submit" class="btn btn-primary fw-bold">Modifier</button>
-                        <button type="reset" class="btn btn-default fw-bold">Annuler</button>
+                        <button type="reset" class="btn btn-outline-danger fw-bold">Annuler</button>
                     </div>
                 </div>
+                </div>
+                
             </form>
         </div>
     </div>
@@ -254,6 +268,9 @@
         .card-header {
             background: #4F81BD;
             color: white;
+        }
+        .input-group-text {
+            width: 133px;
         }
 
     </style>

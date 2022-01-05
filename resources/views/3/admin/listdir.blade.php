@@ -1,11 +1,11 @@
-@extends('3.layout', ['page' => 'La liste des directions', 'pageSlug' => 'admin'])
+@extends('2.sih.layout', ['page' => 'La liste des directions', 'pageSlug' => 'admin'])
 @section('content')
 
     <div class="row  py-3 px-3">
         <div class="d-flex justify-content-between ">
             <h3 class="over-title mb-2">La liste des directions </h3>
 
-            <a href="newdir" class="btn  btn-primary  fw-bold">New Direction</a>
+            <a href="newdir" class="btn  btn-primary  fw-bold">Nouvelle Direction</a>
 
         </div>
 

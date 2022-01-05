@@ -1,4 +1,4 @@
-@extends('2.sih.layout', ['page' => 'Nouvelle Acquisition', 'pageSlug' => 'acquisition'])
+@extends('3.layout', ['page' => 'Nouvelle Acquisition', 'pageSlug' => 'acquisition'])
 @section('content')
 
     <div class="row mt-3">
@@ -163,18 +163,17 @@
                                   </div>
                               </div>  
                               </div>
-                        </div> 
-                        <div class="row mt-3 mb-3">
-                    <div class="col-md-12 form-group text-center">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3 mb-5">
+                    <div class="col-md-12 form-group">
                         <button type="submit" name="submit" class="btn btn-primary fw-bold">Soumettre</button>
                         <button type="reset" class="btn btn-outline-danger fw-bold">Annuler</button>
                         <input type="text" name="date_submit" value="{{ date('Y-m-d H:i:s') }}" hidden>
                         <input type="text" class="form-control" name="id" value="{{ time() }}" hidden>
                     </div>
                 </div>
-                    </div>
-                </div>
-               
             </form>
         </div>
     </div>

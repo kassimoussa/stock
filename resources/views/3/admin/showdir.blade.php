@@ -1,7 +1,7 @@
 @php
 use App\Models\Service;
 @endphp
-@extends('3.layout', ['page' => 'Direction', 'pageSlug' => 'admin'])
+@extends('2.sih.layout', ['page' => 'Direction', 'pageSlug' => 'admin'])
 @section('content')
     <br><br>
     <div class="d-flex justify-content-start mb-5">

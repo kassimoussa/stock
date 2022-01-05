@@ -4,7 +4,7 @@
     <div class="row  py-3 px-3">
         <div class="d-flex justify-content-between mb-4 ">
             <h3 class="over-title ">Fiches de livraison  </h3>
-            <a href="/livraison/newlivraison" class="btn  btn-primary  fw-bold">Nouvelle Livraison</a>
+            {{-- <a href="/livraison/newlivraison" class="btn  btn-primary  fw-bold">Nouvelle Livraison</a> --}}
         </div>
 
         @if ($message = Session::get('success'))

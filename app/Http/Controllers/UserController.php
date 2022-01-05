@@ -136,16 +136,20 @@ class UserController extends Controller
             return view('5.profile', compact('user'));
         }
     }
-    public function changeprofile(Request $request)
+    public function change_infos(Request $request, User $user)
     {
-
-        User::where('id', session('Loggeduser'))
-            ->update([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => $request->password
-            ]);
+        $user->update($request->all());  
         return back()->with('success', 'Changement réussi avec succès');
+    }
+
+    public function change_pass(Request $request, User $user)
+    {
+        if($request->current_password == $user->password){
+            $user->update(['password' => $request->new_password]);
+            return back()->with('success', 'Changement réussi avec succès');
+        }else {
+            return back()->with('fail', 'Le mot de passe que vous avez taper ne correspond pas au mot de passe actuel!');
+        }
     }
 
     public function forgot()

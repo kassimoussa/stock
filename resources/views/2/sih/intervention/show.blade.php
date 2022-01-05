@@ -3,14 +3,13 @@
 
 <br>
 
-    <div class="container mt-3">
-        {{-- <div class="d-flex justify-content-between mb-4 " >
-            <h3 class="fw-bold mt-3">FICHE D'INTERVENTION</h3>
-            <a href="{{ url('/generate-intervention', $intervention) }}" class="btn  btn-primary  fw-bold text-white">IMPRIMER</a>
-        </div> --}}
+    <div class="container mt-3"> 
         <div class="d-flex justify-content-between mb-4 " >
             <h3 class="over-title ">FICHE D'INTERVENTION  </h3>
+            @if ($intervention->status_din == 'approuve')
             <a href="{{ url('/generate-intervention', $intervention) }}" class="btn  btn-primary  fw-bold text-white">IMPRIMER</a>
+            @endif
+            
         </div>
         <div class="row">
 
@@ -29,20 +28,17 @@
                 <div class="card  mb-3">
                     <h4 class="card-header text-center">Technicien</h4>
                     <div class="card-body">
-                        <div class="form-group control-label">
-                            <label class="control-label">Nom Intervenant <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="nom_intervenant"
-                                value="{{ $intervention->nom_intervenant }}" readonly>
+                        <div class="input-group mb-2">
+                            <span class="input-group-text txt fw-bold ">Nom</span> 
+                            <label class="form-control">{{ $intervention->nom_intervenant }} </label> 
                         </div>
-                        <div class="form-group control-label">
-                            <label class="control-label">Diagnostique <span class="text-danger">*</span></label>
-                            <textarea name="diagnostique" id="" class="form-control" cols="30" rows="2"
-                                readonly>{{ $intervention->diagnostique }}</textarea>
+                        <div class="input-group ">
+                            <span class="input-group-text txt fw-bold ">Diagnostique</span>  
+                            <label class="form-control">{{ $intervention->diagnostique }} </label>  
                         </div>
                     </div>
                 </div>
             </div>
-
 
             <div class="col-lg-12">
                 <div class="card mb-3">
@@ -53,25 +49,22 @@
                                 <div class="card ">
                                     <h4 class="card-header ch2 text-center">Sur le materiel</h4>
                                     <div class="card-body">
-                                        <div class="form-group control-label">
-                                            <label class="control-label">Materiel <span
-                                                    class="text-danger">*</span></label>
+                                        <div class="form-group control-label mb-1">
+                                            <label class="control-label">Libellé   </label>
                                             <input type="text" class="form-control" name="materiel"
                                                 value="{{ $intervention->materiel }}" readonly>
                                         </div>
-                                        <div class="form-group control-label">
-                                            <label class="control-label">Model <span
-                                                    class="text-danger">*</span></label>
+                                        <div class="form-group control-label mb-1">
+                                            <label class="control-label">Model  </label>
                                             <input type="text" class="form-control" name="model"
                                                 value="{{ $intervention->model }}" readonly>
                                         </div>
-                                        <div class="form-group control-label">
-                                            <label class="control-label">Réf patrimoine <span
-                                                    class="text-danger">*</span></label>
+                                        <div class="form-group control-label mb-1">
+                                            <label class="control-label">Réf patrimoine </label>
                                             <input type="text" class="form-control" name="ref_patrimoine"
                                                 value="{{ $intervention->ref_patrimoine }}" readonly>
                                         </div>
-                                        <div class="form-group control-label">
+                                        <div class="form-group control-label mb-1">
                                             <label class="control-label">Date d'acquisition </label>
                                             <input type="text" class="form-control" name="date_acquisition"
                                                 value="{{ date('d/m/Y', strtotime($intervention->date_acquisition)) }}"
@@ -85,21 +78,18 @@
                                 <div class="card ">
                                     <h4 class="card-header ch2 text-center">Sur le demandeur</h4>
                                     <div class="card-body">
-                                        <div class="form-group control-label">
-                                            <label class="control-label">Propriétaire <span
-                                                    class="text-danger">*</span></label>
+                                        <div class="form-group control-label mb-1">
+                                            <label class="control-label">Nom  </label>
                                             <input type="text" class="form-control" name="nom_demandeur"
                                                 value="{{ $intervention->nom_demandeur }}" readonly>
                                         </div>
-                                        <div class="form-group control-label">
-                                            <label class="control-label">Direction ou Département <span
-                                                    class="text-danger">*</span></label>
+                                        <div class="form-group control-label mb-1">
+                                            <label class="control-label">Direction ou Département  </label>
                                             <input type="text" class="form-control" name="dir_demandeur"
                                                 value="{{ $intervention->dir_demandeur }}" readonly>
                                         </div>
-                                        <div class="form-group control-label">
-                                            <label class="control-label">Centre ou Service <span
-                                                    class="text-danger">*</span></label>
+                                        <div class="form-group control-label mb-1">
+                                            <label class="control-label">Centre ou Service </label>
                                             <input type="text" class="form-control" name="service_demandeur"
                                                 value="{{ $intervention->service_demandeur }}" readonly>
                                         </div>
@@ -110,7 +100,6 @@
                     </div>
                 </div>
             </div>
-
 
             <div class="col-lg-12">
                 <div class="card  mb-3">
@@ -163,7 +152,7 @@
                                     <div class="col-md-12 form-group ">
                                         <button type="submit" name="submit"
                                             class="btn btn-primary fw-bold">Soumettre</button>
-                                        <button type="reset" class="btn btn-default fw-bold">Annuler</button>
+                                        <button type="reset" class="btn btn-outline-danger  fw-bold">Annuler</button>
                                         <input type="text" name="date_sih" value="{{ date('Y-m-d H:i:s') }}" hidden>
                                     </div>
                                 </div>
@@ -208,7 +197,7 @@
                                     <div class="col-md-12 form-group ">
                                         <button type="submit" name="submit"
                                             class="btn btn-primary fw-bold">Soumettre</button>
-                                        <button type="reset" class="btn btn-default fw-bold">Annuler</button>
+                                        <button type="reset" class="btn btn-outline-danger  fw-bold">Annuler</button>
                                         <input type="text" name="date_sih" value="{{ date('Y-m-d H:i:s') }}" hidden>
                                     </div>
                                 </div>

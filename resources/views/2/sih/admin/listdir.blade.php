@@ -5,7 +5,7 @@
         <div class="d-flex justify-content-between ">
             <h3 class="over-title mb-2">La liste des directions </h3>
 
-            <a href="newdir" class="btn  btn-primary  fw-bold">New Direction</a>
+            <a href="newdir" class="btn  btn-primary  fw-bold">Nouvelle Direction</a>
 
         </div>
 

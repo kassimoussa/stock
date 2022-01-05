@@ -1,4 +1,0 @@
-
-<td><div class="{{ $status_direction }}" role="alert">{{ $intervention->dir_demandeur }}</div></td> 
-                            <td><div class="{{ $status_service }}" role="alert">SIH</div></td>
-                            <td> <div class="{{ $status_division }}" role="alert">DIN</div></td>

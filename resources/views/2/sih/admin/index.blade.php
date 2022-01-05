@@ -9,10 +9,10 @@
                         <i class="fa fa-square fa-stack-2x blciel"></i>
                         <i class="fa fa-user fa-stack-1x dore"></i>
                     </span>
-                    <h2 class="StepTitle card-title">User</h2>
+                    <h2 class="StepTitle card-title">Utilisateurs</h2>
                     <p class="cl-effect-1">
                         <a href="/admin/showuser">
-                            Users list
+                            liste des Utilisateurs
                         </a>
                     </p>
                 </div>
@@ -29,7 +29,7 @@
 
                     <p class="cl-effect-1">
                         <a href="/admin/showdirections">
-                             Directions List
+                             Liste des Directions 
                         </a>
                     </p>
                 </div>
@@ -46,7 +46,7 @@
 
                     <p class="cl-effect-1">
                         <a href="/admin/showservices">
-                            Services List
+                            Liste des Services 
                         </a>
                     </p>
                 </div>

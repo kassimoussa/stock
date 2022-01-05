@@ -37,7 +37,7 @@
                     <div class="row" style="text-align: center; margin-top: 2%;">
                         <div class=" form-group">
                             <button type="submit" name="submit" class="btn btn-primary fw-bold">Ajouter</button>
-                            <button type="reset" class="btn btn-default fw-bold">Annuler</button>
+                            <button type="reset" class="btn btn-outline-danger  fw-bold">Annuler</button>
 
                         </div>
                     </div>

@@ -1,14 +1,14 @@
 @php
 use App\Models\Direction;
 @endphp
-@extends('3.layout', ['page' => 'La liste des services', 'pageSlug' => 'admin'])
+@extends('2.sih.layout', ['page' => 'La liste des services', 'pageSlug' => 'admin'])
 @section('content')
 
     <div class="row  py-3 px-3">
         <div class="d-flex justify-content-between ">
             <h3 class="over-title mb-2">La liste des services </h3>
 
-            <a href="newservice" class="btn  btn-primary  fw-bold">New Services</a>
+            <a href="newservice" class="btn  btn-primary  fw-bold">Nouveau Service</a>
 
         </div>
 
@@ -41,11 +41,11 @@ use App\Models\Direction;
                             <td>{{ $service->nom }}</td>
                             <td> {{ $directions->nom }}</td>
                             <td class="td-actions ">
-                                <a href="{{ url('/serviceedit', $service) }}" class="btn btn-link" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                <a href="{{ url('/admin/serviceedit', $service) }}" class="btn btn-link" data-bs-toggle="tooltip" data-bs-placement="bottom"
                                     title="Edit Service">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <form action="{{ url('/servicedelete', $service) }}" method="post" class="d-inline">
+                                <form action="{{ url('/admin/servicedelete', $service) }}" method="post" class="d-inline">
                                     @csrf
                                     @method('delete')
                                     <button type="button" class="btn btn-link" data-bs-toggle="tooltip"

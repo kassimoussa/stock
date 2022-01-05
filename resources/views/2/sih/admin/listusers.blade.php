@@ -3,9 +3,9 @@
 
     <div class="row  py-3 px-3">
         <div class="d-flex justify-content-between ">
-            <h3 class="over-title mb-2">La liste des users </h3>
+            <h3 class="over-title mb-2">La liste des utilisateurs </h3>
 
-            <a href="newuser" class="btn  btn-primary  fw-bold">New User</a>
+            <a href="newuser" class="btn  btn-primary  fw-bold">Nouvelle Utilisateur</a>
 
         </div>
 

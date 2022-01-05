@@ -45,7 +45,7 @@
                         <div class="row mb-3">
                             <div class="col-md-12 form-group ">
                                 <button type="submit" name="submit" class="btn btn-primary fw-bold">Soumettre</button>
-                                <button type="reset" class="btn btn-default fw-bold">Annuler</button>
+                                <button type="reset" class="btn btn-outline-danger  fw-bold">Annuler</button>
                                 <input type="text" name="fiche_intervention" value="{{ $intervention->id }}" hidden>
                             </div>
                         </div>

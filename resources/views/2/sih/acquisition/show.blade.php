@@ -185,7 +185,10 @@ use App\Models\Direction;
                     <span class="input-group-text fw-bold">Marque</span>
                     <label class="form-control">{{ $acquisition->marque_mat }} </label>
                 </div>
-
+                <div class="input-group mb-2">
+                    <span class="input-group-text fw-bold">Model</span>
+                    <label class="form-control">{{ $acquisition->model_mat }} </label>
+                </div>
                 <div class="input-group mb-2" {{ $procediv }}>
                     <span class="input-group-text fw-bold">Processeur</span>
                     <label class="form-control">{{ $acquisition->processeur_mat }} </label>
@@ -314,7 +317,7 @@ use App\Models\Direction;
                                                     <div class="row mb-3">
                                                         <div class="col-md-12 form-group ">
                                                             <button type="submit" name="submit" class="btn btn-primary fw-bold">Ajouter</button>
-                                                            <button type="reset" class="btn btn-default fw-bold">Annuler</button>
+                                                            <button type="reset" class="btn btn-outline-danger fw-bold">Annuler</button>
                                                             <input type="text" name="fiche" value="acquisition" hidden>
                                                             <input type="text" name="numero_fiche" value="{{ $acquisition->id }}" hidden>
                                                         </div>
@@ -449,7 +452,7 @@ use App\Models\Direction;
                         <div class="row" style=" margin-top: 2%;" {{ $button }}>
                             <div class="col-md-12 form-group ">
                                 <button type="submit" name="submit" class="btn btn-primary fw-bold">Soumettre</button>
-                                <button type="reset" class="btn btn-default fw-bold">Annuler</button>
+                                <button type="reset" class="btn btn-outline-danger fw-bold">Annuler</button>
                                 <input type="text" name="date_sih" value="{{ date('Y-m-d H:i:s') }}" hidden>
                             </div>
                     </form>
@@ -493,7 +496,7 @@ use App\Models\Direction;
                         <div class="row" style=" margin-top: 2%;" {{ $button }}>
                             <div class="col-md-12 form-group ">
                                 <button type="submit" name="submit" class="btn btn-primary fw-bold">Soumettre</button>
-                                <button type="reset" class="btn btn-default fw-bold">Annuler</button>
+                                <button type="reset" class="btn btn-outline-danger fw-bold">Annuler</button>
                                 <input type="text" name="date_sih" value="{{ date('Y-m-d H:i:s') }}" hidden>
                             </div>
                         </div>

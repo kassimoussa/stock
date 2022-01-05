@@ -31,8 +31,8 @@
                             }
                         @endphp
 
-                        <div class="form-group mb-2">
-                            <label for="name" class="h4">Level</label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text txt fw-bold ">Level</span>  
                             <select name="level" class="form-control" disabled>
                                 <option value="1" @if ($user->level == '1') {{ 'selected' }} @endif>1</option>
                                 <option value="2" @if ($user->level == '2') {{ 'selected' }} @endif>2</option>
@@ -41,8 +41,9 @@
                             </select>
                             <span class="text-danger">@error('level') {{ $message }} @enderror</span>
                         </div>
-                        <div class="form-group control-label mb-2">
-                            <label class="control-label">Direction </label>
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text txt fw-bold ">Direction</span>  
                             <select class="form-select" name="direction" id="direction">
                                 @foreach ($directions as $direction)
                                     @if ($direction['sigle'] == old('document') or $direction['sigle'] == $user->direction)
@@ -55,41 +56,43 @@
                             </select>
                             <span class="text-danger">@error('direction') {{ $message }} @enderror</span>
                         </div>
-                        <div class="form-group control-label mb-2">
-                            <label class="control-label">Service </label>
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text txt fw-bold ">Service</span>   
                             <select name="service" id="serv" class="form-select js-select2 " {{ $disa }}>
                                 <option value="{{ $user->service }}" >
                                     {{ $user->service }}</option>
                             </select>
                             <span class="text-danger">@error('service') {{ $message }} @enderror</span>
                         </div>
-                        <div class="form-group control-label mb-2">
-                            <label class="control-label">Nom </label>
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text txt fw-bold ">Nom</span>  
                             <input type="text" class="form-control" name="name" placeholder=" Entrer votre nom "
                                 value="{{ $user->name }}" required>
                             <span class="text-danger">@error('name') {{ $message }} @enderror</span>
                         </div>
-                        <div class="form-group mb-2">
-                            <label for="email" class="h5">Email</label>
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text txt fw-bold ">Email</span> 
                             <input type="email" class="form-control" name="email" placeholder="Entrer votre email"
                                 value="{{ $user->email }}">
                             <span class="text-danger">@error('email') {{ $message }} @enderror</span>
                         </div>
-                        <div class="form-group mb-2">
-                            <label for="password" class="h5">Password</label>
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text txt fw-bold ">Password</span> 
                             <input type="password" class="form-control" name="password"
                                 placeholder="Entrer votre mot de passe" value="{{ $user->password }}">
                             <span class="text-danger">@error('password') {{ $message }} @enderror</span>
                         </div>
-
-
                     </div>
 
 
                     <div class="row" style="text-align: center; margin-top: 2%;">
                         <div class=" form-group">
                             <button type="submit" name="submit" class="btn btn-primary fw-bold">Modifier</button>
-                            <button type="reset" class="btn btn-default fw-bold">Annuler</button>
+                            <button type="reset" class="btn btn-outline-danger  fw-bold">Annuler</button>
 
                         </div>
                     </div>
@@ -103,6 +106,18 @@
         .btn-default:hover {
             background-color: red !important;
             color: white;
+        }
+
+        .btn-primary { 
+            color: black;
+        }
+
+        .card-header {
+            background: #4F81BD;
+            color: white;
+        }
+        .txt {
+            width: 17%;
         }
 
     </style>

@@ -17,6 +17,7 @@ class Acquisition extends Model
         'quantite',
         'description_mat',
         'marque_mat',
+        'model_mat',
         'processeur_mat',
         'ram_mat',
         'stockage_mat',

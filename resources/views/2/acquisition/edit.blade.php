@@ -235,7 +235,7 @@
                 <div class="row mt-3 mb-5 text-center" >
                     <div class="col-md-12 form-group">
                         <button type="submit" name="submit" class="btn btn-primary fw-bold">Modifier</button>
-                        <button type="reset" class="btn btn-default fw-bold">Annuler</button>
+                        <button type="reset" class="btn btn-outline-danger fw-bold">Annuler</button>
                     </div>
                 </div>
             </form>

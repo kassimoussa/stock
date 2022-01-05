@@ -62,15 +62,15 @@
                             </div>
 
                         </div>
-
+                        <div class="row mt-3 mb-3 ">
+                            <div class="col-md-12 form-group text-center">
+                                <button type="submit" name="submit" class="btn btn-primary fw-bold">Soumettre</button>
+                                <button type="reset" class="btn btn-outline-danger fw-bold">Annuler</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="row mt-3 mb-5">
-                    <div class="col-md-12 form-group">
-                        <button type="submit" name="submit" class="btn btn-primary fw-bold">Soumettre</button>
-                        <button type="reset" class="btn btn-default fw-bold">Annuler</button>
-                    </div>
-                </div>
+                
             </form>
         </div>
         <br>
