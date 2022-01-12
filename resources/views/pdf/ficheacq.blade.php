@@ -325,6 +325,10 @@ use App\Models\Direction;
                         <td class="tc"> {{ $acquisition->marque_mat }}</td>
                     </tr>
                     <tr>
+                        <td class="tt">Model</td>
+                        <td class="tc"> {{ $acquisition->model_mat }}</td>
+                    </tr>
+                    <tr>
                         <td class="tt" {{ $procediv }}>Processeur</td>
                         <td class="tc" {{ $procediv }}> {{ $acquisition->processeur_mat }}</td>
                     </tr>
