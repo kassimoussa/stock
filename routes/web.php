@@ -9,6 +9,7 @@ use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\DirectionsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Mail\TestMail;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,12 @@ Route::post('store', [UserController::class, 'store'])->name('store');
 Route::get('forgot', [UserController::class, 'forgot']);
 Route::put('/resetpassword', [UserController::class, 'resetpassword']);
 Route::put('/reset', [UserController::class, 'reset']);
+
+Route::get('check-queue', function(){
+    Mail::to('kassim.moussali@gmail.com')->send(new TestMail());
+
+    return 'Working';
+}); 
 
 Route::group(['middleware'=> ['logged']], function(){
 
