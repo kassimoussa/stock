@@ -10,6 +10,7 @@ use App\Http\Controllers\DirectionsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Mail\TestMail;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,7 @@ Route::get('register', [UserController::class, 'register']);
 Route::post('check', [UserController::class, 'check'])->name('check');
 Route::post('store', [UserController::class, 'store'])->name('store');
 Route::get('forgot', [UserController::class, 'forgot']);
+Route::get('/resetview', [UserController::class, 'resetview']);
 Route::put('/resetpassword', [UserController::class, 'resetpassword']);
 Route::put('/reset', [UserController::class, 'reset']);
 

@@ -8,7 +8,7 @@ use App\Models\Intervention;
 use App\Models\Service;
 use App\Models\User;
 use PDF;
-use Mail;
+use Illuminate\Support\Facades\Mail;
 use App\Mail\NotifInter1;
 use App\Mail\NotifInter2;
 use App\Mail\NotifInter3;

@@ -9,7 +9,7 @@ use App\Models\Service;
 use App\Models\User;
 use App\Models\Devis;
 use PDF;
-use Mail;
+use Illuminate\Support\Facades\Mail;
 use App\Mail\Notif1;
 use App\Mail\Notif2;
 use App\Mail\Notif3;

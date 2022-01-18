@@ -29,20 +29,20 @@
 					</span>
 
 					<div class="wrap-input100 validate-input" >
-                        <input type="text" class="input100 " required  autofocus placeholder="Taper le code secret">
+                        <input type="text" class="input100 " name="reset_pass" required  autofocus placeholder="Taper le code secret" maxlength="6" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')">
                         <span  class="invalid-feedback">@error('reset_pass') {{ $message }} @enderror</span>
 						<span class="focus-input100-1"></span>
 						<span class="focus-input100-2"></span>
 					</div>
-					<div class="wrap-input100 rs1 validate-input" data-validate="Password is required">
-                        <input type="password" class="input100" name="password" placeholder="Taper un nouveau mot de passe">
+					<div class="wrap-input100 rs1 validate-input"  >
+                        <input type="password" class="input100" name="password" placeholder="Taper un nouveau mot de passe" required>
                         <span class="text-danger">@error('password') {{ $message }} @enderror</span>
 						<span class="focus-input100-1"></span>
 						<span class="focus-input100-2"></span>
 					</div>
 					<div class="wrap-input100 rs1 validate-input" data-validate="Password is required">
-                        <input type="password" class="input100" name="password2" placeholder="Rétaper le mot de passe">
-                        <span class="text-danger">@error('password') {{ $message }} @enderror</span>
+                        <input type="password" class="input100" name="password2" placeholder="confirmer le mot de passe" required>
+                        <span class="text-danger">@error('password2') {{ $message }} @enderror</span>
 						<span class="focus-input100-1"></span>
 						<span class="focus-input100-2"></span>
 					</div>

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Direction;
-use Mail;
+use Illuminate\Support\Facades\Mail;
 use App\Mail\ResetPass;
 
 class UserController extends Controller
@@ -73,7 +73,7 @@ class UserController extends Controller
 
         $user = User::where('email', '=', $request->email)->first();
         if ($user) {
-            if ($request->password = $user->password) {
+            if ($request->password == $user->password) {
                 $request->session()->put('Loggeduser', $user->id);
                 $request->session()->put('userLevel', $user->level);
                 $request->session()->put('username', $user->name);
@@ -81,10 +81,10 @@ class UserController extends Controller
                 $request->session()->put('service', $user->service);
                 return redirect('index');
             } else {
-                return back()->with('fail', 'Invalide password');
+                return back()->with('fail', 'Mot de passe incorrecte pour ce compte !');
             }
         } else {
-            return back()->with('fail', 'No account found for this email');
+            return back()->with('fail', "Il n'y a pas de compte qui correspond à cet email dans la base des données ! ");
         }
     }
 
@@ -136,18 +136,19 @@ class UserController extends Controller
             return view('5.profile', compact('user'));
         }
     }
+
     public function change_infos(Request $request, User $user)
     {
-        $user->update($request->all());  
+        $user->update($request->all());
         return back()->with('success', 'Changement réussi avec succès');
     }
 
     public function change_pass(Request $request, User $user)
     {
-        if($request->current_password == $user->password){
+        if ($request->current_password == $user->password) {
             $user->update(['password' => $request->new_password]);
             return back()->with('success', 'Changement réussi avec succès');
-        }else {
+        } else {
             return back()->with('fail', 'Le mot de passe que vous avez taper ne correspond pas au mot de passe actuel!');
         }
     }
@@ -168,28 +169,45 @@ class UserController extends Controller
 
         Mail::to($to_email)
             ->later(now()->addSeconds(1), new ResetPass($rand));
-        return view('auth.reset', compact('rand'));
+        return redirect('/resetview');
     }
+
+    public function resetview(Request $request)
+    {
+        return view('auth.reset');
+    }
+
     public function reset(Request $request)
     {
         $to_email = session('reset');
         $user = User::where('email', $to_email)->first();
         $rand =  $user->reset_pass;
+
+       /*  $request->validate([
+            "reset_pass" => 'required|same:$rand',
+            "password" => 'required|min:8|max:16',
+            "password2" => 'required|min:8|max:16|same:password'
+        ]); */
+
         $pass1 = $request->password;
         $pass2 = $request->password2;
-        if ($pass1 == $pass2) {
-            User::where('email',  $to_email)
-                ->update(['password' => $pass1]);
-            return redirect('/');
+        if ($rand == $request->reset_pass) {
+            if ($pass1 == $pass2) {
+                User::where('email',  $to_email)
+                    ->update(['password' => $pass1]);
+                return redirect('/');
+            } else {
+                return back()->with('fail', 'La confirmation et le mot de passe doivent correspondre !');
+            }
         } else {
-            return back()->with('fail', 'Le mot de passe ne correspond pas à la verification');
+            return back()->with('fail', 'Le code secret est incorrect');
         }
     }
 
     public function admin(Request $request)
     {
         $users = User::where('id', session('Loggeduser'))->first();
-        
+
         if (session('userLevel') == '2') {
             return view('2.sih.admin.index', compact('users'));
         } elseif (session('userLevel') == '3') {
@@ -203,14 +221,14 @@ class UserController extends Controller
         $search = $request['search'] ?? "";
         if ($request->has('search')) {
             $search = $request['search'];
-            $users = User::Where('level',   $search )
-                         ->orWhere('name', 'Like', '%' . $search . '%')
-                         ->orWhere('email', $search )
-                         ->orWhere('direction', 'Like', '%' . $search . '%')
-                         ->orWhere('service', 'Like', '%' . $search . '%')
-                         ->orWhere('level',   $search )
-                         ->orderBy('name', 'asc')->paginate(10);;
-        } else { 
+            $users = User::Where('level',   $search)
+                ->orWhere('name', 'Like', '%' . $search . '%')
+                ->orWhere('email', $search)
+                ->orWhere('direction', 'Like', '%' . $search . '%')
+                ->orWhere('service', 'Like', '%' . $search . '%')
+                ->orWhere('level',   $search)
+                ->orderBy('name', 'asc')->paginate(10);;
+        } else {
             $users = User::orderBy('name', 'asc')->paginate(10);
         }
         if (session('userLevel') == '2') {
