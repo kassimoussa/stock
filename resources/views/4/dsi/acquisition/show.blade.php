@@ -8,7 +8,7 @@ use App\Models\Direction;
         <div class="d-flex justify-content-between mb-3">
             <h3 class="over-title ">FICHE D'ACQUISITION </h3>
             {{-- <a href="/acquisition" class="btn  btn-primary  fw-bold">RETOURNER</a> --}}
-            @if ($acquisition->sign_rep_demandeur == 1 && $acquisition->sign_dir_dsi == 1)
+            @if ($acquisition->status_dsi == "approuve")
                 <a href="{{ url('/generate-pdf', $acquisition) }}"
                     class="btn  btn-primary  fw-bold text-white">IMPRIMER</a>
             @endif

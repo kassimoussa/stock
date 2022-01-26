@@ -54,14 +54,14 @@ $user = User::where('id', session('Loggeduser'))->first();
             <nav class="nav nav_">
 
                 <div class="nav_list">
-                    <a href="/index" class="nav_link mb-5 mt-3 @if ($pageSlug == 'index') {{ "active" }} @endif">
+                    <a href="/index" class="nav_link mb-5 mt-3 @if ($pageSlug == 'index') {{ "activee" }} @endif">
                         <i class='fas fa-home nav_icon ' data-bs-toggle="tooltip" data-bs-placement="right"
                             title="Accueil"></i>
                         <span class="nav_name">Accueil</span>
                     </a>
                     
                     
-                    <a href="/acquisition" class="nav_link @if ($pageSlug == 'acquisition') {{ "active" }} @endif ">
+                    <a href="/acquisition" class="nav_link @if ($pageSlug == 'acquisition') {{ "activee" }} @endif ">
                         <i class='fas fa-laptop nav_icon' data-bs-toggle="tooltip" data-bs-placement="right"
                             title="Acquisition"></i>
                         <span class="nav_name">Acquisition</span>
@@ -69,7 +69,7 @@ $user = User::where('id', session('Loggeduser'))->first();
 
                 </div>
                 <div>
-                    <a href="/profile" class="nav_link  @if ($pageSlug == 'profile') {{ "active" }} @endif">
+                    <a href="/profile" class="nav_link  @if ($pageSlug == 'profile') {{ "activee" }} @endif">
                         <i class='fas fa-user  nav_icon' data-bs-toggle="tooltip" data-bs-placement="right"
                             title="Profile"></i>
                         <span class="nav_name">Profile</span>
