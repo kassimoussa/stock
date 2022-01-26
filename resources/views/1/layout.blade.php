@@ -55,34 +55,34 @@ $user = User::where('id', session('Loggeduser'))->first();
         <!-- Page Sidebar -->
 
         <div class="l-navbar" id="nav-bar">
-            <nav class="nav">
+            <nav class="nav nav_">
 
                 <div class="nav_list">
-                    <a href="/index" class="nav_link mb-5 mt-3 @if ($pageSlug == 'index') {{ 'active' }} @endif">
+                    <a href="/index" class="nav_link mb-5 mt-3 @if ($pageSlug == 'index') {{ 'activee' }} @endif">
                         <i class='fas fa-home nav_icon ' data-bs-toggle="tooltip" data-bs-placement="right"
                             title="Accueil"></i>
                         <span class="nav_name">Accueil</span>
                     </a>
 
-                    <a href="/stocks" class="nav_link @if ($pageSlug == 'stocks') {{ 'active' }} @endif ">
+                    <a href="/stocks" class="nav_link @if ($pageSlug == 'stocks') {{ 'activee' }} @endif ">
                         <i class='fas fa-warehouse nav_icon' data-bs-toggle="tooltip" data-bs-placement="right"
                             title="Stock"></i>
                         <span class="nav_name">Stock</span>
                     </a>
 
-                    <a href="{{ url('/intervention') }}" class="nav_link @if ($pageSlug == 'intervention') {{ 'active' }} @endif">
+                    <a href="{{ url('/intervention') }}" class="nav_link @if ($pageSlug == 'intervention') {{ 'activee' }} @endif">
                         <i class='fas fa-tools nav_icon' data-bs-toggle="tooltip" data-bs-placement="right"
                             title="Intervention"></i>
                         <span class="nav_name">Intervention</span>
                     </a>
-                    <a href="{{ url('/livraison') }}" class="nav_link @if ($pageSlug == 'livraison') {{ 'active' }} @endif">
+                    <a href="{{ url('/livraison') }}" class="nav_link @if ($pageSlug == 'livraison') {{ 'activee' }} @endif">
                         <i class='fas fa-truck nav_icon fa-2x' data-bs-toggle="tooltip" data-bs-placement="right"
                             title="Livraison"></i>
                         <span class="nav_name">Livraison</span>
                     </a>
                 </div>
                 <div>
-                    <a href="/profile" class="nav_link @if ($pageSlug == 'profile') {{ 'active' }} @endif">
+                    <a href="/profile" class="nav_link @if ($pageSlug == 'profile') {{ 'activee' }} @endif">
                         <i class='fas fa-user  nav_icon' data-bs-toggle="tooltip" data-bs-placement="right"
                             title="Profile"></i>
                         <span class="nav_name">Profile</span>

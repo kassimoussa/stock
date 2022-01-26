@@ -51,7 +51,7 @@ $user = User::where('id', session('Loggeduser'))->first();
         <!-- Page Sidebar -->
 
         <div class="l-navbar" id="nav-bar">
-            <nav class="nav">
+            <nav class="nav nav_">
 
                 <div class="nav_list">
                     <a href="/index" class="nav_link mb-5 mt-3 @if ($pageSlug == 'index') {{ "active" }} @endif">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cataloguepc;
 use Illuminate\Http\Request;
 use App\Models\Direction;
 
@@ -73,11 +74,11 @@ class DirectionsController extends Controller
      */
     public function show(Direction $direction)
     {
-       
+        $pc = Cataloguepc::where('direction', $direction->sigle)->first();
         if (session('userLevel') == '2') {
-            return view('2.sih.admin.showdir', compact('direction'));
+            return view('2.sih.admin.showdir', compact('direction', 'pc'));
         } elseif (session('userLevel') == '3') {
-            return view('3.admin.showdir', compact('direction'));
+            return view('3.admin.showdir', compact('direction','pc'));
         }
         
     }

@@ -56,7 +56,7 @@ use App\Models\Livraison;
                                 $status_dir = '';
                                 $status_sih = '';
                                 $status_dsi = '';
-                                $btnhidden = '';
+                                $btnedit = '';
                                 $titre = '';
                                 $icon = '';
                                 $btnshow = 'hidden';
@@ -70,7 +70,7 @@ use App\Models\Livraison;
                                     $status_dir = '#089415';
                                 } elseif ($acquisition->status_dir == 'attente') {
                                     $status_dir = '#efaa2d';
-                                    $btnhidden = '';
+                                    $btnedit = '';
                                 } elseif ($acquisition->status_dir == 'rejete') {
                                     $status_dir = '#FF0000';
                                 } elseif ($acquisition->status_dir == null) {
@@ -78,7 +78,7 @@ use App\Models\Livraison;
                                 }
                                 
                                 if ($acquisition->status_sih == 'approuve') {
-                                    $status_sih = '#089415'; /* $btnhidden = 'hidden'; */
+                                    $status_sih = '#089415'; /* $btnedit = 'hidden'; */
                                 } elseif ($acquisition->status_sih == 'attente') {
                                     $status_sih = '#efaa2d';
                                 } elseif ($acquisition->status_sih == 'rejete') {
@@ -89,7 +89,7 @@ use App\Models\Livraison;
                                 
                                 if ($acquisition->status_dsi == 'approuve') {
                                     $status_dsi = '#089415';
-                                    $btnhidden = 'hidden';
+                                    $btnedit = 'disabled';
                                     $btnshow = $btnrecushow = '';
                                     if ($acquisition->recu == 'non') {
                                         $btnrecuoutline = 'danger';
@@ -156,9 +156,9 @@ use App\Models\Livraison;
                                         data-bs-toggle="tooltip" data-bs-placement="bottom" title="Voir la fiche">
                                         <i class="fas fa-eye"></i>
                                     </a>
-                                    <a href="{{ url('/acquisition/edit', $acquisition) }}" class="btn btn-link"
+                                    <a href="{{ url('/acquisition/edit', $acquisition) }}" class="btn btn-link  {{ $btnedit }}"
                                         data-bs-toggle="tooltip" data-bs-placement="bottom" title="Modifier la fiche"
-                                        {{ $btnhidden }}>
+                                       >
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     {{-- <form action="{{ url('/acquisition/change_status', $acquisition) }}" method="post"
@@ -214,7 +214,10 @@ use App\Models\Livraison;
                     @endif
                 </tbody>
             </table>
-            {{ $acquisitions->links() }}
+            <div class="d-flex justify-content-center">
+                {{ $acquisitions->links() }}
+            </div>
+           
         </div>
 
 

@@ -162,7 +162,8 @@ class UserController extends Controller
     {
 
         $to_email = $request->email;
-        $request->session()->put('reset', $to_email);
+        if (User::where('email', $to_email )->exists()) {
+            $request->session()->put('reset', $to_email);
         $rand = rand(100000, 999999);
         User::where('email',  $to_email)
             ->update(['reset_pass' => $rand]);
@@ -170,6 +171,10 @@ class UserController extends Controller
         Mail::to($to_email)
             ->later(now()->addSeconds(1), new ResetPass($rand));
         return redirect('/resetview');
+        }else{
+            return back()->with('fail', "Votre email n'apparait pas dans notre base des données");
+        }
+        
     }
 
     public function resetview(Request $request)

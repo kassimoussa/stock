@@ -18,27 +18,31 @@
             @endif
 
             @if ($message = Session::get('success'))
-                <div class="alert alert-success" style="width: 80%">
+                <div class="alert alert-success alert-dismissible fade show " role="alert">
                     <p>{{ $message }}</p>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+            @if ($message = Session::get('fail'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <p>{{ $message }}</p>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
 
-            @if ($message = Session::get('fail'))
-                <div class="alert alert-danger" style="width: 80%">
-                    <p>{{ $message }}</p>
-                </div>
-            @endif
-            <form action="{{ url('/acquisition/update' , $acquisition) }}" role="form" method="post" class="form" style="width: 82%">
+            <form action="{{ url('/acquisition/update', $acquisition) }}" role="form" method="post"
+                class="form" style="width: 82%">
                 @csrf
                 @method("PUT")
 
-                <div class="card  mb-3" >
+                <div class="card  mb-3">
                     <h4 class="card-header text-center">Demandeur</h4>
                     <div class="card-body">
                         <div class="mb-1 row">
                             <label class="col-sm-2 col-form-label">Nom: </label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="nom_demandeur" value="{{ $acquisition->nom_demandeur }}">
+                                <input type="text" class="form-control" name="nom_demandeur"
+                                    value="{{ $acquisition->nom_demandeur }}">
                             </div>
                         </div>
                         <div class="mb-1 row">
@@ -46,12 +50,12 @@
                             <div class="col-sm-10">
                                 <select class="form-select" name="dir_demandeur" id="direction">
                                     @foreach ($directions as $direction)
-                                    @if ($direction['sigle'] == old('document') or $direction['sigle'] == $acquisition->dir_demandeur)
-                                        <option value="{{ $direction['sigle'] }}" selected>{{ $direction['nom'] }}
-                                        </option>
-                                    @else
-                                        <option value="{{ $direction['sigle'] }}">{{ $direction['nom'] }}</option>
-                                    @endif
+                                        @if ($direction['sigle'] == old('document') or $direction['sigle'] == $acquisition->dir_demandeur)
+                                            <option value="{{ $direction['sigle'] }}" selected>{{ $direction['nom'] }}
+                                            </option>
+                                        @else
+                                            <option value="{{ $direction['sigle'] }}">{{ $direction['nom'] }}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
@@ -60,7 +64,8 @@
                             <label class="col-sm-2 col-form-label">Service: </label>
                             <div class="col-sm-10">
                                 <select name="service_demandeur" id="serv" class="form-select">
-                                    <option value="{{ $acquisition->service_demandeur }}">{{ $acquisition->service_demandeur }}</option>
+                                    <option value="{{ $acquisition->service_demandeur }}">
+                                        {{ $acquisition->service_demandeur }}</option>
                                 </select>
                             </div>
                         </div>
@@ -190,49 +195,56 @@
                             <label class="col-sm-2 col-form-label ">Nom: </label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" name="nom_mat"
-                                    placeholder="Taper le nom du materiel" id="nom_mat_input" value="{{ $acquisition->nom_mat }}">
+                                    placeholder="Taper le nom du materiel" id="nom_mat_input"
+                                    value="{{ $acquisition->nom_mat }}">
                             </div>
                         </div>
                         <div class="mb-1 row" id="desc" {{ $descdiv }}>
                             <label class="col-sm-2 col-form-label">Description: </label>
-                            
+
                             <div class="col-sm-10">
-                                <textarea name="description_mat" id="" class="form-control" cols="30" rows="2">{{ $acquisition->description_mat }}</textarea>
+                                <textarea name="description_mat" id="" class="form-control" cols="30"
+                                    rows="2">{{ $acquisition->description_mat }}</textarea>
                             </div>
                         </div>
-                        <div class="mb-1 row" id="marque" >
+                        <div class="mb-1 row" id="marque">
                             <label class="col-sm-2 col-form-label">Marque: </label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="marque_mat" value="{{ $acquisition->marque_mat }}">
+                                <input type="text" class="form-control" name="marque_mat"
+                                    value="{{ $acquisition->marque_mat }}">
                             </div>
                         </div>
                         <div class="mb-1 row" id="processeur" {{ $procediv }}>
                             <label class="col-sm-2 col-form-label">Processeur: </label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="processeur_mat" value="{{ $acquisition->processeur_mat }}">
+                                <input type="text" class="form-control" name="processeur_mat"
+                                    value="{{ $acquisition->processeur_mat }}">
                             </div>
                         </div>
                         <div class="mb-1 row" id="ram" {{ $ramdiv }}>
                             <label class="col-sm-2 col-form-label">Mémoire: </label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="ram_mat" value="{{ $acquisition->ram_mat }}">
+                                <input type="text" class="form-control" name="ram_mat"
+                                    value="{{ $acquisition->ram_mat }}">
                             </div>
                         </div>
                         <div class="mb-1 row" id="stockage" {{ $stockdiv }}>
                             <label class="col-sm-2 col-form-label">Stockage: </label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="stockage_mat" value="{{ $acquisition->stockage_mat }}">
+                                <input type="text" class="form-control" name="stockage_mat"
+                                    value="{{ $acquisition->stockage_mat }}">
                             </div>
                         </div>
                         <div class="mb-1 row" id="os" {{ $sediv }}>
                             <label class="col-sm-2 col-form-label">S.E: </label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="os_mat" value="{{ $acquisition->os_mat }}">
+                                <input type="text" class="form-control" name="os_mat"
+                                    value="{{ $acquisition->os_mat }}">
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row mt-3 mb-5 text-center" >
+                <div class="row mt-3 mb-5 text-center">
                     <div class="col-md-12 form-group">
                         <button type="submit" name="submit" class="btn btn-primary fw-bold">Modifier</button>
                         <button type="reset" class="btn btn-outline-danger  fw-bold">Annuler</button>
@@ -271,7 +283,7 @@
                     $("#os").hide();
                 }
                 if (($(this).attr('id') == "pcp") || ($(this).attr('id') == "pcb")) {
-                    $("#nom_mat_input").prop('disabled', true); 
+                    $("#nom_mat_input").prop('disabled', true);
                     $("#marque").show();
                     $("#processeur").show();
                     $("#ram").show();
@@ -282,7 +294,7 @@
                 }
                 if (($(this).attr('id') == "ai") || ($(this).attr('id') == "imp") || ($(this).attr('id') ==
                         "fax") || ($(this).attr('id') == "log")) {
-                    $("#nom_mat_input").prop('disabled', true); 
+                    $("#nom_mat_input").prop('disabled', true);
                     $("#desc").show();
                     $("#marque").show();
                     $("#processeur").hide();

@@ -313,7 +313,11 @@ use App\Models\Direction;
             <table>
                 <tbody>
                     <tr>
-                        <td class="tt" {{ $nomdiv }}>Nom </td>
+                        <td class="tt">Quantité &nbsp;</td>
+                        <td class="tc"> {{ $acquisition->quantite }}</td>
+                    </tr>
+                    <tr>
+                        <td class="tt" {{ $nomdiv }}>Nom &nbsp;</td>
                         <td class="tc" {{ $nomdiv }}> {{ $acquisition->nom_mat }}</td>
                     </tr>
                     <tr>
@@ -321,19 +325,19 @@ use App\Models\Direction;
                         <td class="tc" {{ $descdiv }}> {{ $acquisition->description_mat }}</td>
                     </tr>
                     <tr>
-                        <td class="tt">Marque</td>
+                        <td class="tt">Marque &nbsp;</td>
                         <td class="tc"> {{ $acquisition->marque_mat }}</td>
                     </tr>
                     <tr>
-                        <td class="tt">Model</td>
+                        <td class="tt">Model &nbsp;</td>
                         <td class="tc"> {{ $acquisition->model_mat }}</td>
                     </tr>
                     <tr>
-                        <td class="tt" {{ $procediv }}>Processeur</td>
+                        <td class="tt" {{ $procediv }}>Processeur &nbsp;</td>
                         <td class="tc" {{ $procediv }}> {{ $acquisition->processeur_mat }}</td>
                     </tr>
                     <tr>
-                        <td class="tt" {{ $ramdiv }}>Mémoire</td>
+                        <td class="tt" {{ $ramdiv }}>Mémoire &nbsp;</td>
                         <td class="tc" {{ $ramdiv }}> {{ $acquisition->ram_mat }}</td>
                     </tr>
                     <tr>

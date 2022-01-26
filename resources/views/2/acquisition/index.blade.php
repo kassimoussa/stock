@@ -188,7 +188,9 @@ use App\Models\Livraison;
                     @endif
                 </tbody>
             </table>
-            {{ $acquisitions->links() }}
+            <div class="d-flex justify-content-center">
+                {{ $acquisitions->links() }}
+            </div>
         </div>
 
 

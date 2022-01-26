@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\Notif1;
 use App\Mail\Notif2;
 use App\Mail\Notif3;
+use App\Models\Cataloguepc;
 use App\Models\Materiels_acquis;
 
 class AcquisitionsController extends Controller
@@ -123,20 +124,21 @@ class AcquisitionsController extends Controller
     public function create()
     {
         $sih = 'IT HelpDesk';
+        $pc = Cataloguepc::where('direction', session('dir'))->first();
         $directions = Direction::all();
         $services = Service::where('direction', session('dir'))->get();
 
         if (session('userLevel') == '2') {
             if (session('service') == $sih) {
-                return view('2.sih.acquisition.newacquis', compact('services'));
+                return view('2.sih.acquisition.newacquis', compact('services', 'pc'));
             }
         } elseif (session('userLevel') == '3') {;
-            return view('3.acquisition.newacquis', compact('services'));
+            return view('3.acquisition.newacquis', compact('services', 'pc'));
         } elseif (session('userLevel') == '4') {
             if (session('dir') == 'DSI') {
-                return view('4.dsi.acquisition.newacquis', compact('services'));
+                return view('4.dsi.acquisition.newacquis', compact('services', 'pc'));
             } else {
-                return view('4.acquisition.newacquis', compact('services'));
+                return view('4.acquisition.newacquis', compact('services', 'pc'));
             }
         }
     }
@@ -240,8 +242,8 @@ class AcquisitionsController extends Controller
         $to_name = $user->name;
         $to_email = $user->email;
         if ($query) {
-            Mail::to($to_email, $to_name)
-                ->later(now()->addSeconds(1), new Notif1($nom, $service, $direction, $submitby, $materiel));
+           /*  Mail::to($to_email, $to_name)
+                ->later(now()->addSeconds(1), new Notif1($nom, $service, $direction, $submitby, $materiel)); */
             return back()->with('success', 'Ajout réussi');
         } else {
             return back()->with('fail', 'Echec de l\'ajout ');

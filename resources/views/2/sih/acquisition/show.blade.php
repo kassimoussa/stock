@@ -235,7 +235,7 @@ use App\Models\Direction;
                                                         <a href="#" class="btn btn-transparent btn-xs" data-bs-toggle="modal"
                                                             data-bs-target="#{{ $modaln }}" >
                                                             <i class="fas fa-eye " data-bs-toggle="tooltip"
-                                                                data-bs-placement="left" title="Voir le devis {{$devi->fournisseur}}"></i>
+                                                                data-bs-placement="left" title="Voir le devis "></i>
                                                         </a>
                                                         <a href="{{ url('/intervention/download', $devi) }}"
                                                             class="btn btn-transparent btn-xs" data-bs-toggle="tooltip"

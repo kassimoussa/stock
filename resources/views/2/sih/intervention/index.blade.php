@@ -51,29 +51,38 @@ use App\Models\Livraison;
                             <tr>
                                 @php
                                     $status_dir = '';
+                                    $status_dir_txt = '';
                                     $status_sih = '';
+                                    $status_sih_txt = '';
                                     $status_din = '';
-                                    $btnhidden = '';
+                                    $status_din_txt = '';
+                                    $btnedit = '';
                                     $devishidden = '';
                                     $btnlivraison = 'hidden';
                                     
                                     if ($intervention->status_dir == 'approuve') {
                                         $status_dir = '#089415';
+                                        $status_dir_txt = 'Fiche approuvée par la direction';
                                     } elseif ($intervention->status_dir == 'attente') {
                                         $status_dir = '#efaa2d';
+                                        $status_dir_txt = 'Fiche mise en attente par la direction';
                                     } elseif ($intervention->status_dir == 'rejete') {
                                         $status_dir = '#FF0000';
+                                        $status_dir_txt = 'Fiche réjetée par la direction';
                                     } elseif ($intervention->status_dir == null) {
                                         $status_dir = '#FFFFFF';
                                     }
                                     
                                     if ($intervention->status_sih == 'approuve') {
                                         $status_sih = '#089415';
-                                        $btnhidden = 'hidden';
+                                        $status_sih_txt = 'Fiche approuvée par le service IT HelpDesk';
+                                        $btnedit = 'disabled';
                                     } elseif ($intervention->status_sih == 'attente') {
                                         $status_sih = '#efaa2d';
+                                        $status_sih_txt = 'Fiche mise en attente par le service IT HelpDesk';
                                     } elseif ($intervention->status_sih == 'rejete') {
                                         $status_sih = '#FF0000';
+                                        $status_sih_txt = 'Fiche réjetée par le service IT HelpDesk';
                                     } elseif ($intervention->status_sih == null) {
                                         $status_sih = '#FFFFFF';
                                         $devishidden = 'hidden';
@@ -81,12 +90,15 @@ use App\Models\Livraison;
                                     
                                     if ($intervention->status_din == 'approuve') {
                                         $status_din = '#089415';
-                                        $btnhidden = 'hidden';
+                                        $status_din_txt = 'Fiche approuvée par la Division Infrastructure Numérique';
+                                        $btnedit = 'disabled';
                                         $btnlivraison = ' ';
                                     } elseif ($intervention->status_din == 'attente') {
                                         $status_din = '#efaa2d';
+                                        $status_din_txt = 'Fiche mise en attente par la Division Infrastructure Numérique';
                                     } elseif ($intervention->status_din == 'rejete') {
                                         $status_din = '#FF0000';
+                                        $status_din_txt = 'Fiche réjetée par la Division Infrastructure Numérique';
                                     } elseif ($intervention->status_din == null) {
                                         $status_din = '#FFFFFF';
                                     }
@@ -96,17 +108,20 @@ use App\Models\Livraison;
                                 <td>{{ $intervention->dir_demandeur }}</td>
                                 <td>{{ $intervention->service_demandeur }}</td>
                                 <td>{{ $intervention->materiel }}</td>
-                                <td style="background: {{ $status_sih }}">SIH</td>
-                                <td style="background: {{ $status_dir }}">{{ $intervention->dir_demandeur }}</td>
-                                <td style="background: {{ $status_din }}">DIN</td>
+                                <td style="background: {{ $status_sih }} " data-bs-toggle="tooltip" data-bs-placement="bottom" 
+                                title="{{ $status_sih_txt }}">SIH</td>
+                                <td style="background: {{ $status_dir }}" data-bs-toggle="tooltip" data-bs-placement="bottom" 
+                                title="{{ $status_dir_txt }}">{{ $intervention->dir_demandeur }}</td>
+                                <td style="background: {{ $status_din }}" data-bs-toggle="tooltip" data-bs-placement="bottom" 
+                                title="{{ $status_din_txt }}">DIN</td>
                                 <td>{{ date('d/m/Y', strtotime($intervention->date_intervention)) }}</td>
                                 <td class="td-actions ">
                                     <a href="{{ url('/intervention/fiche', $intervention) }}" class="btn btn-link"
                                         data-bs-toggle="tooltip" data-bs-placement="left" title="Voir la fiche">
                                         <i class="fas fa-eye"></i>
                                     </a>
-                                    <a href="{{ url('/intervention/edit', $intervention) }}" class="btn btn-link"
-                                        data-bs-toggle="tooltip" data-bs-placement="bottom" {{ $btnhidden }}
+                                    <a href="{{ url('/intervention/edit', $intervention) }}" class="btn btn-link {{ $btnedit }}"
+                                        data-bs-toggle="tooltip" data-bs-placement="bottom" 
                                         title="Modifier la fiche">
                                         <i class="fas fa-edit"></i>
                                     </a>

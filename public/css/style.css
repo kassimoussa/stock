@@ -89,7 +89,7 @@
             z-index: var(--z-fixed)
         }
 
-        .nav {
+        .nav_ {
             height: 100%;
             display: flex;
             flex-direction: column;
@@ -148,11 +148,11 @@
             padding-left: calc(var(--nav-width) + 1rem)
         }
 
-        .active {
+        .activee {
             color: var(--gold)
         }
 
-        .active::before {
+        .activee::before {
             content: '';
             position: absolute;
             left: 0;

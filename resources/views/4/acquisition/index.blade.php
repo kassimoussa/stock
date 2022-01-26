@@ -2,34 +2,37 @@
 @section('content')
 
     <div class="row  py-3 px-3">
-        <div class="d-flex justify-content-between mb-2">
+        <div class="d-flex justify-content-between mb-5">
             <h3 class="over-title ">Fiches d'acquisiton  </h3>
 
             <a href="/acquisition/newacquis" class="btn  btn-primary  fw-bold">Nouvelle Acquisition</a>
         </div>
 
         @if ($message = Session::get('success'))
-            <div class="alert alert-success">
-                <p>{{ $message }}</p>
-            </div>
-        @endif
-        @if ($message = Session::get('fail'))
-            <div class="alert alert-danger">
-                <p>{{ $message }}</p>
-            </div>
-        @endif
+             <div class="alert alert-success alert-dismissible fade show " role="alert">
+                 <p>{{ $message }}</p>
+                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+             </div>
+         @endif
+         @if ($message = Session::get('fail'))
+             <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                 <p>{{ $message }}</p>
+                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+             </div>
+         @endif
 
         <div id="div1">
             <table class="table tablesorter table-sm table-hover" id="">
-                <thead class=" text-primary">
+                <thead class=" text-primary text-center ">
                     <th scope="col">N° Fiche</th>
                     <th scope="col">Service</th>
                     <th scope="col">Materiel</th>
                     <th scope="col">Date de soumission</th>
                     <th scope="col" colspan="2">Status</th>
+                    <th scope="col">Livraison</th>
                     <th scope="col">Actions</th>
                 </thead>
-                <tbody>
+                <tbody class=" text-center">
                     @if (!empty($acquisitions) && $acquisitions->count())
                     @php
                             $cnt = 1;
@@ -41,7 +44,8 @@
                     $status_sih = '';
                     $status_dsi = '';
                     $btnhidden = '';
-
+                    $bg = '';
+                    $status = "$acquisition->livre";
                         if($acquisition->status_dir == 'approuve'){ $status_dir = '#089415'; }
                         elseif($acquisition->status_dir == 'attente'){ $status_dir = '#efaa2d'; }
                         elseif($acquisition->status_dir == 'rejete'){ $status_dir = '#FF0000'; }
@@ -56,6 +60,9 @@
                         elseif($acquisition->status_dsi == 'attente'){ $status_dsi = '#efaa2d'; }
                         elseif($acquisition->status_dsi == 'rejete'){ $status_dsi = '#FF0000'; }
                         elseif($acquisition->status_dsi == null){ $status_dsi = '#FFFFFF'; }
+
+                        if($acquisition->livre == 'oui'){ $bg = 'success';}
+                        elseif($acquisition->livre == 'non'){ $bg = 'danger'; }
                     @endphp
                         <tr>
                             <td>{{ $acquisition->id }}</td>
@@ -64,6 +71,7 @@
                             <td>{{ date('d/m/Y à H:i:s', strtotime($acquisition->date_submit)) }}</td>
                             <td style="background: {{ $status_sih }}" >SIH</td>
                             <td style="background: {{ $status_dsi }}">DSI</td>
+                            <td class="bg-{{ $bg }} text-white">{{ $status }}</td>
                             <td class="td-actions ">
                                 <a href="{{ url('/acquisition/fiche', $acquisition) }}" class="btn btn-link" data-bs-toggle="tooltip" data-bs-placement="bottom"
                                     title="Voir la fiche">

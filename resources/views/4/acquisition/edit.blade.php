@@ -18,16 +18,18 @@
             @endif
 
             @if ($message = Session::get('success'))
-                <div class="alert alert-success" style="width: 80%">
-                    <p>{{ $message }}</p>
-                </div>
-            @endif
+             <div class="alert alert-success alert-dismissible fade show " role="alert">
+                 <p>{{ $message }}</p>
+                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+             </div>
+         @endif
+         @if ($message = Session::get('fail'))
+             <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                 <p>{{ $message }}</p>
+                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+             </div>
+         @endif
 
-            @if ($message = Session::get('fail'))
-                <div class="alert alert-danger" style="width: 80%">
-                    <p>{{ $message }}</p>
-                </div>
-            @endif
             <form action="{{ url('/acquisition/update' , $acquisition) }}" role="form" method="post" class="form" style="width: 82%">
                 @csrf
                 @method("PUT")

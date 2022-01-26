@@ -91,7 +91,7 @@
                             <div class="mb-1 mt-2 row" id="quant" style="display:none">
                                 <div class="input-group ">
                                     <span class="input-group-text txt fw-bold ">Quantité</span>
-                                    <input type="text" class="form-control" name="quantite">
+                                    <input type="text" class="form-control" id="quantite" name="quantite">
                                 </div>
                             </div>
 
@@ -111,37 +111,37 @@
                             <div class="mb-1 row" id="marque" style="display:none">
                                 <div class="input-group ">
                                     <span class="input-group-text txt fw-bold ">Marque</span>
-                                    <input type="text" class="form-control" name="marque_mat">
+                                    <input type="text" class="form-control" id="marque_mat" name="marque_mat">
                                 </div>  
                             </div>
                             <div class="mb-1 row" id="model" style="display:none">
                                 <div class="input-group ">
                                     <span class="input-group-text txt fw-bold ">Model</span>
-                                    <input type="text" class="form-control" name="model_mat">
+                                    <input type="text" class="form-control" id="model_mat" name="model_mat">
                                 </div>  
                             </div>
                             <div class="mb-1 row" id="processeur" style="display:none">
                                 <div class="input-group ">
                                     <span class="input-group-text txt fw-bold ">Processeur</span>
-                                    <input type="text" class="form-control" name="processeur_mat">
+                                    <input type="text" class="form-control" id="processeur_mat" name="processeur_mat">
                                 </div>  
                             </div>
                             <div class="mb-1 row" id="ram" style="display:none">
                                 <div class="input-group ">
                                     <span class="input-group-text txt fw-bold ">Mémoire</span>
-                                    <input type="text" class="form-control" name="ram_mat">
+                                    <input type="text" class="form-control" id="ram_mat" name="ram_mat">
                                 </div>  
                             </div>
                             <div class="mb-1 row" id="stockage" style="display:none">
                                 <div class="input-group ">
                                     <span class="input-group-text txt fw-bold ">Stockage</span>
-                                    <input type="text" class="form-control" name="stockage_mat">
+                                    <input type="text" class="form-control" id="stockage_mat" name="stockage_mat">
                                 </div>  
                             </div>
                             <div class="mb-1 row" id="os" style="display:none">
                                 <div class="input-group ">
                                     <span class="input-group-text txt fw-bold ">S.E</span>
-                                    <input type="text" class="form-control" name="os_mat">
+                                    <input type="text" class="form-control" id="os_mat" name="os_mat">
                                 </div>  
                             </div>
 
@@ -198,6 +198,8 @@
 
     </style>
     <script>
+        var pc = <?php echo $pc ?>;
+        console.log(pc.id);
         $(function() {
             $('input[type="radio"]').click(function() {
                 if ($(this).attr('id') == "autre") {
@@ -205,8 +207,8 @@
                     $("#quant").show();
                     $("#desc").show();
                     $("#inputautre").show();
-                    $("#marque").show();
-                    $("#model").show();
+                    $("#marque").show();document.getElementById('marque_mat').value = " ";
+                    $("#model").show();document.getElementById('model_mat').value = " ";
                     $("#processeur").hide();
                     $("#ram").hide();
                     $("#stockage").hide();
@@ -215,12 +217,12 @@
                 if (($(this).attr('id') == "pcp") || ($(this).attr('id') == "pcb")) {
                     $("#nom_mat_input").prop('disabled', true);
                     $("#quant").show();
-                    $("#marque").show();
-                    $("#model").show();
-                    $("#processeur").show();
-                    $("#ram").show();
-                    $("#stockage").show();
-                    $("#os").show();
+                    $("#marque").show(); document.getElementById('marque_mat').value = pc.marque_mat;
+                    $("#model").show();document.getElementById('model_mat').value = pc.model_mat;
+                    $("#processeur").show();document.getElementById('processeur_mat').value = pc.processeur_mat;
+                    $("#ram").show();document.getElementById('ram_mat').value = pc.ram_mat;
+                    $("#stockage").show();document.getElementById('stockage_mat').value = pc.stockage_mat;
+                    $("#os").show();document.getElementById('os_mat').value = pc.os_mat;
                     $("#inputautre").hide();
                     $("#desc").hide();
                 }
@@ -229,8 +231,8 @@
                     $("#nom_mat_input").prop('disabled', true);
                     $("#quant").show();
                     $("#desc").show();
-                    $("#marque").show();
-                    $("#model").show();
+                    $("#marque").show();document.getElementById('marque_mat').value = " ";
+                    $("#model").show();document.getElementById('model_mat').value = " ";
                     $("#processeur").hide();
                     $("#ram").hide();
                     $("#stockage").hide();
@@ -241,37 +243,5 @@
             });
         });
     </script>
-    {{-- <script>
-        $('#direction').change(function() {
-
-            var directionID = $(this).val();
-
-            if (directionID) {
-
-                $.ajax({
-                    type: "GET",
-                    url: "{{ url('getServices') }}?dir_id=" + directionID,
-                    success: function(res) {
-
-                        if (res) {
-
-                            $("#serv").empty();
-                            $("#serv").append('<option>Select Service</option>');
-                            $.each(res, function(key, value) {
-                                $("#serv").append('<option value="' + value + '">' + value +
-                                    '</option>');
-                            });
-
-                        } else {
-
-                            $("#serv").empty();
-                        }
-                    }
-                });
-            } else {
-
-                $("#serv").empty();
-            }
-        });
-    </script> --}}
+     
 @endsection

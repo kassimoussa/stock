@@ -29,7 +29,7 @@
 					</span>
 
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-                        <input type="text" class="input100 @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Taper votre email">
+                        <input type="email" class="input100 @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Taper votre email">
                         <span  class="invalid-feedback">@error('email') {{ $message }} @enderror</span>
 						<span class="focus-input100-1"></span>
 						<span class="focus-input100-2"></span>
@@ -39,7 +39,7 @@
                         <button type="submit" class="login100-form-btn fw-bold">ENVOYER</button>
 					</div>
                     <div class="d-flex justify-content-between">
-                        <a href="register" class="linky" >Ajouter un utilisateur</a>   
+                        {{-- <a href="register" class="linky" >Ajouter un utilisateur</a>   --}} 
                         <a href="/" class="linky" >Se Connecter</a> 
                     </div>
 				</form>

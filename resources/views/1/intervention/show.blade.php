@@ -1,25 +1,45 @@
 @extends('1.layout', ['page' => 'Fiche Intervention', 'pageSlug' => 'intervention'])
 @section('content')
+
     <br>
-    <div class="row mt-3">
-        <h3 class="fw-bold mt-3">FICHE D'INTERVENTION</h3>
+
+    <div class="container mt-3">
+        <div class="d-flex justify-content-between mb-4 ">
+            <h3 class="over-title ">FICHE D'INTERVENTION </h3>
+            @if ($intervention->status_din == 'approuve')
+                <a href="{{ url('/generate-intervention', $intervention) }}"
+                    class="btn  btn-primary  fw-bold text-white">IMPRIMER</a>
+            @endif
+
+        </div>
         <div class="row">
+
+            @if ($message = Session::get('success'))
+                <div class="alert alert-success">
+                    <p>{{ $message }}</p>
+                </div>
+            @endif
+            @if ($message = Session::get('fail'))
+                <div class="alert alert-danger">
+                    <p>{{ $message }}</p>
+                </div>
+            @endif
+
             <div class="col-lg-12">
                 <div class="card  mb-3">
                     <h4 class="card-header text-center">Technicien</h4>
                     <div class="card-body">
                         <div class="input-group mb-2">
-                            <span class="input-group-text txt fw-bold ">Nom</span> 
-                            <label class="form-control">{{ $intervention->nom_intervenant }} </label> 
+                            <span class="input-group-text txt fw-bold ">Nom</span>
+                            <label class="form-control">{{ $intervention->nom_intervenant }} </label>
                         </div>
                         <div class="input-group ">
-                            <span class="input-group-text txt fw-bold ">Diagnostique</span>  
-                            <label class="form-control">{{ $intervention->diagnostique }} </label>  
+                            <span class="input-group-text txt fw-bold ">Diagnostique</span>
+                            <label class="form-control">{{ $intervention->diagnostique }} </label>
                         </div>
                     </div>
                 </div>
             </div>
-
 
             <div class="col-lg-12">
                 <div class="card mb-3">
@@ -31,12 +51,12 @@
                                     <h4 class="card-header ch2 text-center">Sur le materiel</h4>
                                     <div class="card-body">
                                         <div class="form-group control-label mb-1">
-                                            <label class="control-label">Libellé   </label>
+                                            <label class="control-label">Libellé </label>
                                             <input type="text" class="form-control" name="materiel"
                                                 value="{{ $intervention->materiel }}" readonly>
                                         </div>
                                         <div class="form-group control-label mb-1">
-                                            <label class="control-label">Model  </label>
+                                            <label class="control-label">Model </label>
                                             <input type="text" class="form-control" name="model"
                                                 value="{{ $intervention->model }}" readonly>
                                         </div>
@@ -60,12 +80,12 @@
                                     <h4 class="card-header ch2 text-center">Sur le demandeur</h4>
                                     <div class="card-body">
                                         <div class="form-group control-label mb-1">
-                                            <label class="control-label">Nom  </label>
+                                            <label class="control-label">Nom </label>
                                             <input type="text" class="form-control" name="nom_demandeur"
                                                 value="{{ $intervention->nom_demandeur }}" readonly>
                                         </div>
                                         <div class="form-group control-label mb-1">
-                                            <label class="control-label">Direction ou Département  </label>
+                                            <label class="control-label">Direction ou Département </label>
                                             <input type="text" class="form-control" name="dir_demandeur"
                                                 value="{{ $intervention->dir_demandeur }}" readonly>
                                         </div>
@@ -81,143 +101,185 @@
                     </div>
                 </div>
             </div>
-
-            @if($intervention->status_direction != null)
-            <div class="col-lg-12">
-                <div class="card  mb-3">
-                    <h4 class="card-header text-center">Demandeur</h4>
-                    <div class="card-body">
-                        @php
-                            $approuve = $attente = $rejete = $sugg = $button = ' ';
-                            
-                            if ($intervention->status_direction== 'approuve') {
-                                $approuve = 'checked';
-                                $button = 'hidden';
-                                $attente = $rejete = $sugg = ' disabled ';
-                            } elseif ($intervention->status_direction == 'attente') {
-                                $attente = 'checked'; $approuve = $rejete =  ' disabled ' ;
-                            } elseif ($intervention->status_direction == 'rejete') {
-                                $rejete = 'checked'; $approuve = $attente =  ' disabled '; 
-                            }
-                        @endphp
-                        <div class="col-md-12">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="status_direction" id="Approuver" value="approuve" {{ $approuve }}>
-                                <label class="form-check-label" for="Approuver">Approuver</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="status_direction" id="attente" value="attente" {{ $attente }}>
-                                <label class="form-check-label" for="attente">En attente</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="status_direction" id="rejete" value="rejete" {{ $rejete }}>
-                                <label class="form-check-label" for="rejete">Rejeter</label>
-                            </div>
-                        </div>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text fw-bold">Commentaire</span>
-                            <textarea name="commentaire" id="" class="form-control" cols="30" rows="2"
-                                readonly>{{ $intervention->commentaire }}</textarea>
-                        </div>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text fw-bold">Date</span>
-                            <label class="form-control">{{ date('d/m/Y', strtotime($intervention->date_dir_approbation)) }} </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            @endif
-
-            @if($intervention->status_service != null)
+ 
             <div class="col-lg-12">
                 <div class="card  mb-3">
                     <h4 class="card-header text-center">SIH</h4>
                     <div class="card-body">
                         @php
-                            $approuve = $attente = $rejete = $sugg = $button = ' ';
+                            $approuve = $attente = $rejete = $sug = $button = ' ';
                             
-                            if ($intervention->status_service== 'approuve') {
+                            if ($intervention->status_sih == 'approuve') {
                                 $approuve = 'checked';
-                                $button = 'hidden';
+                                $sug = $button = 'hidden';
                                 $attente = $rejete = $sugg = ' disabled ';
-                            } elseif ($intervention->status_service == 'attente') {
-                                $attente = 'checked'; $approuve = $rejete =  ' disabled ' ;
-                            } elseif ($intervention->status_service == 'rejete') {
-                                $rejete = 'checked';  $approuve = $attente =  ' disabled ' ;
+                            } elseif ($intervention->status_sih == 'attente') {
+                                $attente = 'checked';
+                                $approuve = $rejete = ' disabled ';
+                            } elseif ($intervention->status_sih == 'rejete') {
+                                $rejete = 'checked';
+                                $approuve = $attente = ' disabled ';
                             }
                         @endphp
-                        <div class="col-md-12">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="status_service" id="Approuver" value="approuve" {{ $approuve }}>
-                                <label class="form-check-label" for="Approuver">Approuver</label>
+                        @if ($intervention->status_sih != null)
+                            <div class="col-md-12 mb-3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="status_sih" id="Approuver"
+                                        value="approuve" {{ $approuve }}>
+                                    <label class="form-check-label" for="Approuver">Approuver</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="status_sih" id="attente"
+                                        value="attente" {{ $attente }}>
+                                    <label class="form-check-label" for="attente">En attente</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="status_sih" id="rejete"
+                                        value="rejete" {{ $rejete }}>
+                                    <label class="form-check-label" for="rejete">Rejeter</label>
+                                </div>
                             </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="status_service" id="attente" value="attente" {{ $attente }}>
-                                <label class="form-check-label" for="attente">En attente</label>
+                            <div class="input-group mb-3" {{ $sug }}>
+                                <span class="input-group-text fw-bold">Suggestion</span>
+                                <textarea name="suggestion" id="" class="form-control" cols="30" rows="2"
+                                    readonly>{{ $intervention->commentaire }}</textarea>
                             </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="status_service" id="rejete" value="rejete" {{ $rejete }}>
-                                <label class="form-check-label" for="rejete">Rejeter</label>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text fw-bold">Date</span>
+                                <label
+                                    class="form-control">{{ date('d/m/Y', strtotime($intervention->date_sih)) }}
+                                </label>
                             </div>
-                        </div>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text fw-bold">Suggestion</span>
-                            <textarea name="suggestion" id="" class="form-control" cols="30" rows="2"
-                                readonly>{{ $intervention->suggestion }}</textarea>
-                        </div>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text fw-bold">Date</span>
-                            <label class="form-control">{{ date('d/m/Y', strtotime($intervention->date_ser_approbation)) }} </label>
+                        @else
+                            <div class="alert alert-danger">
+                                <h3 class="fw-bold"> Le sih n'a pas encore
+                                    approuvé la fiche d'intervention </h3>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            </div> 
+
+            @if ($intervention->status_sih == 'approuve')
+                <div class="col-lg-12">
+                    <div class="card  mb-3">
+                        <h4 class="card-header text-center">Direction Demandeuse</h4>
+                        <div class="card-body">
+                            @php
+                                $approuve = $attente = $rejete = $com = $button = ' ';
+                                
+                                if ($intervention->status_dir == 'approuve') {
+                                    $approuve = 'checked';
+                                    $com = $button = 'hidden';
+                                    $attente = $rejete = $sugg = ' disabled ';
+                                } elseif ($intervention->status_dir == 'attente') {
+                                    $attente = 'checked';
+                                    $approuve = $rejete = ' disabled ';
+                                } elseif ($intervention->status_dir == 'rejete') {
+                                    $rejete = 'checked';
+                                    $approuve = $attente = ' disabled ';
+                                }
+                            @endphp
+                            @if ($intervention->status_dir != null)
+                                <div class="col-md-12 mb-3">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="status_dir" id="Approuver"
+                                            value="approuve" {{ $approuve }}>
+                                        <label class="form-check-label" for="Approuver">Approuver</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="status_dir" id="attente"
+                                            value="attente" {{ $attente }}>
+                                        <label class="form-check-label" for="attente">En attente</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="status_dir" id="rejete"
+                                            value="rejete" {{ $rejete }}>
+                                        <label class="form-check-label" for="rejete">Rejeter</label>
+                                    </div>
+                                </div>
+                                <div class="input-group mb-3" {{ $sug }}>
+                                    <span class="input-group-text fw-bold">Avis</span>
+                                    <textarea name="suggestion" id="" class="form-control" cols="30" rows="2"
+                                        readonly>{{ $intervention->commentaire }}</textarea>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text fw-bold">Date</span>
+                                    <label
+                                        class="form-control">{{ date('d/m/Y', strtotime($intervention->date_dir)) }}
+                                    </label>
+                                </div>
+                            @else
+                                <div class="alert alert-danger">
+                                    <h3 class="fw-bold"> La {{ $intervention->dir_demandeur }} n'a pas encore
+                                        approuvé la fiche d'intervention </h3>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
-            </div>
             @endif
 
-            @if($intervention->status_division != null)
-            <div class="col-lg-12">
-                <div class="card  mb-3">
-                    <h4 class="card-header text-center">DIN</h4>
-                    <div class="card-body">
-                        @php
-                            $approuve = $attente = $rejete = $sugg = $button = ' ';
-                            
-                            if ($intervention->status_division== 'approuve') {
-                                $approuve = 'checked';
-                                $button = 'hidden';
-                                $attente = $rejete = $sugg = ' disabled ';
-                            } elseif ($intervention->status_division == 'attente') {
-                                $attente = 'checked'; /* $approuve = $rejete =  ' disabled ' */
-                            } elseif ($intervention->status_division == 'rejete') {
-                                $rejete = 'checked'; /* $approuve = $attente =  ' disabled ' */
-                            }
-                        @endphp
-                        <div class="col-md-12">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="status_division" id="Approuver" value="approuve" {{ $approuve }}>
-                                <label class="form-check-label" for="Approuver">Approuver</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="status_division" id="attente" value="attente" {{ $attente }}>
-                                <label class="form-check-label" for="attente">En attente</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="status_division" id="rejete" value="rejete" {{ $rejete }}>
-                                <label class="form-check-label" for="rejete">Rejeter</label>
-                            </div>
-                        </div>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text fw-bold">Avis</span>
-                            <textarea name="suggestion" id="" class="form-control" cols="30" rows="2"
-                                readonly>{{ $intervention->avis }}</textarea>
-                        </div>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text fw-bold">Date</span>
-                            <label class="form-control">{{ date('d/m/Y', strtotime($intervention->date_div_approbation)) }} </label>
+            @if ($intervention->status_dir == 'approuve')
+
+
+                <div class="col-lg-12">
+                    <div class="card  mb-3">
+                        <h4 class="card-header text-center">DIN</h4>
+                        <div class="card-body">
+                            @php
+                                $approuve = $attente = $rejete = $avis = $button = ' ';
+                                
+                                if ($intervention->status_din == 'approuve') {
+                                    $approuve = 'checked';
+                                    $button = $avis = 'hidden';
+                                    $attente = $rejete = $sugg = ' disabled ';
+                                } elseif ($intervention->status_din == 'attente') {
+                                    $attente = 'checked';
+                                    $approuve = $rejete = ' disabled ';
+                                } elseif ($intervention->status_din == 'rejete') {
+                                    $rejete = 'checked';
+                                    $approuve = $attente = ' disabled ';
+                                }
+                            @endphp
+                            @if ($intervention->status_din != null)
+                                <div class="col-md-12 mb-3">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="status_din" id="Approuver"
+                                            value="approuve" {{ $approuve }}>
+                                        <label class="form-check-label" for="Approuver">Approuver</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="status_din" id="attente"
+                                            value="attente" {{ $attente }}>
+                                        <label class="form-check-label" for="attente">En attente</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="status_din" id="rejete"
+                                            value="rejete" {{ $rejete }}>
+                                        <label class="form-check-label" for="rejete">Rejeter</label>
+                                    </div>
+                                </div>
+                                <div class="input-group mb-3" {{ $avis }}>
+                                    <span class="input-group-text fw-bold">Avis</span>
+                                    <textarea name="suggestion" id="" class="form-control" cols="30" rows="2"
+                                        readonly>{{ $intervention->avis }}</textarea>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text fw-bold">Date</span>
+                                    <label
+                                        class="form-control">{{ date('d/m/Y', strtotime($intervention->date_din)) }}
+                                    </label>
+                                </div>
+                            @else
+                                <div class="alert alert-danger">
+                                    <h3 class="fw-bold"> Le chef de DIN n'a pas encore
+                                        approuvé la fiche d'intervention </h3>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
-            </div>
             @endif
 
         </div>

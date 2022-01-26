@@ -1,40 +1,41 @@
 @extends('2.sih.layout', ['page' => 'Fiche Intervention', 'pageSlug' => 'intervention'])
 @section('content')
 
-<br>
+    <br>
 
-    <div class="container mt-3"> 
-        <div class="d-flex justify-content-between mb-4 " >
-            <h3 class="over-title ">FICHE D'INTERVENTION  </h3>
+    <div class="container mt-3">
+        <div class="d-flex justify-content-between mb-4 ">
+            <h3 class="over-title ">FICHE D'INTERVENTION </h3>
             @if ($intervention->status_din == 'approuve')
-            <a href="{{ url('/generate-intervention', $intervention) }}" class="btn  btn-primary  fw-bold text-white">IMPRIMER</a>
+                <a href="{{ url('/generate-intervention', $intervention) }}"
+                    class="btn  btn-primary  fw-bold text-white">IMPRIMER</a>
             @endif
-            
+
         </div>
         <div class="row">
 
             @if ($message = Session::get('success'))
-            <div class="alert alert-success">
-                <p>{{ $message }}</p>
-            </div>
-        @endif
-        @if ($message = Session::get('fail'))
-            <div class="alert alert-danger">
-                <p>{{ $message }}</p>
-            </div>
-        @endif
+                <div class="alert alert-success">
+                    <p>{{ $message }}</p>
+                </div>
+            @endif
+            @if ($message = Session::get('fail'))
+                <div class="alert alert-danger">
+                    <p>{{ $message }}</p>
+                </div>
+            @endif
 
             <div class="col-lg-12">
                 <div class="card  mb-3">
                     <h4 class="card-header text-center">Technicien</h4>
                     <div class="card-body">
                         <div class="input-group mb-2">
-                            <span class="input-group-text txt fw-bold ">Nom</span> 
-                            <label class="form-control">{{ $intervention->nom_intervenant }} </label> 
+                            <span class="input-group-text txt fw-bold ">Nom</span>
+                            <label class="form-control">{{ $intervention->nom_intervenant }} </label>
                         </div>
                         <div class="input-group ">
-                            <span class="input-group-text txt fw-bold ">Diagnostique</span>  
-                            <label class="form-control">{{ $intervention->diagnostique }} </label>  
+                            <span class="input-group-text txt fw-bold ">Diagnostique</span>
+                            <label class="form-control">{{ $intervention->diagnostique }} </label>
                         </div>
                     </div>
                 </div>
@@ -50,12 +51,12 @@
                                     <h4 class="card-header ch2 text-center">Sur le materiel</h4>
                                     <div class="card-body">
                                         <div class="form-group control-label mb-1">
-                                            <label class="control-label">Libellé   </label>
+                                            <label class="control-label">Libellé </label>
                                             <input type="text" class="form-control" name="materiel"
                                                 value="{{ $intervention->materiel }}" readonly>
                                         </div>
                                         <div class="form-group control-label mb-1">
-                                            <label class="control-label">Model  </label>
+                                            <label class="control-label">Model </label>
                                             <input type="text" class="form-control" name="model"
                                                 value="{{ $intervention->model }}" readonly>
                                         </div>
@@ -79,12 +80,12 @@
                                     <h4 class="card-header ch2 text-center">Sur le demandeur</h4>
                                     <div class="card-body">
                                         <div class="form-group control-label mb-1">
-                                            <label class="control-label">Nom  </label>
+                                            <label class="control-label">Nom </label>
                                             <input type="text" class="form-control" name="nom_demandeur"
                                                 value="{{ $intervention->nom_demandeur }}" readonly>
                                         </div>
                                         <div class="form-group control-label mb-1">
-                                            <label class="control-label">Direction ou Département  </label>
+                                            <label class="control-label">Direction ou Département </label>
                                             <input type="text" class="form-control" name="dir_demandeur"
                                                 value="{{ $intervention->dir_demandeur }}" readonly>
                                         </div>
@@ -106,11 +107,11 @@
                     <h4 class="card-header text-center">SIH</h4>
                     <div class="card-body">
                         @php
-                            $approuve = $attente = $rejete = $button = $date = ' ';
+                            $approuve = $attente = $rejete = $button = $date = $sug = ' ';
                             
                             if ($intervention->status_sih == 'approuve') {
                                 $approuve = 'checked';
-                                $button = 'hidden';
+                                $button = $sug = 'hidden';
                                 $attente = $rejete = ' disabled ';
                             } elseif ($intervention->status_sih == 'attente') {
                                 $date = 'hidden ';
@@ -126,7 +127,7 @@
                                 @csrf
                                 @method('PUT')
 
-                                <div class="col-md-12">
+                                <div class="col-md-12 mb-3">
                                     <div class="form-check form-check-inline ">
                                         <input class="form-check-input" type="radio" name="status_sih" id="Approuver"
                                             value="approuve" {{ $approuve }}>
@@ -162,7 +163,7 @@
                                 @csrf
                                 @method('PUT')
 
-                                <div class="col-md-12">
+                                <div class="col-md-12 mb-3">
                                     <div class="form-check form-check-inline ">
                                         <input class="form-check-input" type="radio" name="status_sih" id="Approuver"
                                             value="approuve" {{ $approuve }}>
@@ -179,7 +180,7 @@
                                         <label class="form-check-label" for="rejete">Rejeter</label>
                                     </div>
                                 </div>
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-3" {{ $sug }}>
                                     <span class="input-group-text fw-bold">Suggestion</span>
                                     <textarea name="suggestion" id="" class="form-control" cols="30"
                                         rows="2">{{ $intervention->suggestion }}</textarea>
@@ -214,11 +215,11 @@
                         <h4 class="card-header text-center">Direction Demandeuse</h4>
                         <div class="card-body">
                             @php
-                                $approuve = $attente = $rejete = $sugg = $button = ' ';
+                                $approuve = $attente = $rejete = $com = $button = ' ';
                                 
                                 if ($intervention->status_dir == 'approuve') {
                                     $approuve = 'checked';
-                                    $button = 'hidden';
+                                    $com = $button = 'hidden';
                                     $attente = $rejete = $sugg = ' disabled ';
                                 } elseif ($intervention->status_dir == 'attente') {
                                     $attente = 'checked';
@@ -229,7 +230,7 @@
                                 }
                             @endphp
                             @if ($intervention->status_dir != null)
-                                <div class="col-md-12">
+                                <div class="col-md-12 mb-3">
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="status_dir" id="Approuver"
                                             value="approuve" {{ $approuve }}>
@@ -246,7 +247,7 @@
                                         <label class="form-check-label" for="rejete">Rejeter</label>
                                     </div>
                                 </div>
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-3" {{ $sug }}>
                                     <span class="input-group-text fw-bold">Avis</span>
                                     <textarea name="suggestion" id="" class="form-control" cols="30" rows="2"
                                         readonly>{{ $intervention->commentaire }}</textarea>
@@ -276,11 +277,11 @@
                         <h4 class="card-header text-center">DIN</h4>
                         <div class="card-body">
                             @php
-                                $approuve = $attente = $rejete = $sugg = $button = ' ';
+                                $approuve = $attente = $rejete = $avis = $button = ' ';
                                 
                                 if ($intervention->status_din == 'approuve') {
                                     $approuve = 'checked';
-                                    $button = 'hidden';
+                                    $button = $avis = 'hidden';
                                     $attente = $rejete = $sugg = ' disabled ';
                                 } elseif ($intervention->status_din == 'attente') {
                                     $attente = 'checked';
@@ -291,7 +292,7 @@
                                 }
                             @endphp
                             @if ($intervention->status_din != null)
-                                <div class="col-md-12">
+                                <div class="col-md-12 mb-3">
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="status_din" id="Approuver"
                                             value="approuve" {{ $approuve }}>
@@ -308,7 +309,7 @@
                                         <label class="form-check-label" for="rejete">Rejeter</label>
                                     </div>
                                 </div>
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-3" {{ $avis }}>
                                     <span class="input-group-text fw-bold">Avis</span>
                                     <textarea name="suggestion" id="" class="form-control" cols="30" rows="2"
                                         readonly>{{ $intervention->avis }}</textarea>
