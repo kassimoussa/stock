@@ -280,7 +280,7 @@ use App\Models\Direction;
         @endphp
 
         <div class="container">
-            <label class="container-radio">
+            {{-- <label class="container-radio">
                 <input type="radio" name="radio" class="radio" {{ $pcb }}> PC Bureau
                 <span class="checkmark"></span>
             </label>
@@ -307,19 +307,19 @@ use App\Models\Direction;
             <label class="container-radio">
                 <input type="radio" name="radio" class="radio" {{ $autre }}> Autre
                 <span class="checkmark"></span>
-            </label>
+            </label> --}} 
         </div>
         <div class="container">
             <table>
                 <tbody>
                     <tr>
-                        <td class="tt">Quantité &nbsp;</td>
-                        <td class="tc"> {{ $acquisition->quantite }}</td>
+                        <td class="tt">Materiel &nbsp;</td>
+                        <td class="tc"> {{ $acquisition->nom_mat }}</td>
                     </tr>
                     <tr>
-                        <td class="tt" {{ $nomdiv }}>Nom &nbsp;</td>
-                        <td class="tc" {{ $nomdiv }}> {{ $acquisition->nom_mat }}</td>
-                    </tr>
+                        <td class="tt">Quantité &nbsp;</td>
+                        <td class="tc"> {{ $acquisition->quantite }}</td>
+                    </tr> 
                     <tr>
                         <td class="tt" {{ $descdiv }}>Description &nbsp;</td>
                         <td class="tc" {{ $descdiv }}> {{ $acquisition->description_mat }}</td>
