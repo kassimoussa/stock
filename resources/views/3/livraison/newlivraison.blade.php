@@ -15,14 +15,15 @@
             @endif
 
             @if ($message = Session::get('success'))
-                <div class="alert alert-success">
+                <div class="alert alert-success alert-dismissible fade show " role="alert">
                     <p>{{ $message }}</p>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
-
             @if ($message = Session::get('fail'))
-                <div class="alert alert-danger">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <p>{{ $message }}</p>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
             <form action="addlivraison" role="form" method="post" class="form">
@@ -64,9 +65,11 @@
                                 <a class="input-group-text icon add_button" onclick="addInput()">
                                     <i class="fa fa-plus" aria-hidden="true"></i>
                                 </a>
-                                <input type="text" class="form-control" name="nom_materiel[]" placeholder="Nom du Materiel" >
-                                <input type="text" class="form-control" name="quantite[]" placeholder="Quantité" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')">
-                                <input type="text" class="form-control" name="observation[]" placeholder="Observation" >
+                                <input type="text" class="form-control" name="nom_materiel[]"
+                                    placeholder="Nom du Materiel">
+                                <input type="text" class="form-control" name="quantite[]" placeholder="Quantité"
+                                    onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')">
+                                <input type="text" class="form-control" name="observation[]" placeholder="Observation">
                                 <input type="text" class="form-control" name="id" value="{{ time() }}" hidden>
                             </div>
                         </div>
@@ -96,6 +99,7 @@
             background: #4F81BD;
             color: white;
         }
+
         .txt {
             width: 17%;
         }

@@ -15,14 +15,15 @@
             @endif
 
             @if ($message = Session::get('success'))
-                <div class="alert alert-success">
+                <div class="alert alert-success alert-dismissible fade show " role="alert">
                     <p>{{ $message }}</p>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
-
             @if ($message = Session::get('fail'))
-                <div class="alert alert-danger">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <p>{{ $message }}</p>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
             <form action="{{ url('/stocks/retrait', $stock) }}" role="form" method="post" class="form">
@@ -50,7 +51,7 @@
                             <div class="col-md-6">
                                 <div class="input-group mb-3 ">
                                     <span class="input-group-text txt fw-bold ">Raison</span>
-                                    <input type="text" class="form-control" name="raison" >
+                                    <input type="text" class="form-control" name="raison">
                                 </div>
                             </div>
 
@@ -73,7 +74,7 @@
 
                     </div>
                 </div>
-                
+
             </form>
         </div>
         <br>
@@ -122,30 +123,31 @@
                 </thead>
                 <tbody>
                     @if (!empty($sorties) && $sorties->count())
-                    @php
+                        @php
                             $cnt = 1;
                         @endphp
 
-                    @foreach ($sorties as $key => $sortie)
-                        <tr>
-                            <td>{{ $cnt }}</td>
-                            <td>{{ $sortie->quantite }}</td>
-                            <td>
-                                @if ($sortie->raison == 'livraison')
-                                <a href="{{ url('/livraison/show', $sortie->numero_fiche) }}" class="" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                    title="Voir la fiche de livraison  " >
-                                    {{ ucfirst( $sortie->raison) }}</i>
-                                </a>
-                                @else
-                                {{ ucfirst( $sortie->raison) }}
-                                @endif
+                        @foreach ($sorties as $key => $sortie)
+                            <tr>
+                                <td>{{ $cnt }}</td>
+                                <td>{{ $sortie->quantite }}</td>
+                                <td>
+                                    @if ($sortie->raison == 'livraison')
+                                        <a href="{{ url('/livraison/show', $sortie->numero_fiche) }}"
+                                            class="" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                            title="Voir la fiche de livraison  ">
+                                            {{ ucfirst($sortie->raison) }}</i>
+                                        </a>
+                                    @else
+                                        {{ ucfirst($sortie->raison) }}
+                                    @endif
                                 </td>
-                            <td>{{ date('d/m/Y', strtotime($sortie->date_sortie)) }}</td>
-                        </tr>
-                        @php
-                        $cnt = $cnt +1;
-                    @endphp
-                    @endforeach
+                                <td>{{ date('d/m/Y', strtotime($sortie->date_sortie)) }}</td>
+                            </tr>
+                            @php
+                                $cnt = $cnt + 1;
+                            @endphp
+                        @endforeach
                     @else
                         <tr>
                             <td colspan="10">There are no data.</td>
@@ -153,7 +155,7 @@
                     @endif
                 </tbody>
             </table>
-           
+
         </div>
     </div>
     <style>
@@ -170,6 +172,7 @@
             background: #4F81BD;
             color: white;
         }
+
         .txt {
             width: 20%;
         }

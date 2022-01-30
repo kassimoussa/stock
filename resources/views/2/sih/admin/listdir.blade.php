@@ -2,27 +2,29 @@
 @section('content')
 
     <div class="row  py-3 px-3">
-        <div class="d-flex justify-content-between ">
-            <h3 class="over-title mb-2">La liste des directions </h3>
+        <div class="d-flex justify-content-between mb-3">
+            <h3 class="over-title ">La liste des directions </h3>
 
             <a href="newdir" class="btn  btn-primary  fw-bold">Nouvelle Direction</a>
 
         </div>
 
         @if ($message = Session::get('success'))
-            <div class="alert alert-success">
+            <div class="alert alert-success alert-dismissible fade show " role="alert">
                 <p>{{ $message }}</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
         @if ($message = Session::get('fail'))
-            <div class="alert alert-danger">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <p>{{ $message }}</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
 
         <div>
-            <table class="table tablesorter table-sm table-hover" id="">
-                <thead class=" text-primary">
+            <table class="table   border-dark table-sm table-hover " id="">
+                <thead class="table-dark text-primary  ">
                     <th scope="col">#</th>
                     <th scope="col">Nom</th>
                     <th scope="col">sigle</th>

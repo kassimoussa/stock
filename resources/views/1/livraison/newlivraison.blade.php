@@ -15,14 +15,15 @@
             @endif
 
             @if ($message = Session::get('success'))
-                <div class="alert alert-success">
+                <div class="alert alert-success alert-dismissible fade show " role="alert">
                     <p>{{ $message }}</p>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
-
             @if ($message = Session::get('fail'))
-                <div class="alert alert-danger">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <p>{{ $message }}</p>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
             <form action="/livraison/addlivraison" role="form" method="post" class="form">
@@ -33,23 +34,27 @@
                     <div class="card-body">
                         <div class="input-group mb-3">
                             <span class="input-group-text txt fw-bold ">Intervenant</span>
-                            <input type="text" class="form-control" name="nom_intervenant" value="{{ $intervention->nom_intervenant }}" readonly>
+                            <input type="text" class="form-control" name="nom_intervenant"
+                                value="{{ $intervention->nom_intervenant }}" readonly>
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text txt fw-bold ">Demandeur</span>
-                            <input type="text" class="form-control" name="nom_demandeur" value="{{ $intervention->nom_demandeur }}" readonly>
+                            <input type="text" class="form-control" name="nom_demandeur"
+                                value="{{ $intervention->nom_demandeur }}" readonly>
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text txt fw-bold ">Direction</span>
-                            <input type="text" class="form-control" name="direction" value="{{ $intervention->dir_demandeur }}" readonly>
+                            <input type="text" class="form-control" name="direction"
+                                value="{{ $intervention->dir_demandeur }}" readonly>
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text txt fw-bold ">Service</span>
-                            <input type="text" class="form-control" name="service" value="{{ $intervention->service_demandeur }}" readonly>
+                            <input type="text" class="form-control" name="service"
+                                value="{{ $intervention->service_demandeur }}" readonly>
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text txt fw-bold ">Date de livraison</span>
-                            <input type="date" class="form-control" name="date_livraison" id="" required >
+                            <input type="date" class="form-control" name="date_livraison" id="" required>
                         </div>
                     </div>
                 </div>
@@ -64,15 +69,16 @@
                                     <i class="fa fa-plus" aria-hidden="true"></i>
                                 </a>
                                 {{-- <input type="text" class="form-control" name="nom_materiel[]" placeholder="Nom du Materiel" > --}}
-                                <select class="form-select" name="nom_materiel[]"  required>
+                                <select class="form-select" name="nom_materiel[]" required>
                                     <option value="" disabled selected>Materiel</option>
                                     @foreach ($stocks as $stock)
                                         <option value="{{ $stock['materiel'] }}">{{ $stock['materiel'] }}
                                         </option>
                                     @endforeach
                                 </select>
-                                <input type="text" class="form-control" name="quantite[]" placeholder="Quantité" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')">
-                                <input type="text" class="form-control" name="observation[]" placeholder="Observation" >
+                                <input type="text" class="form-control" name="quantite[]" placeholder="Quantité"
+                                    onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')">
+                                <input type="text" class="form-control" name="observation[]" placeholder="Observation">
                             </div>
                         </div>
                     </div>
@@ -82,10 +88,11 @@
                         <button type="submit" name="submit" class="btn btn-primary fw-bold">Soumettre</button>
                         <button type="reset" class="btn btn-outline-danger fw-bold">Annuler</button>
                         <input type="text" name="date_submit" value="{{ date('Y-m-d H:i:s') }}" hidden>
-                        
+
                         <input type="text" class="form-control" name="livraison_id" value="{{ time() }}" hidden>
                         <input type="text" class="form-control" name="fiche" value="intervention" hidden>
-                        <input type="text" class="form-control" name="numero_fiche" value="{{ $intervention->id }}" hidden>
+                        <input type="text" class="form-control" name="numero_fiche" value="{{ $intervention->id }}"
+                            hidden>
                     </div>
                 </div>
             </form>
@@ -105,6 +112,7 @@
             background: #4F81BD;
             color: white;
         }
+
         .txt {
             width: 17%;
         }

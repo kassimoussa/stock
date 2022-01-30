@@ -19,19 +19,21 @@ use App\Models\Livraison;
             </form>
         </div>
         @if ($message = Session::get('success'))
-            <div class="alert alert-success">
+            <div class="alert alert-success alert-dismissible fade show " role="alert">
                 <p>{{ $message }}</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
         @if ($message = Session::get('fail'))
-            <div class="alert alert-danger">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <p>{{ $message }}</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
 
         <div>
-            <table class="table tablesorter table-sm table-hover" id="">
-                <thead class=" text-primary">
+            <table class="table   border-dark table-sm table-hover " id="">
+                <thead class="table-dark text-primary text- ">
                     <th scope="col">N° Fiche</th>
                     <th scope="col">Demandeur</th>
                     <th scope="col">Direction</th>
@@ -52,52 +54,70 @@ use App\Models\Livraison;
                                     $status_dir = '';
                                     $status_sih = '';
                                     $status_din = '';
+                                    $status_dir_txt = '';
+                                    $status_sih_txt = '';
+                                    $status_din_txt = '';
                                     $btnhidden = '';
                                     $btnlivraison = 'hidden';
                                     
                                     if ($intervention->status_dir == 'approuve') {
-                                        $status_dir = '#089415';
+                                        $status_dir = "bg-success ";
+                                        $status_dir_txt = 'Intervention approuvée par la direction demandeuse';
                                     } elseif ($intervention->status_dir == 'attente') {
-                                        $status_dir = '#efaa2d';
+                                        $status_dir = "bg-warning ";
+                                        $status_dir_txt = 'Intervention mise en attente par la direction demandeuse';
                                     } elseif ($intervention->status_dir == 'rejete') {
-                                        $status_dir = '#FF0000';
+                                        $status_dir = "bg-danger text-white";
+                                        $status_dir_txt = 'Intervention arejetée par la direction demandeuse';
                                     } elseif ($intervention->status_dir == null) {
-                                        $status_dir = '#FFFFFF';
+                                        $status_dir = "bg-white";
+                                        $status_dir_txt = 'Intervention pas encore vue par la direction demandeuse';
                                     }
                                     
                                     if ($intervention->status_sih == 'approuve') {
-                                        $status_sih = '#089415';
+                                        $status_sih = "bg-success ";
+                                        $status_sih_txt = 'Intervention approuvée par le sih';
                                         $btnhidden = 'hidden';
                                     } elseif ($intervention->status_sih == 'attente') {
-                                        $status_sih = '#efaa2d';
+                                        $status_sih = "bg-warning ";
+                                        $status_sih_txt = 'Intervention mise en attente par le sih';
                                     } elseif ($intervention->status_sih == 'rejete') {
-                                        $status_sih = '#FF0000';
+                                        $status_sih = "bg-danger text-white";
+                                        $status_sih_txt = 'Intervention arejetée par le sih';
                                     } elseif ($intervention->status_sih == null) {
-                                        $status_sih = '#FFFFFF';
+                                        $status_sih = "bg-white";
+                                        $status_sih_txt = 'Intervention pas encore vue par le sih';
                                     }
                                     
                                     if ($intervention->status_din == 'approuve') {
-                                        $status_din = '#089415';
+                                        $status_din = "bg-success ";
+                                        $status_din_txt = 'Intervention approuvée par le DIN';
                                         $btnhidden = 'hidden';
                                         $btnlivraison = ' ';
                                     } elseif ($intervention->status_din == 'attente') {
-                                        $status_din = '#efaa2d';
+                                        $status_din = "bg-warning ";
+                                        $status_din_txt = 'Intervention mise en attente par le DIN';
                                     } elseif ($intervention->status_din == 'rejete') {
-                                        $status_din = '#FF0000';
+                                        $status_din = "bg-danger text-white";
+                                        $status_din_txt = 'Intervention arejetée par le DIN';
                                     } elseif ($intervention->status_din == null) {
-                                        $status_din = '#FFFFFF';
+                                        $status_din = "bg-white";
+                                        $status_din_txt = 'Intervention pas encore vue par le DIN';
                                     }
                                 @endphp
                                 <td>{{ $intervention->id }}</td>
                                 <td>{{ $intervention->nom_demandeur }}</td>
                                 <td>{{ $intervention->dir_demandeur }}</td>
                                 <td>{{ $intervention->materiel }}</td>
-                                <td style="background: {{ $status_sih }}">SIH</td>
-                                <td style="background: {{ $status_dir }}">{{ $intervention->dir_demandeur }}</td>
-                                <td style="background: {{ $status_din }}">DIN</td>
+                                <td class="{{ $status_sih }}" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                title="{{ $status_sih_txt }} ">SIH</td>
+                                <td class="{{ $status_dir }}" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                title="{{ $status_dir_txt }} ">{{ $intervention->dir_demandeur }}</td>
+                                <td class="{{ $status_din }}" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                title="{{ $status_din_txt }} ">DIN</td>
                                 <td>{{ date('d/m/Y', strtotime($intervention->date_intervention)) }}</td>
                                 <td class="td-actions ">
-                                    <a href="{{ url('/intervention/fiche', $intervention) }}" class="btn btn-link"
+                                    <a href="{{ url('/intervention/fiche', $intervention) }}" class="btn  "
                                         data-bs-toggle="tooltip" data-bs-placement="left" title="Voir la fiche">
                                         <i class="fas fa-eye"></i>
                                     </a>
@@ -109,14 +129,14 @@ use App\Models\Livraison;
                                         
                                     @endphp
                                     @if ($query)
-                                        <a href="{{ url('/livraison/show', $query->id) }}" class="btn btn-link"
+                                        <a href="{{ url('/livraison/show', $query->id) }}" class="btn  "
                                             data-bs-toggle="tooltip" data-bs-placement="bottom"
                                             title="Voir la fiche de livraison ">
                                             <i class="fas fa-truck-loading"></i>
                                         </a>
                                     @else
                                         <a href="{{ url('/intervention/livraison', $intervention) }}"
-                                            class="btn btn-link" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                            class="btn  " data-bs-toggle="tooltip" data-bs-placement="bottom"
                                             title="Générer une fiche de livraison " {{ $btnlivraison }}>
                                             <i class="fas fa-truck"></i>
                                         </a>

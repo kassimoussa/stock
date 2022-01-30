@@ -2,20 +2,23 @@
 @section('content')
     <br>
     <div class="row">
-        @if ($message = Session::get('success'))
-            <div class="alert alert-success">
-                <p>{{ $message }}</p>
-            </div>
-        @endif
-        @if ($message = Session::get('fail'))
-            <div class="alert alert-danger">
-                <p>{{ $message }}</p>
-            </div>
-        @endif
-
         <div>
             <div class="card mb-3" style="width: 100%;">
                 <h3 class="card-header fw-bold">Informations personnelles</h3>
+
+                @if ($message = Session::get('success'))
+            <div class="alert alert-success alert-dismissible fade show " role="alert">
+                <p>{{ $message }}</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        @if ($message = Session::get('fail'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <p>{{ $message }}</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        
                 <div class="card-body">
                     <form action="{{ url('/change_infos', $user) }}" role="form" method="post" class="form-card">
                         @csrf

@@ -103,7 +103,7 @@ class AcquisitionsController extends Controller
             if (session('dir') == 'DSI') {
                 $acquisitions = Acquisition::Where(function ($query) {
                     $query->where('status_sih', 'approuve');
-                })->orderBy('id', 'desc')->paginate(10);
+                })->orderBy('updated_at', 'desc')->paginate(10);
                 return view('4.dsi.acquisition.index', compact('acquisitions'));
             } else {
                 $acquisitions = Acquisition::Where(function ($query) {
@@ -324,7 +324,13 @@ class AcquisitionsController extends Controller
         $status =  $request->status_sih;
         $dirdemandeur = $acquisition->dir_demandeur;
         $date_submit = $acquisition->date_submit;
-        $acquisition->update(['status_sih' => $status, 'date_sih' => $date]);
+        if($status == "approuve")
+        {
+            $com = " ";
+        }else {
+            $com = $request->commentaire_sih;
+        }
+        $acquisition->update(['status_sih' => $status, 'date_sih' => $date , 'commentaire_sih' => $com]);
 
         $user = User::where('level', '4')->where('direction', 'DSI')->first();
 
@@ -343,7 +349,13 @@ class AcquisitionsController extends Controller
         $status =  $request->status_dsi;
         $dirdemandeur = $acquisition->dir_demandeur;
         $date_submit = $acquisition->date_submit;
-        $acquisition->update(['status_dsi' => $status, 'date_dsi' => $date]);
+        if($status == "approuve")
+        {
+            $com = " ";
+        }else {
+            $com = $request->commentaire_dsi;
+        }
+        $acquisition->update(['status_dsi' => $status, 'date_dsi' => $date , 'commentaire_dsi' => $com]);
 
         $user = User::where('level', '4')->where('direction', $dirdemandeur)->first();
 

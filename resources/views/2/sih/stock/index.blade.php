@@ -19,21 +19,23 @@
         </div>
 
         @if ($message = Session::get('success'))
-            <div class="alert alert-success">
+            <div class="alert alert-success alert-dismissible fade show " role="alert">
                 <p>{{ $message }}</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
         @if ($message = Session::get('fail'))
-            <div class="alert alert-danger">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <p>{{ $message }}</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
 
         
 
         <div>
-            <table class="table tablesorter table-sm table-hover" id="">
-                <thead class=" text-primary">
+            <table class="table   border-dark table-sm table-hover " id="">
+                <thead class="table-dark text-primary  ">
                     <th scope="col">#</th>
                     <th scope="col">Materiels</th>
                     <th scope="col">Quantité</th>
@@ -59,6 +61,16 @@
                                     title="Sortie de stock">
                                         <i class="fas fa-minus"></i>
                                     </a>
+                                    <form action="{{ url('/stocks/delete', $stock) }}" method="post"
+                                        class="d-inline">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="button" class="btn btn-link" data-bs-toggle="tooltip"
+                                            data-bs-placement="top" title="Supprimer le materiel"
+                                            onclick="confirm('Etes vous sûr de supprimer le materiel ?') ? this.parentElement.submit() : ''">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                             @php

@@ -22,19 +22,21 @@ use App\Models\Livraison;
 
 
         @if ($message = Session::get('success'))
-            <div class="alert alert-success">
+            <div class="alert alert-success alert-dismissible fade show " role="alert">
                 <p>{{ $message }}</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
         @if ($message = Session::get('fail'))
-            <div class="alert alert-danger">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <p>{{ $message }}</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
 
         <div id="div1">
-            <table class="table tablesorter table-sm table-hover" id="">
-                <thead class=" text-primary">
+            <table class="table   border-dark table-sm table-hover " id="">
+                <thead class="table-dark text-primary text- ">
                     <th scope="col">N° Fiche</th>
                     <th scope="col">Demandeur</th>
                     <th scope="col">Service</th>
@@ -97,11 +99,11 @@ use App\Models\Livraison;
                                     if ($query) {
                                         $btnlivraison = $btnlivreshow = '';
                                         if ($acquisition->livre == 'non') {
-                                            $btnlivreoutline = 'danger';
+                                            $btnlivreoutline = 'btn btn-outline-danger';
                                             $btnlivretitle = 'Confirmer';
                                             $btnlivreclick = '';
                                         } else {
-                                            $btnlivreoutline = 'success';
+                                            $btnlivreoutline = 'btn btn-success';
                                             $btnlivretitle = 'Oui';
                                             $btnlivreclick = 'disabled';
                                         };
@@ -115,15 +117,7 @@ use App\Models\Livraison;
                                     $status_dsi = '#FF0000';
                                 } elseif ($acquisition->status_dsi == null) {
                                     $status_dsi = '#FFFFFF';
-                                }
-                                
-                                if ($acquisition->status == '1') {
-                                    $titre = 'Rendre la fiche invisible aux autres';
-                                    $icon = 'times-circle';
-                                } elseif ($acquisition->status == '0') {
-                                    $titre = 'Rendre la fiche visible aux autres';
-                                    $icon = 'check-circle';
-                                }
+                                } 
                                 
                             @endphp
                             <tr>
@@ -140,7 +134,7 @@ use App\Models\Livraison;
                                         class="d-inline">
                                         @csrf
                                         @method('put')
-                                        <button type="button" class="btn btn-outline-{{ $btnlivreoutline }}"
+                                        <button type="button" class="btn btn-outline-{{ $btnlivreoutline }}" style="display:block;width:100%;"
                                             {{ $btnlivreshow }} {{ $btnlivreclick }}
                                             onclick="confirm('Clique sur oui si vous avez réçu le materiel ?') ? this.parentElement.submit() : ''">
                                             {{ $btnlivretitle }}
@@ -148,12 +142,12 @@ use App\Models\Livraison;
                                     </form>
                                 </td>
                                 <td>
-                                    <a href="{{ url('/acquisition/fiche', $acquisition) }}" class="btn btn-link"
+                                    <a href="{{ url('/acquisition/fiche', $acquisition) }}" class="btn "
                                         data-bs-toggle="tooltip" data-bs-placement="bottom" title="Voir la fiche">
                                         <i class="fas fa-eye"></i>
                                     </a>
                                     @if ($query)
-                                        <a href="{{ url('/livraison/show', $query->id) }}" class="btn btn-link"
+                                        <a href="{{ url('/livraison/show', $query->id) }}" class="btn "
                                             data-bs-toggle="tooltip" data-bs-placement="bottom"
                                             title="Voir la fiche de livraison ">
                                             <i class="fas fa-truck fa-flip-horizontal"></i>
@@ -164,13 +158,13 @@ use App\Models\Livraison;
                                         class="d-inline">
                                         @csrf
                                         @method('delete')
-                                        <button type="button" class="btn btn-link" data-bs-toggle="tooltip"
+                                        <button type="button" class="btn " data-bs-toggle="tooltip"
                                             data-bs-placement="top" title="Supprimer la fiche"
                                             onclick="confirm('Etes vous sûr de supprimer la fiche ?') ? this.parentElement.submit() : ''">
                                             <i class="fas fa-trash-alt"></i>
                                         </button>
                                     </form>
-                                    <a href="{{ url('/acquisition/livraison', $acquisition) }}" class="btn btn-link"
+                                    <a href="{{ url('/acquisition/livraison', $acquisition) }}" class="btn "
                                         data-bs-toggle="tooltip" data-bs-placement="bottom"
                                         title="Générer une fiche de livraison " {{ $btnlivraison }}>
                                         <i class="fas fa-truck"></i>

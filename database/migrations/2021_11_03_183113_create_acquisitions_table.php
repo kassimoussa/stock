@@ -35,9 +35,9 @@ class CreateAcquisitionsTable extends Migration
             $table->string('date_dsi')->nullable();
             $table->string('recu')->default('non');
             $table->string('livre')->nullable();
-            $table->integer('fiche_intervention')->nullable();
-            $table->tinyInteger('status')->default('1');
-            $table->integer('num_demande')->nullable();
+            $table->string('commentaire_sih')->nullable();
+            $table->string('commentaire_dsi')->nullable();
+            $table->tinyInteger('status')->default('1'); 
             $table->string('submitbyID')->nullable();
             $table->timestamps();
         });

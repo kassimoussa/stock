@@ -20,19 +20,21 @@
         </div>
 
         @if ($message = Session::get('success'))
-            <div class="alert alert-success">
+            <div class="alert alert-success alert-dismissible fade show " role="alert">
                 <p>{{ $message }}</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
         @if ($message = Session::get('fail'))
-            <div class="alert alert-danger">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <p>{{ $message }}</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
 
         <div>
-            <table class="table tablesorter table-sm table-hover" id="">
-                <thead class=" text-primary">
+            <table class="table   border-dark table-sm table-hover " id="">
+                <thead class="table-dark text-primary  ">
                     <th scope="col">#</th>
                     <th scope="col">Nom</th>
                     <th scope="col">Email</th>

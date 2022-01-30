@@ -1,7 +1,7 @@
 @extends('2.sih.layout', ['page' => 'Accueil', 'pageSlug' => 'index'])
 @section('content')
     <div class="row">
-        <div class="col-sm-4 mt-4">
+        <div class="col-lg-4 col-md-3 col-sm-2 mt-4">
             <div class="card border-primary no-radius text-center bg-white">
                 <div class="card-body">
                     <span class="fa-stack fa-2x">
@@ -17,7 +17,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-4 mt-4">
+        <div class="col-lg-4 col-md-3 col-sm-2 mt-4">
             <div class="card border-primary no-radius text-center bg-white">
                 <div class="card-body">
                     <span class="fa-stack fa-2x">
@@ -34,7 +34,7 @@
             </div>
         </div>
         
-        <div class="col-sm-4 mt-4">
+        <div class="col-lg-4 col-md-3 col-sm-2 mt-4">
             <div class="card border-primary no-radius text-center bg-white">
                 <div class="card-body">
                     <span class="fa-stack fa-2x">
@@ -51,7 +51,7 @@
             </div>
         </div>
         
-        <div class="col-sm-4 mt-4">
+        <div class="col-lg-4 col-md-3 col-sm-2 mt-4">
             <div class="card border-primary no-radius text-center bg-white">
                 <div class="card-body">
                     <span class="fa-stack fa-2x">
@@ -69,7 +69,7 @@
             </div>
         </div>
 
-        <div class="col-sm-4 mt-4">
+        <div class="col-lg-4 col-md-3 col-sm-2 mt-4">
             <div class="card border-primary no-radius text-center bg-white">
                 <div class="card-body">
                     <span class="fa-stack fa-2x">

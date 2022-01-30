@@ -31,9 +31,9 @@ class Acquisition extends Model
         'date_dsi',
         'recu',
         'livre',
-        'fiche_intervention',
+        'commentaire_sih',
+        'commentaire_dsi',
         'status',
-        'num_demande',
         'submitbyID',
 
     ];

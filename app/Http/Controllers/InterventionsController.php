@@ -247,9 +247,9 @@ class InterventionsController extends Controller
                     $to_email = $user->email;
                     /* Mail::to($to_email, $to_name)
                         ->later(now()->addSeconds(1), new NotifInter2($nom, $service, $dir, $fiche)); */
-                    return back()->with('success', 'Ajout réussi !');
+                    return back()->with('success', 'Changement éffectué !');
                 } else {
-                    return back()->with('success', 'Ajout réussi !');
+                    return back()->with('success', 'Changement éffectué !');
                 }
             } elseif ($status == 'attente' || $status == 'rejete') {
                 $user = User::where('level', '2')->where('direction', 'DSI')
@@ -263,9 +263,9 @@ class InterventionsController extends Controller
                     $to_email = $user->email;
                     /* Mail::to($to_email, $to_name)
                         ->later(now()->addSeconds(1), new NotifInter3($nom, $service, $dir, $fiche, $status)); */
-                    return back()->with('success', 'Ajout réussi !');
+                    return back()->with('success', 'Changement effectué !');
                 } else {
-                    return back()->with('success', 'Ajout réussi !');
+                    return back()->with('success', 'Changement effectué !');
                 }
             }
             return back()->with('success', 'Ajout effectué');
@@ -274,20 +274,23 @@ class InterventionsController extends Controller
 
     public function sihvalide(Request $request, Intervention $intervention)
     {
+        $sih = 'IT HelpDesk';
         $suggestion =  $request->suggestion;
         $date =  $request->date_sih;
         $status =  $request->status_sih;
-        /* if($status == 'approuve'){
-            $intervention->update(['suggestion' => $suggestion, 'date_ser_approbation' => $date, 'status_service' => $status ]);
-        } */
-        $query = $intervention->update(['suggestion' => $suggestion, 'date_sih' => $date, 'status_sih' => $status]);
+        $dir = $intervention->dir_demandeur;
+        $service = $intervention->service_demandeur;
+        if($service == $sih){
+            $status_dir = $status;
+             $query = $intervention->update(['suggestion' => $suggestion, 'date_sih' => $date, 'status_sih' => $status, 'status_dir' => $status_dir]);
+        }else{
+            $query = $intervention->update(['suggestion' => $suggestion, 'date_sih' => $date, 'status_sih' => $status]);
+        }
 
         if ($query) {
             if ($status == 'approuve') {
 
-                $nom = $intervention->nom_demandeur;
-                $service = $intervention->service_demandeur;
-                $dir = $intervention->dir_demandeur;
+                $nom = $intervention->nom_demandeur; 
                 $fiche = $intervention->id;
                 $user = User::where('level', '2')->where('direction',  $dir)
                     ->where('service', $service)->first();
@@ -298,9 +301,9 @@ class InterventionsController extends Controller
 
                     /* Mail::to($to_email, $to_name)
                         ->later(now()->addSeconds(1), new NotifInter4($nom, $service, $dir, $fiche)); */
-                        return back()->with('success', "Modification effectué  " );
+                        return back()->with('success', "Changement effectué  " );
                 } else {
-                    return back()->with('success', "Modification effectué mais il n'y a pas d'user pour le chef de service " . $service);
+                    return back()->with('success', "Changement effectué mais il n'y a pas d'user pour le chef de service " . $service);
                 }
             } elseif ($status == 'attente' || $status == 'rejete') {
                 $user = $user = User::where('level', '1')->where('id', $intervention->submitbyID)->first();
@@ -311,11 +314,11 @@ class InterventionsController extends Controller
                 if ($user != null) {
                     $to_name = $user->name;
                     $to_email = $user->email;
-                    Mail::to($to_email, $to_name)
-                        ->later(now()->addSeconds(1), new NotifInter5($nom, $service, $dir, $fiche, $status));
-                    return back()->with('success', 'Ajout réussi !');
+                    /* Mail::to($to_email, $to_name)
+                        ->later(now()->addSeconds(1), new NotifInter5($nom, $service, $dir, $fiche, $status)); */
+                    return back()->with('success', 'Changement effectué !');
                 } else {
-                    return back()->with('success', 'Ajout réussi !');
+                    return back()->with('success', 'Changement effectué !');
                 }
             }
         }
@@ -342,9 +345,9 @@ class InterventionsController extends Controller
                     $to_email = $user->email;
                     /* Mail::to($to_email, $to_name)
                         ->later(now()->addSeconds(1), new NotifInter4($nom, $service, $dir, $fiche)); */
-                    return back()->with('success', 'Ajout réussi !');
+                    return back()->with('success', 'Changement éffectué !');
                 } else {
-                    return back()->with('success', 'Ajout réussi !');
+                    return back()->with('success', 'Changement éffectué !');
                 }
             } elseif ($status == 'attente' || $status == 'rejete') {
 

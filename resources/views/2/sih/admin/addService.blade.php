@@ -8,31 +8,34 @@
                 <a href="showservices" class="btn btn-primary  fw-bold"> <i class="fas fa-arrow-left"></i> RETOURNER</a>
             </div>
 
+            @if ($message = Session::get('success'))
+                <div class="alert alert-success alert-dismissible fade show " role="alert">
+                    <p>{{ $message }}</p>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+            @if ($message = Session::get('fail'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <p>{{ $message }}</p>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
             <div class="card-body">
-                @if ($message = Session::get('success'))
-                    <div class="alert alert-success">
-                        <p>{{ $message }}</p>
-                    </div>
-                @endif
-                @if ($message = Session::get('fail'))
-                    <div class="alert alert-danger">
-                        <p>{{ $message }}</p>
-                    </div>
-                @endif
                 <form action="addservice" role="form" method="post" class="form-card">
                     @csrf
                     <div class="row ">
 
                         <div class="input-group mb-3">
                             <span class="input-group-text txt fw-bold ">Nom</span>
-                            <input type="text" class="form-control" name="nom" placeholder=" Nom du service" value="{{ old('nom') }}"
-                                required>
-                                <span class="text-danger">@error('nom') {{ $message }} @enderror</span>
+                            <input type="text" class="form-control" name="nom" placeholder=" Nom du service"
+                                value="{{ old('nom') }}" required>
+                            <span class="text-danger">@error('nom') {{ $message }} @enderror</span>
                         </div>
 
                         <div class="input-group mb-3">
-                            <span class="input-group-text txt fw-bold ">Direction</span> 
-                            <select class="form-select" name="direction" >
+                            <span class="input-group-text txt fw-bold ">Direction</span>
+                            <select class="form-select" name="direction">
                                 @foreach ($directions as $direction)
                                     <option value="{{ $direction['sigle'] }}">{{ $direction['nom'] }}</option>
                                 @endforeach

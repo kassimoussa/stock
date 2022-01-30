@@ -15,16 +15,18 @@
             @endif
 
             @if ($message = Session::get('success'))
-                <div class="alert alert-success">
+                <div class="alert alert-success alert-dismissible fade show " role="alert">
                     <p>{{ $message }}</p>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
-
             @if ($message = Session::get('fail'))
-                <div class="alert alert-danger">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <p>{{ $message }}</p>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
+            
             <form action="{{ url('/stocks/ajout', $stock) }}" role="form" method="post" class="form">
                 @csrf
                 @method('PUT')
@@ -50,7 +52,7 @@
                             <div class="col-md-6">
                                 <div class="input-group mb-3 ">
                                     <span class="input-group-text txt fw-bold ">Fournisseur</span>
-                                    <input type="text" class="form-control" name="fournisseur" >
+                                    <input type="text" class="form-control" name="fournisseur">
                                 </div>
                             </div>
 
@@ -70,7 +72,7 @@
                         </div>
                     </div>
                 </div>
-                
+
             </form>
         </div>
         <br>
@@ -123,6 +125,7 @@
             background: #4F81BD;
             color: white;
         }
+
         .txt {
             width: 20%;
         }

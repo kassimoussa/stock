@@ -3,7 +3,7 @@
 
     <div class="row  py-3 px-3">
         <div class="d-flex justify-content-between mb-5">
-            <h3 class="over-title ">Fiches d'acquisiton </h3>
+            <h3 class="over-title ">Liste des acquisitons </h3>
             <a href="/acquisition/newacquis" class="btn  btn-primary  fw-bold">Nouvelle Acquisition</a>
         </div>
 
@@ -21,15 +21,15 @@
         @endif
 
         <div id="div1">
-            <table class="table tablesorter table-sm table-hover" id="">
-                <thead class=" text-primary text-center">
+            <table class="table   border-dark table-sm table-hover " id="">
+                <thead class="table-dark text-primary text-center">
                     <th scope="col">N° Fiche</th>
                     <th scope="col">Direction</th>
                     <th scope="col">Service</th>
                     <th scope="col">Materiel</th>
                     <th scope="col">Quantité</th>
                     <th scope="col">Date de soumission</th>
-                    <th scope="col" colspan="2">Status</th>
+                    <th scope="col">Status</th>
                     <th scope="col">Livraison</th>
                     <th scope="col" colspan="4">Actions</th>
                 </thead>
@@ -40,10 +40,10 @@
                         @endphp
 
                         @foreach ($acquisitions as $key => $acquisition)
-                            @php
-                                $status_dir = '';
-                                $status_sih = '';
+                            @php 
                                 $status_dsi = '';
+                                $status_dsi_bg = '';
+                                $status_dsi_txt = '';
                                 $btnhidden = '';
                                 $titre = '';
                                 $icon = '';
@@ -54,37 +54,30 @@
                                 $bg = '';
                                 $status = "$acquisition->livre";
                                 
-                                if ($acquisition->status_dir == 'approuve') {
-                                    $status_dir = '#089415';
-                                } elseif ($acquisition->status_dir == 'attente') {
-                                    $status_dir = '#efaa2d';
-                                    $btnhidden = '';
-                                } elseif ($acquisition->status_dir == 'rejete') {
-                                    $status_dir = '#FF0000';
-                                } elseif ($acquisition->status_dir == null) {
-                                    $status_dir = '#FFFFFF';
-                                }
                                 
-                                if ($acquisition->status_sih == 'approuve') {
-                                    $status_sih = '#089415'; /* $btnhidden = 'hidden'; */
-                                } elseif ($acquisition->status_sih == 'attente') {
-                                    $status_sih = '#efaa2d';
-                                } elseif ($acquisition->status_sih == 'rejete') {
-                                    $status_sih = '#FF0000';
-                                } elseif ($acquisition->status_sih == null) {
-                                    $status_sih = '#FFFFFF';
-                                }
                                 
                                 if ($acquisition->status_dsi == 'approuve') {
                                     $status_dsi = '#089415';
+                                    $status_dsi_bg = 'success';
                                     $btnhidden = 'hidden';
                                     $btnshow = ''; 
+                                    $icon = 'fas fa-check-circle';
+                                    $status_dsi_txt = "Acquisation approuvée ";
                                 } elseif ($acquisition->status_dsi == 'attente') {
                                     $status_dsi = '#efaa2d';
+                                    $status_dsi_bg = 'warning';
+                                    $status_dsi_txt = "Acquisation mise en attente ";
+                                    $icon = "fas fa-minus-circle";
                                 } elseif ($acquisition->status_dsi == 'rejete') {
                                     $status_dsi = '#FF0000';
+                                    $status_dsi_bg = 'danger';
+                                    $status_dsi_txt = "Acquisation réjetée ";
+                                    $icon = "fas fa-times-circle";
                                 } elseif ($acquisition->status_dsi == null) {
                                     $status_dsi = '#FFFFFF';
+                                    $status_dsi_bg = 'white';
+                                    $status_dsi_txt = "Nouvelle Acquisation";
+                                    $icon = "fas fa-circle";
                                 }
                                  
                                 if ($acquisition->livre == 'oui') {
@@ -100,12 +93,13 @@
                                 <td>{{ $acquisition->service_demandeur }}</td>
                                 <td>{{ $acquisition->nom_mat }}</td>
                                 <td>{{ $acquisition->quantite }}</td>
-                                <td>{{ date('d/m/Y à H:i:s', strtotime($acquisition->date_submit)) }}</td>
-                                <td style="background: {{ $status_sih }}">SIH</td>
-                                <td style="background: {{ $status_dsi }}">DSI</td>
-                                <td class="bg-{{ $bg }} text-white">{{ $status }}</td>
+                                <td>{{ date('d/m/Y à H:i:s', strtotime($acquisition->date_submit)) }}</td> 
+                                <td class="bg-{{ $status_dsi_bg }} " data-bs-toggle="tooltip" 
+                                data-bs-placement="bottom" title="{{ $status_dsi_txt }}"><i class="{{ $icon }}"></i></td>
+                                <td class="bg-{{ $bg }} text-white" data-bs-toggle="tooltip" 
+                                data-bs-placement="bottom" title="">{{ ucfirst($status) }}</td>
                                 <td>
-                                    <a href="{{ url('/acquisition/fiche', $acquisition) }}" class="btn btn-link"
+                                    <a href="{{ url('/acquisition/fiche', $acquisition) }}" class="btn  "
                                         data-bs-toggle="tooltip" data-bs-placement="bottom" title="Voir la fiche">
                                         <i class="fas fa-eye"></i>
                                     </a>{{-- <a href="{{ url('/acquisition/edit', $acquisition) }}" class="btn btn-link" data-bs-toggle="tooltip" data-bs-placement="bottom"

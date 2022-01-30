@@ -356,36 +356,20 @@ use App\Models\Direction;
             </div>
         </div>
 
-        @php
-            if ($acquisition->dir_demandeur == 'DSI') {
-                $divdsi = 'hidden';
-            } else {
-                $divdsi = ' ';
-            }
-        @endphp
-
-        <div class="card  mb-3" {{ $divdsi }}>
+        <div class="card  mb-3">
             <h4 class="card-header text-center">Visa {{ $acquisition->dir_demandeur }}</h4>
             <div class="card-body">
-                @if ($acquisition->status_dir == 'approuve')
-                    <div class="d-flex justify-content-between">
-                        <div class=" ">
-                            <label class="">Date :
-                                {{ date('d/m/Y', strtotime($acquisition->date_dir)) }} </label>
-                        </div>
-
-                        <div class="form-check ">
-                            <span class="fw-bold">Le Directeur de la {{ $acquisition->dir_demandeur }} </span>
-                            <input class="form-check-input" type="checkbox" value="true" checked disabled>
-                        </div>
+                <div class="d-flex justify-content-between">
+                    <div class=" ">
+                        <label class="">Date :
+                            {{ date('d/m/Y', strtotime($acquisition->date_dir)) }} </label>
                     </div>
-                @else
-                    <div class="alert alert-danger">
-                        <h3 class="fw-bold"> Le Directeur de la {{ $acquisition->dir_demandeur }} n'a pas encore
-                            approuvé la fiche d'acquisition </h3>
-                    </div>
-                @endif
 
+                    <div class="form-check ">
+                        <span class="fw-bold">Le Directeur de la {{ $acquisition->dir_demandeur }} </span>
+                        <input class="form-check-input" type="checkbox" value="true" checked disabled>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -395,13 +379,13 @@ use App\Models\Direction;
                 @if ($acquisition->status_sih != null)
 
                     @php
-                        $approuve = $attente = $rejete = $sugg = $button = $date = '';
+                        $approuve = $attente = $rejete = $com = $button = $date = $radiosih = '';
                         
                         if ($acquisition->status_sih == 'approuve') {
                             $approuve = 'checked';
                             $date = '';
-                            $button = 'hidden';
-                            $attente = $rejete = $sugg = ' disabled ';
+                            $button = $radiosih = $com = 'hidden';
+                            $attente = $rejete = ' disabled ';
                         } elseif ($acquisition->status_sih == 'attente') {
                             $attente = 'checked';
                             $rejete = $approuve = ' disabled ';
@@ -412,22 +396,29 @@ use App\Models\Direction;
                             $date = 'hidden';
                         }
                     @endphp
-                    <div class="col-md-12 mb-2">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="status_sih" id="Approuver" value="approuve"
-                                {{ $approuve }}>
-                            <label class="form-check-label" for="Approuver">Approuver</label>
+                    <div {{ $radiosih }}>
+                        <div class="d-flex justify-content-between  col-md-12 mb-2">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="status_sih" id="Approuver"
+                                    value="approuve" {{ $approuve }}>
+                                <label class="form-check-label" for="Approuver">Approuver</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="status_sih" id="attente" value="attente"
+                                    {{ $attente }}>
+                                <label class="form-check-label" for="attente">En attente</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="status_sih" id="rejete" value="rejete"
+                                    {{ $rejete }}>
+                                <label class="form-check-label" for="rejete">Rejeter</label>
+                            </div>
                         </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="status_sih" id="attente" value="attente"
-                                {{ $attente }}>
-                            <label class="form-check-label" for="attente">En attente</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="status_sih" id="rejete" value="rejete"
-                                {{ $rejete }}>
-                            <label class="form-check-label" for="rejete">Rejeter</label>
-                        </div>
+                    </div>
+                    <div class="input-group mb-2" id="com" {{ $com }}>
+                        <span class="input-group-text fw-bold">Commentaire</span>
+                        <textarea name="commentaire" id="comtxt" class="form-control textarea" cols="30" rows="2"
+                            disabled>{{ $acquisition->commentaire }}</textarea>
                     </div>
                     <div {{ $date }}>
                         <div class="d-flex justify-content-between">
@@ -457,12 +448,12 @@ use App\Models\Direction;
             <div class="card-body">
                 @if ($acquisition->status_dsi != null)
                     @php
-                        $approuve = $attente = $rejete = $sugg = $button = $date = ' ';
+                        $approuve = $attente = $rejete = $sugg = $button = $date = $radiodsi = ' ';
                         
                         if ($acquisition->status_dsi == 'approuve') {
                             $approuve = 'checked';
                             $date = '';
-                            $button = 'hidden';
+                            $button = $radiodsi = 'hidden';
                             $attente = $rejete = $sugg = ' disabled ';
                         } elseif ($acquisition->status_dsi == 'attente') {
                             $attente = 'checked';
@@ -474,23 +465,26 @@ use App\Models\Direction;
                             $date = 'hidden';
                         }
                     @endphp
-                    <div class="col-md-12 mb-2">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="status_dsi" id="Approuver" value="approuve"
-                                {{ $approuve }}>
-                            <label class="form-check-label" for="Approuver">Approuver</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="status_dsi" id="attente" value="attente"
-                                {{ $attente }}>
-                            <label class="form-check-label" for="attente">En attente</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="status_dsi" id="rejete" value="rejete"
-                                {{ $rejete }}>
-                            <label class="form-check-label" for="rejete">Rejeter</label>
+                    <div>
+                        <div class="d-flex justify-content-between  col-md-12 mb-2 ">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="status_dsi" id="Approuver"
+                                    value="approuve" {{ $approuve }}>
+                                <label class="form-check-label" for="Approuver">Approuver</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="status_dsi" id="attente" value="attente"
+                                    {{ $attente }}>
+                                <label class="form-check-label" for="attente">En attente</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="status_dsi" id="rejete" value="rejete"
+                                    {{ $rejete }}>
+                                <label class="form-check-label" for="rejete">Rejeter</label>
+                            </div>
                         </div>
                     </div>
+
                     <div {{ $date }}>
                         <div class="d-flex justify-content-between">
                             <div class=" ">
@@ -521,6 +515,10 @@ use App\Models\Direction;
 
         .input-group-text {
             width: 13%;
+        }
+
+        .textarea {
+            background: white !important;
         }
 
     </style>

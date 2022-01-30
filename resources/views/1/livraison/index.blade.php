@@ -15,20 +15,23 @@
                 </div>
             </form>
         </div>
+        
         @if ($message = Session::get('success'))
-            <div class="alert alert-success">
+            <div class="alert alert-success alert-dismissible fade show " role="alert">
                 <p>{{ $message }}</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
         @if ($message = Session::get('fail'))
-            <div class="alert alert-danger">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <p>{{ $message }}</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
 
         <div>
-            <table class="table tablesorter table-sm table-hover" id="">
-                <thead class=" text-primary">
+            <table class="table   border-dark table-sm table-hover " id="">
+                <thead class="table-dark text-primary text- ">
                     <th scope="col">N° Fiche</th>
                     <th scope="col">Intervenant</th>
                     <th scope="col">Demandeur</th>
@@ -50,7 +53,7 @@
                             <td>{{ $livraison->direction }}</td>
                             <td>{{ $livraison->service }}</td>
                             <td class="td-actions ">
-                                <a href="{{ url('/livraison/show', $livraison) }}" class="btn btn-link" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                <a href="{{ url('/livraison/show', $livraison) }}" class="btn " data-bs-toggle="tooltip" data-bs-placement="bottom"
                                     title="Voir la fiche ">
                                     <i class="fas fa-eye"></i>
                                 </a>

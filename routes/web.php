@@ -60,6 +60,7 @@ Route::group(['middleware'=> ['logged']], function(){
 
     Route::get('stocks/newmateriel', [StocksController::class, 'create']);
     Route::post('stocks/store', [StocksController::class, 'store'])->name('stocks/store');
+    Route::delete('/stocks/delete/{stock}', [StocksController::class, 'destroy']);
 
     Route::get('/acquisition', [AcquisitionsController::class, 'index']);
     Route::get('/acquisition/newacquis', [AcquisitionsController::class, 'create']);

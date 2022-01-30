@@ -13,15 +13,17 @@ use App\Models\Direction;
         </div>
 
         @if ($message = Session::get('success'))
-            <div class="alert alert-success">
-                <p>{{ $message }}</p>
-            </div>
-        @endif
-        @if ($message = Session::get('fail'))
-            <div class="alert alert-danger">
-                <p>{{ $message }}</p>
-            </div>
-        @endif
+        <div class="alert alert-success alert-dismissible fade show " role="alert">
+            <p>{{ $message }}</p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+    @if ($message = Session::get('fail'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <p>{{ $message }}</p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
 
         <div>
             <table class="table tablesorter table-sm table-hover" id="">

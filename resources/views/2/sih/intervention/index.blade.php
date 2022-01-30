@@ -19,19 +19,21 @@ use App\Models\Livraison;
         </div>
 
         @if ($message = Session::get('success'))
-            <div class="alert alert-success">
+            <div class="alert alert-success alert-dismissible fade show " role="alert">
                 <p>{{ $message }}</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
         @if ($message = Session::get('fail'))
-            <div class="alert alert-danger">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <p>{{ $message }}</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
 
         <div>
-            <table class="table tablesorter table-sm table-hover" id="">
-                <thead class=" text-primary">
+            <table class="table   border-dark table-sm table-hover " id="">
+                <thead class="table-dark text-primary text- ">
                     <th scope="col">N° Fiche</th>
                     <th scope="col">Demandeur</th>
                     <th scope="col">Direction</th>
@@ -61,46 +63,46 @@ use App\Models\Livraison;
                                     $btnlivraison = 'hidden';
                                     
                                     if ($intervention->status_dir == 'approuve') {
-                                        $status_dir = '#089415';
+                                        $status_dir = 'bg-success ';
                                         $status_dir_txt = 'Fiche approuvée par la direction';
                                     } elseif ($intervention->status_dir == 'attente') {
-                                        $status_dir = '#efaa2d';
+                                        $status_dir = 'bg-warning';
                                         $status_dir_txt = 'Fiche mise en attente par la direction';
                                     } elseif ($intervention->status_dir == 'rejete') {
-                                        $status_dir = '#FF0000';
+                                        $status_dir = 'bg-danger text-white';
                                         $status_dir_txt = 'Fiche réjetée par la direction';
                                     } elseif ($intervention->status_dir == null) {
-                                        $status_dir = '#FFFFFF';
+                                        $status_dir = 'bg-white';
                                     }
                                     
                                     if ($intervention->status_sih == 'approuve') {
-                                        $status_sih = '#089415';
+                                        $status_sih = 'bg-success ';
                                         $status_sih_txt = 'Fiche approuvée par le service IT HelpDesk';
                                         $btnedit = 'disabled';
                                     } elseif ($intervention->status_sih == 'attente') {
-                                        $status_sih = '#efaa2d';
+                                        $status_sih = 'bg-warning';
                                         $status_sih_txt = 'Fiche mise en attente par le service IT HelpDesk';
                                     } elseif ($intervention->status_sih == 'rejete') {
-                                        $status_sih = '#FF0000';
+                                        $status_sih = 'bg-danger text-white';
                                         $status_sih_txt = 'Fiche réjetée par le service IT HelpDesk';
                                     } elseif ($intervention->status_sih == null) {
-                                        $status_sih = '#FFFFFF';
+                                        $status_sih = 'bg-white';
                                         $devishidden = 'hidden';
                                     }
                                     
                                     if ($intervention->status_din == 'approuve') {
-                                        $status_din = '#089415';
+                                        $status_din = 'bg-success ';
                                         $status_din_txt = 'Fiche approuvée par la Division Infrastructure Numérique';
                                         $btnedit = 'disabled';
                                         $btnlivraison = ' ';
                                     } elseif ($intervention->status_din == 'attente') {
-                                        $status_din = '#efaa2d';
+                                        $status_din = 'bg-warning';
                                         $status_din_txt = 'Fiche mise en attente par la Division Infrastructure Numérique';
                                     } elseif ($intervention->status_din == 'rejete') {
-                                        $status_din = '#FF0000';
+                                        $status_din = 'bg-danger text-white';
                                         $status_din_txt = 'Fiche réjetée par la Division Infrastructure Numérique';
                                     } elseif ($intervention->status_din == null) {
-                                        $status_din = '#FFFFFF';
+                                        $status_din = 'bg-white';
                                     }
                                 @endphp
                                 <td>{{ $intervention->id }}</td>
@@ -108,11 +110,11 @@ use App\Models\Livraison;
                                 <td>{{ $intervention->dir_demandeur }}</td>
                                 <td>{{ $intervention->service_demandeur }}</td>
                                 <td>{{ $intervention->materiel }}</td>
-                                <td style="background: {{ $status_sih }} " data-bs-toggle="tooltip" data-bs-placement="bottom" 
+                                <td class="{{ $status_sih }} " data-bs-toggle="tooltip" data-bs-placement="bottom" 
                                 title="{{ $status_sih_txt }}">SIH</td>
-                                <td style="background: {{ $status_dir }}" data-bs-toggle="tooltip" data-bs-placement="bottom" 
+                                <td class="{{ $status_dir }}" data-bs-toggle="tooltip" data-bs-placement="bottom" 
                                 title="{{ $status_dir_txt }}">{{ $intervention->dir_demandeur }}</td>
-                                <td style="background: {{ $status_din }}" data-bs-toggle="tooltip" data-bs-placement="bottom" 
+                                <td class="{{ $status_din }}" data-bs-toggle="tooltip" data-bs-placement="bottom" 
                                 title="{{ $status_din_txt }}">DIN</td>
                                 <td>{{ date('d/m/Y', strtotime($intervention->date_intervention)) }}</td>
                                 <td class="td-actions ">

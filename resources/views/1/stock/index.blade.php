@@ -21,19 +21,21 @@
 
 
         @if ($message = Session::get('success'))
-            <div class="alert alert-success">
+            <div class="alert alert-success alert-dismissible fade show " role="alert">
                 <p>{{ $message }}</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
         @if ($message = Session::get('fail'))
-            <div class="alert alert-danger">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <p>{{ $message }}</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
 
         <div>
-            <table class="table tablesorter table-sm table-hover" id="">
-                <thead class=" text-primary">
+            <table class="table   border-dark table-sm table-hover " id="">
+                <thead class="table-dark text-primary text- ">
                     <th scope="col">#</th>
                     <th scope="col">Materiels</th>
                     <th scope="col">Quantité</th>
@@ -51,11 +53,11 @@
                             <td>{{ $stock->materiel }}</td>
                             <td>{{ $stock->quantite }}</td>
                             <td class="td-actions ">
-                                 {{--<a href="{{ url('/stocks/rentree', $stock) }}" class="btn btn-link" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                 {{--<a href="{{ url('/stocks/rentree', $stock) }}" class="btn  " data-bs-toggle="tooltip" data-bs-placement="bottom"
                                     title="Rentrée de stock">
                                     <i class="fas fa-plus"></i>
                                 </a>
-                                <a href="{{ url('/stocks/sortie', $stock) }}" class="btn btn-link" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                <a href="{{ url('/stocks/sortie', $stock) }}" class="btn  " data-bs-toggle="tooltip" data-bs-placement="bottom"
                                     title="Sortie de stock">
                                     <i class="fas fa-minus"></i>
                                 </a> --}}

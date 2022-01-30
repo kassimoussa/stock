@@ -3,7 +3,7 @@
 
     <div class="row  py-3 px-3">
         <div class="d-flex justify-content-between ">
-            <h3 class="over-title mb-2">Stock des materiels  </h3>
+            <h3 class="over-title mb-2">Stock des materiels </h3>
             <a href="/stocks/newmateriel" class="btn  btn-primary  fw-bold">Ajouter Materiel</a>
         </div>
 
@@ -40,30 +40,30 @@
                 </thead>
                 <tbody>
                     @if (!empty($stocks) && $stocks->count())
-                    @php
+                        @php
                             $cnt = 1;
                         @endphp
 
-                    @foreach ($stocks as $key => $stock)
-                        <tr>
-                            <td>{{ $cnt }}</td>
-                            <td>{{ $stock->materiel }}</td>
-                            <td>{{ $stock->quantite }}</td>
-                            <td class="td-actions ">
-                                <a href="{{ url('/stocks/rentree', $stock) }}" class="btn btn-link" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                    title="Rentrée de stock">
-                                    <i class="fas fa-plus"></i>
-                                </a>
-                                {{-- <a href="{{ url('/stocks/sortie', $stock) }}" class="btn btn-link" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                        @foreach ($stocks as $key => $stock)
+                            <tr>
+                                <td>{{ $cnt }}</td>
+                                <td>{{ $stock->materiel }}</td>
+                                <td>{{ $stock->quantite }}</td>
+                                <td class="td-actions ">
+                                    <a href="{{ url('/stocks/rentree', $stock) }}" class="btn btn-link"
+                                        data-bs-toggle="tooltip" data-bs-placement="bottom" title="Rentrée de stock">
+                                        <i class="fas fa-plus"></i>
+                                    </a>
+                                    {{-- <a href="{{ url('/stocks/sortie', $stock) }}" class="btn btn-link" data-bs-toggle="tooltip" data-bs-placement="bottom"
                                     title="Sortie de stock">
                                     <i class="fas fa-minus"></i>
                                 </a> --}}
-                            </td>
-                        </tr> 
-                        @php
-                        $cnt = $cnt +1;
-                    @endphp
-                    @endforeach
+                                </td>
+                            </tr>
+                            @php
+                                $cnt = $cnt + 1;
+                            @endphp
+                        @endforeach
                     @else
                         <tr>
                             <td colspan="10">There are no data.</td>
@@ -71,7 +71,7 @@
                     @endif
                 </tbody>
             </table>
-           
+
         </div>
     </div>
 

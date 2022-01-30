@@ -2,28 +2,31 @@
 @section('content')
     <br><br>
     <div class="d-flex justify-content-start">
-        <div class="card" >
+        <div class="card">
             <div class="card-header d-flex justify-content-between">
                 <h3 class="fw-bold">Nouveau Utilisateur</h3>
                 <a href="showuser" class="btn btn-primary fw-bold"> <i class="fas fa-arrow-left"></i> RETOURNER</a>
             </div>
 
+            @if ($message = Session::get('success'))
+                <div class="alert alert-success alert-dismissible fade show " role="alert">
+                    <p>{{ $message }}</p>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+            @if ($message = Session::get('fail'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <p>{{ $message }}</p>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
             <div class="card-body">
-                @if ($message = Session::get('success'))
-                    <div class="alert alert-success">
-                        <p>{{ $message }}</p>
-                    </div>
-                @endif
-                @if ($message = Session::get('fail'))
-                    <div class="alert alert-danger">
-                        <p>{{ $message }}</p>
-                    </div>
-                @endif
                 <form action="adduser" role="form" method="post" class="form-card">
                     @csrf
                     <div class="row ">
                         <div class="input-group mb-3">
-                            <span class="input-group-text txt fw-bold ">Level</span> 
+                            <span class="input-group-text txt fw-bold ">Level</span>
                             <select name="level" class="form-control" id="level">
                                 <option value="1">1 - Technicien</option>
                                 <option value="2">2 - Chef de service</option>
@@ -34,8 +37,8 @@
                         </div>
 
                         <div class="input-group mb-3">
-                            <span class="input-group-text txt fw-bold ">Direction</span> 
-                            <select class="form-select" name="direction" id="dir" >
+                            <span class="input-group-text txt fw-bold ">Direction</span>
+                            <select class="form-select" name="direction" id="dir">
                                 <option value="" disabled selected>Select direction</option>
                                 @foreach ($directions as $direction)
                                     <option value="{{ $direction['sigle'] }}">{{ $direction['nom'] }}</option>
@@ -45,7 +48,7 @@
                         </div>
 
                         <div class="input-group mb-3">
-                            <span class="input-group-text txt fw-bold ">Service</span>  
+                            <span class="input-group-text txt fw-bold ">Service</span>
                             <select name="service" id="serv" class="form-select  js-select2">
                                 <option value="" disabled selected>Select service</option>
                             </select>
@@ -53,10 +56,10 @@
                         </div>
 
                         <div class="input-group mb-3">
-                            <span class="input-group-text txt fw-bold ">Nom</span> 
-                            <input type="text" class="form-control" name="name" placeholder=" Entrer votre nom " value="{{ old('email') }}"
-                                required>
-                                <span class="text-danger">@error('name') {{ $message }} @enderror</span>
+                            <span class="input-group-text txt fw-bold ">Nom</span>
+                            <input type="text" class="form-control" name="name" placeholder=" Entrer votre nom "
+                                value="{{ old('email') }}" required>
+                            <span class="text-danger">@error('name') {{ $message }} @enderror</span>
                         </div>
 
                         <div class="input-group mb-3">
@@ -68,10 +71,10 @@
 
                         <div class="input-group mb-3">
                             <span class="input-group-text txt fw-bold ">Password</span>
-                            <input type="password" class="form-control" name="password" placeholder="Entrer votre mot de passe"
-                            value="{{ old('password') }}">
-                        <span class="text-danger">@error('password') {{ $message }} @enderror</span>
-                        </div> 
+                            <input type="password" class="form-control" name="password"
+                                placeholder="Entrer votre mot de passe" value="{{ old('password') }}">
+                            <span class="text-danger">@error('password') {{ $message }} @enderror</span>
+                        </div>
                     </div>
                     <div class="row" style="text-align: center; margin-top: 2%;">
                         <div class=" form-group">
@@ -86,7 +89,7 @@
 
     </div>
 
-     <style>
+    <style>
         .btn-default:hover {
             background-color: red !important;
             color: white;
@@ -101,6 +104,7 @@
             background: #4F81BD;
             color: white;
         }
+
         .txt {
             width: 17%;
         }
@@ -111,46 +115,46 @@
 
             var level = $(this).val();
 
-            if (level == '4' || level == '3' ) {
-                document.getElementById("serv").disabled = true; 
+            if (level == '4' || level == '3') {
+                document.getElementById("serv").disabled = true;
             } else {
-                document.getElementById("serv").disabled = false; 
+                document.getElementById("serv").disabled = false;
             }
         });
     </script>
 
-<script>
-    $('#dir').change(function() {
+    <script>
+        $('#dir').change(function() {
 
-        var directionID = $(this).val();
+            var directionID = $(this).val();
 
-        if (directionID) {
+            if (directionID) {
 
-            $.ajax({
-                type: "GET",
-                url: "{{ url('getServices') }}?dir_id=" + directionID,
-                success: function(res) {
+                $.ajax({
+                    type: "GET",
+                    url: "{{ url('getServices') }}?dir_id=" + directionID,
+                    success: function(res) {
 
-                    if (res) {
+                        if (res) {
 
-                        $("#serv").empty();
-                        $("#serv").append('<option>Select Service</option>');
-                        $.each(res, function(key, value) {
-                            $("#serv").append('<option value="' + value + '">' + value +
-                                '</option>');
-                        });
+                            $("#serv").empty();
+                            $("#serv").append('<option>Select Service</option>');
+                            $.each(res, function(key, value) {
+                                $("#serv").append('<option value="' + value + '">' + value +
+                                    '</option>');
+                            });
 
-                    } else {
+                        } else {
 
-                        $("#serv").empty();
+                            $("#serv").empty();
+                        }
                     }
-                }
-            });
-        } else {
+                });
+            } else {
 
-            $("#serv").empty();
-        }
-    });
-</script>
+                $("#serv").empty();
+            }
+        });
+    </script>
 
 @endsection

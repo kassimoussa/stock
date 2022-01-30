@@ -21,19 +21,21 @@ use App\Models\Livraison;
         </div>
 
         @if ($message = Session::get('success'))
-            <div class="alert alert-success">
+            <div class="alert alert-success alert-dismissible fade show " role="alert">
                 <p>{{ $message }}</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
         @if ($message = Session::get('fail'))
-            <div class="alert alert-danger">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <p>{{ $message }}</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
 
         <div id="div1">
-            <table class="table tablesorter table-sm table-hover" id="">
-                <thead class=" text-primary">
+            <table class="table   border-dark table-sm table-hover " id="">
+                <thead class="table-dark text-primary text- ">
                     <th scope="col">N° Fiche</th>
                     <th scope="col">Direction</th>
                     <th scope="col">Service</th>
@@ -53,9 +55,10 @@ use App\Models\Livraison;
 
                         @foreach ($acquisitions as $key => $acquisition)
                             @php
-                                $status_dir = '';
                                 $status_sih = '';
                                 $status_dsi = '';
+                                $status_sih_txt = '';
+                                $status_dsi_txt = '';
                                 $btnedit = '';
                                 $titre = '';
                                 $icon = '';
@@ -63,65 +66,56 @@ use App\Models\Livraison;
                                 $btnlivre = 'hidden';
                                 $btnrecu = 'hidden';
                                 $btnrecuoutline = $btnrecutitle = $btnrecuclick = '';
-                                $btnlivreoutline = $btnlivretitle = $btnlivreclick = '';
+                                $btnlivrecolor = $btnlivretitle = $btnlivreclick = $btnlivretxt = '';
                                 $btnrecushow = $btnlivreshow = $btnlivraison = 'hidden';
                                 
-                                if ($acquisition->status_dir == 'approuve') {
-                                    $status_dir = '#089415';
-                                } elseif ($acquisition->status_dir == 'attente') {
-                                    $status_dir = '#efaa2d';
-                                    $btnedit = '';
-                                } elseif ($acquisition->status_dir == 'rejete') {
-                                    $status_dir = '#FF0000';
-                                } elseif ($acquisition->status_dir == null) {
-                                    $status_dir = '#FFFFFF';
-                                }
-                                
                                 if ($acquisition->status_sih == 'approuve') {
-                                    $status_sih = '#089415'; /* $btnedit = 'hidden'; */
+                                    $status_sih = 'bg-success '; /* $btnedit = 'hidden'; */
+                                    $status_sih_txt = 'Acquisition approuvée par le SIH';
                                 } elseif ($acquisition->status_sih == 'attente') {
-                                    $status_sih = '#efaa2d';
+                                    $status_sih = 'bg-warning ';
+                                    $status_sih_txt = 'Acquisition mise en attente par le SIH';
                                 } elseif ($acquisition->status_sih == 'rejete') {
-                                    $status_sih = '#FF0000';
+                                    $status_sih = 'bg-danger ';
+                                    $status_sih_txt = 'Acquisition rejetée par le SIH';
                                 } elseif ($acquisition->status_sih == null) {
-                                    $status_sih = '#FFFFFF';
+                                    $status_sih = 'bg-white ';
+                                    $status_sih_txt = 'Acquisition pas encore vu par le SIH';
                                 }
                                 
                                 if ($acquisition->status_dsi == 'approuve') {
-                                    $status_dsi = '#089415';
+                                    $status_dsi = 'bg-success ';
+                                    $status_dsi_txt = 'Acquisition approuvée par la DSI';
                                     $btnedit = 'disabled';
                                     $btnshow = $btnrecushow = '';
                                     if ($acquisition->recu == 'non') {
-                                        $btnrecuoutline = 'danger';
-                                        $btnrecutitle = 'Confirmer';
+                                        $btnrecuoutline = 'btn btn-outline-danger';
+                                        $btnrecutitle = 'NON';
                                     } else {
                                         $btnrecutitle = 'OUI';
-                                        $btnrecuoutline = 'success';
+                                        $btnrecuoutline = 'btn btn-success';
                                         $btnrecuclick = '';
                                         $btnlivraison = '';
                                         if ($acquisition->livre == 'non') {
-                                            $btnlivreoutline = 'danger';
-                                            $btnlivretitle = 'Non';
+                                            $btnlivrecolor = 'bg-danger text-white';
+                                            $btnlivretitle = 'NON';
+                                            $btnlivretxt = "Les matériels acquis n'ont pas encore été livré";
                                         } else {
-                                            $btnlivreoutline = 'success';
-                                            $btnlivretitle = 'oui';
+                                            $btnlivrecolor = 'bg-success ';
+                                            $btnlivretitle = 'OUI';
+                                            $btnlivretxt = 'Les matériels acquis ont été livré';
                                             $btnlivre = '';
                                         }
                                     }
                                 } elseif ($acquisition->status_dsi == 'attente') {
-                                    $status_dsi = '#efaa2d';
+                                    $status_dsi = 'bg-warning ';
+                                    $status_dsi_txt = 'Acquisition mise en attente par la DSI';
                                 } elseif ($acquisition->status_dsi == 'rejete') {
-                                    $status_dsi = '#FF0000';
+                                    $status_dsi = 'bg-danger ';
+                                    $status_dsi_txt = 'Acquisition rejetée par la DSI';
                                 } elseif ($acquisition->status_dsi == null) {
-                                    $status_dsi = '#FFFFFF';
-                                }
-                                
-                                if ($acquisition->status == '1') {
-                                    $titre = 'Rendre la fiche invisible aux autres';
-                                    $icon = 'times-circle';
-                                } elseif ($acquisition->status == '0') {
-                                    $titre = 'Rendre la fiche visible aux autres';
-                                    $icon = 'check-circle';
+                                    $status_dsi = 'bg-white ';
+                                    $status_dsi_txt = 'Acquisition pas encore vu par la DSI';
                                 }
                                 
                             @endphp
@@ -132,33 +126,32 @@ use App\Models\Livraison;
                                 <td>{{ $acquisition->nom_mat }}</td>
                                 <td>{{ $acquisition->quantite }}</td>
                                 <td>{{ date('d/m/Y', strtotime($acquisition->date_submit)) }}</td>
-                                <td style="background: {{ $status_sih }}">SIH</td>
-                                <td style="background: {{ $status_dsi }}">DSI</td>
+                                <td class="{{ $status_sih }} " data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                    title="{{ $status_sih_txt }}">SIH</td>
+                                <td class="{{ $status_dsi }} " data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                    title="{{ $status_dsi_txt }}">DSI</td>
                                 <td>
                                     <form action="{{ url('/acquisition/recu', $acquisition) }}" method="post"
                                         class="d-inline">
                                         @csrf
                                         @method('put')
-                                        <button type="button" class="btn btn-outline-{{ $btnrecuoutline }}"
+                                        <button type="button" class="{{ $btnrecuoutline }}" style="display:block;width:100%;"
                                             {{ $btnrecushow }} {{ $btnrecuclick }}
                                             onclick="confirm('Clique sur oui si vous avez réçu le materiel ?') ? this.parentElement.submit() : ''">
                                             {{ $btnrecutitle }}
                                         </button>
                                     </form>
                                 </td>
+                                <td class="{{ $btnlivrecolor }}" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                    title="{{ $btnlivretxt }}"> {{ $btnlivretitle }}</td>
                                 <td>
-                                    <button type="button" class="btn btn-outline-{{ $btnlivreoutline }}" disabled>
-                                        {{ $btnlivretitle }}
-                                    </button>
-                                </td>
-                                <td>
-                                    <a href="{{ url('/acquisition/fiche', $acquisition) }}" class="btn btn-link"
+                                    <a href="{{ url('/acquisition/fiche', $acquisition) }}" class="btn "
                                         data-bs-toggle="tooltip" data-bs-placement="bottom" title="Voir la fiche">
                                         <i class="fas fa-eye"></i>
                                     </a>
-                                    <a href="{{ url('/acquisition/edit', $acquisition) }}" class="btn btn-link  {{ $btnedit }}"
-                                        data-bs-toggle="tooltip" data-bs-placement="bottom" title="Modifier la fiche"
-                                       >
+                                    <a href="{{ url('/acquisition/edit', $acquisition) }}"
+                                        class="btn   {{ $btnedit }}" data-bs-toggle="tooltip"
+                                        data-bs-placement="bottom" title="Modifier la fiche">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     {{-- <form action="{{ url('/acquisition/change_status', $acquisition) }}" method="post"
@@ -176,7 +169,7 @@ use App\Models\Livraison;
                                         class="d-inline">
                                         @csrf
                                         @method('delete')
-                                        <button type="button" class="btn btn-link" data-bs-toggle="tooltip"
+                                        <button type="button" class="btn " data-bs-toggle="tooltip"
                                             data-bs-placement="top" title="Supprimer la fiche"
                                             onclick="confirm('Etes vous sûr de supprimer la fiche ?') ? this.parentElement.submit() : ''">
                                             <i class="fas fa-trash-alt"></i>
@@ -189,14 +182,14 @@ use App\Models\Livraison;
                                         
                                     @endphp
                                     @if ($query)
-                                        <a href="{{ url('/livraison/show', $query->id) }}" class="btn btn-link"
+                                        <a href="{{ url('/livraison/show', $query->id) }}" class="btn "
                                             data-bs-toggle="tooltip" data-bs-placement="bottom"
                                             title="Voir la fiche de livraison ">
                                             <i class="fas fa-truck-loading"></i>
                                         </a>
                                     @else
                                         <a href="{{ url('/acquisition/livraison', $acquisition) }}"
-                                            class="btn btn-link" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                            class="btn " data-bs-toggle="tooltip" data-bs-placement="bottom"
                                             title="Générer une fiche de livraison " {{ $btnlivraison }}>
                                             <i class="fas fa-truck"></i>
                                         </a>
@@ -217,7 +210,7 @@ use App\Models\Livraison;
             <div class="d-flex justify-content-center">
                 {{ $acquisitions->links() }}
             </div>
-           
+
         </div>
 
 

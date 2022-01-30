@@ -15,17 +15,19 @@
             @endif
 
             @if ($message = Session::get('success'))
-                <div class="alert alert-success">
+                <div class="alert alert-success alert-dismissible fade show " role="alert">
                     <p>{{ $message }}</p>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
-
             @if ($message = Session::get('fail'))
-                <div class="alert alert-danger">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <p>{{ $message }}</p>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
-            <form action="{{route('adddevis')}}" role="form" method="post" class="form" enctype="multipart/form-data">
+            <form action="{{ route('adddevis') }}" role="form" method="post" class="form"
+                enctype="multipart/form-data">
                 @csrf
                 <div class="card col-md-12 mb-3">
                     <h4 class="card-header text-center">Devis</h4>
@@ -40,7 +42,7 @@
                         </div>
                         <div class="mb-3">
                             <input class="form-control" type="file" name="file" id="formFile">
-                          </div>
+                        </div>
 
                         <div class="row mb-3">
                             <div class="col-md-12 form-group ">
@@ -74,5 +76,5 @@
         }
 
     </style>
-    
+
 @endsection

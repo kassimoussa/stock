@@ -15,15 +15,17 @@
         <div class="row">
 
             @if ($message = Session::get('success'))
-                <div class="alert alert-success">
-                    <p>{{ $message }}</p>
-                </div>
-            @endif
-            @if ($message = Session::get('fail'))
-                <div class="alert alert-danger">
-                    <p>{{ $message }}</p>
-                </div>
-            @endif
+            <div class="alert alert-success alert-dismissible fade show " role="alert">
+                <p>{{ $message }}</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        @if ($message = Session::get('fail'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <p>{{ $message }}</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
 
             <div class="col-lg-12">
                 <div class="card  mb-3">
@@ -127,7 +129,7 @@
                                 @csrf
                                 @method('PUT')
 
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 d-flex justify-content-between">
                                     <div class="form-check form-check-inline ">
                                         <input class="form-check-input" type="radio" name="status_sih" id="Approuver"
                                             value="approuve" {{ $approuve }}>
@@ -144,12 +146,12 @@
                                         <label class="form-check-label" for="rejete">Rejeter</label>
                                     </div>
                                 </div>
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-3" id="sug">
                                     <span class="input-group-text fw-bold">Suggestion</span>
-                                    <textarea name="suggestion" id="" class="form-control" cols="30"
+                                    <textarea name="suggestion" id="sugg" class="form-control" cols="30"
                                         rows="2">{{ $intervention->suggestion }}</textarea>
                                 </div>
-                                <div class="row" style=" margin-top: 2%;" {{ $button }}>
+                                <div class="row text-center" style=" margin-top: 2%;" {{ $button }}>
                                     <div class="col-md-12 form-group ">
                                         <button type="submit" name="submit"
                                             class="btn btn-primary fw-bold">Soumettre</button>
@@ -163,7 +165,7 @@
                                 @csrf
                                 @method('PUT')
 
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 d-flex justify-content-between">
                                     <div class="form-check form-check-inline ">
                                         <input class="form-check-input" type="radio" name="status_sih" id="Approuver"
                                             value="approuve" {{ $approuve }}>
@@ -180,9 +182,9 @@
                                         <label class="form-check-label" for="rejete">Rejeter</label>
                                     </div>
                                 </div>
-                                <div class="input-group mb-3" {{ $sug }}>
+                                <div class="input-group mb-3" {{ $sug }} id="sug">
                                     <span class="input-group-text fw-bold">Suggestion</span>
-                                    <textarea name="suggestion" id="" class="form-control" cols="30"
+                                    <textarea name="suggestion" id="sugg" class="form-control" cols="30"
                                         rows="2">{{ $intervention->suggestion }}</textarea>
                                 </div>
                                 <div {{ $date }}>
@@ -194,7 +196,7 @@
                                     </div>
                                 </div>
 
-                                <div class="row" style=" margin-top: 2%;" {{ $button }}>
+                                <div class="row text-center" style=" margin-top: 2%;" {{ $button }}>
                                     <div class="col-md-12 form-group ">
                                         <button type="submit" name="submit"
                                             class="btn btn-primary fw-bold">Soumettre</button>
@@ -230,7 +232,7 @@
                                 }
                             @endphp
                             @if ($intervention->status_dir != null)
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 d-flex justify-content-between">
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="status_dir" id="Approuver"
                                             value="approuve" {{ $approuve }}>
@@ -292,7 +294,7 @@
                                 }
                             @endphp
                             @if ($intervention->status_din != null)
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12 mb-3 d-flex justify-content-between">
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="status_din" id="Approuver"
                                             value="approuve" {{ $approuve }}>
@@ -349,4 +351,17 @@
         }
 
     </style>
+    <script>
+        $(function() {
+            $('input[type="radio"]').click(function() {
+                if ($(this).attr('id') == "Approuver") { 
+                    $("#sug").hide();
+                }
+                if (($(this).attr('id') == "attente") || ($(this).attr('id') == "rejete")) { 
+                    $("#sug").show();
+                }
+
+            });
+        });
+    </script>
 @endsection

@@ -8,7 +8,7 @@ use App\Models\Direction;
         <div class="d-flex justify-content-between mb-3">
             <h3 class="over-title ">FICHE D'ACQUISITION </h3>
             {{-- <a href="/acquisition" class="btn  btn-primary  fw-bold">RETOURNER</a> --}}
-            @if ($acquisition->status_dsi == "approuve")
+            @if ($acquisition->status_dsi == 'approuve')
                 <a href="{{ url('/generate-pdf', $acquisition) }}"
                     class="btn  btn-primary  fw-bold text-white">IMPRIMER</a>
             @endif
@@ -159,7 +159,7 @@ use App\Models\Direction;
                         <label class="form-check-label" for="autre">Autre</label>
                     </div>
                 </div>
-                <div class="input-group mb-2" >
+                <div class="input-group mb-2">
                     <span class="input-group-text fw-bold">Quantité</span>
                     <label class="form-control">{{ $acquisition->quantite }} </label>
                 </div>
@@ -217,10 +217,10 @@ use App\Models\Direction;
                                 <tbody>
                                     @php
                                         $hidevis = '';
-                                        if($acquisition->status_sih == 'approuve'){
+                                        if ($acquisition->status_sih == 'approuve') {
                                             $hidevis = 'hidden';
                                         }
-                                        @endphp
+                                    @endphp
                                     @if (!empty($devis) && $devis->count())
                                         @php
                                             $cnt = 1;
@@ -233,7 +233,7 @@ use App\Models\Direction;
                                                 <td>{{ $devi->fournisseur }}</td>
                                                 <td class="td-actions ">
                                                     <a href="#" class="btn btn-transparent btn-xs" data-bs-toggle="modal"
-                                                        data-bs-target="#{{ $modaln }}" >
+                                                        data-bs-target="#{{ $modaln }}">
                                                         <i class="fas fa-eye " data-bs-toggle="tooltip"
                                                             data-bs-placement="left" title="Voir le devis"></i>
                                                     </a>
@@ -242,11 +242,13 @@ use App\Models\Direction;
                                                         data-bs-placement="bottom" title="Télécharger le devis">
                                                         <i class="fas fa-download "></i>
                                                     </a>
-                                                    <form action="{{ url('/devis/delete', $devi) }}" method="post" class="d-inline">
+                                                    <form action="{{ url('/devis/delete', $devi) }}" method="post"
+                                                        class="d-inline">
                                                         @csrf
                                                         @method('delete')
-                                                        <button {{$hidevis}} type="button" class="btn btn-transparent btn-xs" data-bs-toggle="tooltip"
-                                                            data-bs-placement="top"  title="Supprimer le devis"
+                                                        <button {{ $hidevis }} type="button"
+                                                            class="btn btn-transparent btn-xs" data-bs-toggle="tooltip"
+                                                            data-bs-placement="top" title="Supprimer le devis"
                                                             onclick="confirm('Etes vous sûr de supprimer le devis ?') ? this.parentElement.submit() : ''">
                                                             <i class="fas fa-trash "></i>
                                                         </button>
@@ -264,8 +266,7 @@ use App\Models\Direction;
                                                         </div>
                                                         <div class="modal-body">
                                                             <iframe height="900px" width="1000px"
-                                                                src="{{ asset($devi->path) }}"
-                                                                frameborder="0"></iframe>
+                                                                src="{{ asset($devi->path) }}" frameborder="0"></iframe>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -276,60 +277,67 @@ use App\Models\Direction;
                                             @endphp
                                         @endforeach
                                     @else
-                                    <tr>
-                                        <td colspan="10"><h3> Il n'y a pas de devis pour cette fiche.</h3></td>
-                                    </tr>
+                                        <tr>
+                                            <td colspan="10">
+                                                <h3> Il n'y a pas de devis pour cette fiche.</h3>
+                                            </td>
+                                        </tr>
                                     @endif
                                 </tbody>
                             </table>
                         </div>
-                        <button {{$hidevis}} type="button" name="add_devis" class="btn btn-dark fw-bold" data-bs-toggle="modal"
-                        data-bs-target="#newdevis">Ajouter</button>
+                        <button {{ $hidevis }} type="button" name="add_devis" class="btn btn-dark fw-bold"
+                            data-bs-toggle="modal" data-bs-target="#newdevis">Ajouter</button>
 
-                        <div class="modal fade" id="newdevis" tabindex="-1"
-                        aria-labelledby="voirtoutrTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable"
-                            role="document">
-                            <div class="modal-content">
-                                <div class="modal-header d-flex justify-content-between">
-                                    <h3>Nouveau devis </h3>
-                                    <button type="button" class="btn btn-primary fw-bold"
-                                        data-bs-dismiss="modal">Fermer</button>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="{{route('adddevis')}}" role="form" method="post" class="form" enctype="multipart/form-data">
-                                        @csrf
-                                        <div class="card col-md-12 mb-3">
-                                            <h4 class="card-header text-center">Devis</h4>
-                                            <div class="card-body">
-                                                <div class="input-group mb-3">
-                                                    <span class="input-group-text txt fw-bold ">Fournisseur</span>
-                                                    <input type="text" class="form-control" name="fournisseur">
-                                                </div>
-                                                <div class="input-group mb-3">
-                                                    <span class="input-group-text txt fw-bold ">N° de devis</span>
-                                                    <input type="text" class="form-control" name="numero_devis">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <input class="form-control" type="file" name="file" id="formFile">
-                                                  </div>
-                        
-                                                <div class="row mb-3">
-                                                    <div class="col-md-12 form-group ">
-                                                        <button type="submit" name="submit" class="btn btn-primary fw-bold">Ajouter</button>
-                                                        <button type="reset" class="btn btn-outline-danger  fw-bold">Annuler</button>
-                                                        <input type="text" name="fiche" value="acquisition" hidden>
-                                                        <input type="text" name="numero_fiche" value="{{ $acquisition->id }}" hidden>
+                        <div class="modal fade" id="newdevis" tabindex="-1" aria-labelledby="voirtoutrTitle"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable"
+                                role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header d-flex justify-content-between">
+                                        <h3>Nouveau devis </h3>
+                                        <button type="button" class="btn btn-primary fw-bold"
+                                            data-bs-dismiss="modal">Fermer</button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="{{ route('adddevis') }}" role="form" method="post"
+                                            class="form" enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="card col-md-12 mb-3">
+                                                <h4 class="card-header text-center">Devis</h4>
+                                                <div class="card-body">
+                                                    <div class="input-group mb-3">
+                                                        <span class="input-group-text txt fw-bold ">Fournisseur</span>
+                                                        <input type="text" class="form-control" name="fournisseur">
+                                                    </div>
+                                                    <div class="input-group mb-3">
+                                                        <span class="input-group-text txt fw-bold ">N° de devis</span>
+                                                        <input type="text" class="form-control" name="numero_devis">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <input class="form-control" type="file" name="file"
+                                                            id="formFile">
+                                                    </div>
+
+                                                    <div class="row mb-3">
+                                                        <div class="col-md-12 form-group ">
+                                                            <button type="submit" name="submit"
+                                                                class="btn btn-primary fw-bold">Ajouter</button>
+                                                            <button type="reset"
+                                                                class="btn btn-outline-danger  fw-bold">Annuler</button>
+                                                            <input type="text" name="fiche" value="acquisition" hidden>
+                                                            <input type="text" name="numero_fiche"
+                                                                value="{{ $acquisition->id }}" hidden>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </form>
+                                        </form>
 
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     </div>
                 </div>
             </div>
@@ -348,12 +356,12 @@ use App\Models\Direction;
             <div class="card-body">
                 @if ($acquisition->status_dir == 'approuve')
                     <div class="d-flex justify-content-between">
-                        <div class="col-md-4 ">
+                        <div class=" ">
                             <label class="">Date :
                                 {{ date('d/m/Y', strtotime($acquisition->date_dir)) }} </label>
                         </div>
 
-                        <div class="form-check col-md-4">
+                        <div class="form-check ">
                             <span class="fw-bold">Le Directeur de la {{ $acquisition->dir_demandeur }} </span>
                             <input class="form-check-input" type="checkbox" value="true" checked disabled>
                         </div>
@@ -367,7 +375,7 @@ use App\Models\Direction;
 
             </div>
         </div>
-        <div class="card  mb-3" style="width: 100%;">
+        {{-- <div class="card  mb-3" style="width: 100%;">
             <h4 class="card-header text-center">Visa SIH</h4>
             <div class="card-body">
                 @php
@@ -419,19 +427,19 @@ use App\Models\Direction;
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <div class="card  mb-3">
             <h4 class="card-header text-center">Visa DSI</h4>
             <div class="card-body">
                 @php
-                    $approuve = $attente = $rejete = $sugg = $button = $date = ' ';
+                    $approuve = $attente = $rejete = $com = $button = $date = $radio = ' ';
                     
                     if ($acquisition->status_dsi == 'approuve') {
                         $approuve = 'checked';
                         $date = '';
-                        $button = 'hidden';
-                        $attente = $rejete = $sugg = ' disabled ';
+                        $button = $com = $radio = 'hidden';
+                        $attente = $rejete = ' disabled ';
                     } elseif ($acquisition->status_dsi == 'attente') {
                         $attente = 'checked';
                         /* $attente = $approuve = ' disabled '; */
@@ -448,7 +456,7 @@ use App\Models\Direction;
                         @csrf
                         @method('PUT')
 
-                        <div class="col-md-12 mb-2">
+                        <div class="d-flex justify-content-between col-md-12 mb-2">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="status_dsi" id="Approuver"
                                     value="approuve" {{ $approuve }}>
@@ -465,7 +473,12 @@ use App\Models\Direction;
                                 <label class="form-check-label" for="rejete">Rejeter</label>
                             </div>
                         </div>
-                        <div class="row" style=" margin-top: 2%;" {{ $button }}>
+                        <div class="input-group mb-2" id="com" {{ $com }}>
+                            <span class="input-group-text fw-bold">Commentaire</span>
+                            <textarea name="commentaire_dsi" id="comtxt" class="form-control" cols="30"
+                                rows="2">{{ $acquisition->commentaire_dsi }}</textarea>
+                        </div>
+                        <div class="row text-center" style=" margin-top: 2%;" {{ $button }}>
                             <div class="col-md-12 form-group ">
                                 <button type="submit" name="submit" class="btn btn-primary fw-bold">Soumettre</button>
                                 <button type="reset" class="btn btn-outline-danger  fw-bold">Annuler</button>
@@ -479,22 +492,29 @@ use App\Models\Direction;
                         @csrf
                         @method('PUT')
 
-                        <div class="col-md-12 mb-2">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="status_dsi" id="Approuver"
-                                    value="approuve" {{ $approuve }}>
-                                <label class="form-check-label" for="Approuver">Approuver</label>
+                        <div {{ $radio }}>
+                            <div class="col-md-12 mb-2 d-flex justify-content-between">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="status_dsi" id="Approuver"
+                                        value="approuve" {{ $approuve }}>
+                                    <label class="form-check-label" for="Approuver">Approuver</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="status_dsi" id="attente"
+                                        value="attente" {{ $attente }}>
+                                    <label class="form-check-label" for="attente">En attente</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="status_dsi" id="rejete"
+                                        value="rejete" {{ $rejete }}>
+                                    <label class="form-check-label" for="rejete">Rejeter</label>
+                                </div>
                             </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="status_dsi" id="attente" value="attente"
-                                    {{ $attente }}>
-                                <label class="form-check-label" for="attente">En attente</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="status_dsi" id="rejete" value="rejete"
-                                    {{ $rejete }}>
-                                <label class="form-check-label" for="rejete">Rejeter</label>
-                            </div>
+                        </div>
+                        <div class="input-group mb-2" id="com" {{ $com }}>
+                            <span class="input-group-text fw-bold">Commentaire</span>
+                            <textarea name="commentaire_dsi" id="comtxt" class="form-control" cols="30"
+                                rows="2">{{ $acquisition->commentaire_dsi }}</textarea>
                         </div>
                         <div {{ $date }}>
                             <div class="d-flex justify-content-between">
@@ -510,7 +530,7 @@ use App\Models\Direction;
                             </div>
                         </div>
 
-                        <div class="row" style=" margin-top: 2%;" {{ $button }}>
+                        <div class="row text-center " style=" margin-top: 2%;" {{ $button }}>
                             <div class="col-md-12 form-group ">
                                 <button type="submit" name="submit" class="btn btn-primary fw-bold">Soumettre</button>
                                 <button type="reset" class="btn btn-outline-danger  fw-bold">Annuler</button>
@@ -534,4 +554,19 @@ use App\Models\Direction;
         }
 
     </style>
+    <script>
+        $(function() {
+            $('input[type="radio"]').click(function() {
+                if ($(this).attr('id') == "Approuver") {
+                    $("#comtxt").prop('disabled', true);
+                    $("#com").hide();
+                }
+                if (($(this).attr('id') == "attente") || ($(this).attr('id') == "rejete")) {
+                    $("#comtxt").removeAttr('disabled');
+                    $("#com").show();
+                }
+
+            });
+        });
+    </script>
 @endsection
