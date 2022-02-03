@@ -53,11 +53,11 @@
                                 <td>{{ $stock->materiel }}</td>
                                 <td>{{ $stock->quantite }}</td>
                                 <td class="td-actions ">
-                                    <a href="{{ url('/stocks/rentree', $stock) }}" class="btn btn-link"
+                                    <a href="{{ url('/stocks/rentree', $stock) }}" class="btn  "
                                         data-bs-toggle="tooltip" data-bs-placement="bottom" title="Rentrée de stock">
                                         <i class="fas fa-plus"></i>
                                     </a>
-                                    <a href="{{ url('/stocks/sortie', $stock) }}" class="btn btn-link" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                    <a href="{{ url('/stocks/sortie', $stock) }}" class="btn  " data-bs-toggle="tooltip" data-bs-placement="bottom"
                                     title="Sortie de stock">
                                         <i class="fas fa-minus"></i>
                                     </a>
@@ -65,7 +65,7 @@
                                         class="d-inline">
                                         @csrf
                                         @method('delete')
-                                        <button type="button" class="btn btn-link" data-bs-toggle="tooltip"
+                                        <button type="button" class="btn  " data-bs-toggle="tooltip"
                                             data-bs-placement="top" title="Supprimer le materiel"
                                             onclick="confirm('Etes vous sûr de supprimer le materiel ?') ? this.parentElement.submit() : ''">
                                             <i class="fas fa-trash-alt"></i>

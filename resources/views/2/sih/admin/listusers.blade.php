@@ -53,14 +53,14 @@
                             <td>{{ $user->service }}</td>
                             <td>{{ $user->level }}</td>
                             <td class="td-actions ">
-                                <a href="{{ url('/admin/useredit', $user) }}" class="btn btn-link" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                <a href="{{ url('/admin/useredit', $user) }}" class="btn " data-bs-toggle="tooltip" data-bs-placement="bottom"
                                     title="Edit User">
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 <form action="{{ url('/admin/userdelete', $user) }}" method="post" class="d-inline">
                                     @csrf
                                     @method('delete')
-                                    <button type="button" class="btn btn-link" data-bs-toggle="tooltip"
+                                    <button type="button" class="btn " data-bs-toggle="tooltip"
                                         data-bs-placement="bottom" title="Delete User"
                                         onclick="confirm('Etes vous sûr de supprimer le user ?.') ? this.parentElement.submit() : ''">
                                         <i class="fas fa-trash-alt"></i>

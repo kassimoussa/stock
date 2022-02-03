@@ -106,7 +106,6 @@ class LivraisonsController extends Controller
      */
     public function store(Request $request)
     {
-
         $nom_materiel = $request->input('nom_materiel');
         $quantite = $request->input('quantite');
         $observation = $request->input('observation');

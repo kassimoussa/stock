@@ -43,14 +43,14 @@ use App\Models\Direction;
                             <td>{{ $service->nom }}</td>
                             <td> {{ $directions->nom }}</td>
                             <td class="td-actions ">
-                                <a href="{{ url('/admin/serviceedit', $service) }}" class="btn btn-link" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                <a href="{{ url('/admin/serviceedit', $service) }}" class="btn " data-bs-toggle="tooltip" data-bs-placement="bottom"
                                     title="Edit Service">
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 <form action="{{ url('/admin/servicedelete', $service) }}" method="post" class="d-inline">
                                     @csrf
                                     @method('delete')
-                                    <button type="button" class="btn btn-link" data-bs-toggle="tooltip"
+                                    <button type="button" class="btn " data-bs-toggle="tooltip"
                                         data-bs-placement="bottom" title="Delete Direction"
                                         onclick="confirm('Etes vous sûr de supprimer le service?') ? this.parentElement.submit() : ''">
                                         <i class="fas fa-trash-alt"></i>

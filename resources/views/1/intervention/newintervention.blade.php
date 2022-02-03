@@ -52,8 +52,14 @@
                                     <h4 class="card-header ch2 text-center">Sur le materiel</h4>
                                     <div class="card-body">
                                         <div class="form-group control-label mb-1">
-                                            <label class="control-label">Libellé <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" name="materiel" required>
+                                            <label class="control-label">Libellé <span class="text-danger">*</span></label> 
+                                            <select class="form-select js-select2" name="materiel" id="materiel" required>
+                                                <option value="" disabled selected></option>
+                                                @foreach ($materiels as $materiel)
+                                                    <option value="{{ $materiel['materiel'] }}">{{ $materiel['materiel'] }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                         <div class="form-group control-label mb-1">
                                             <label class="control-label">Model <span class="text-danger">*</span></label>

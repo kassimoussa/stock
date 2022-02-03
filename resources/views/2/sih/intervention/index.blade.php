@@ -118,16 +118,16 @@ use App\Models\Livraison;
                                 title="{{ $status_din_txt }}">DIN</td>
                                 <td>{{ date('d/m/Y', strtotime($intervention->date_intervention)) }}</td>
                                 <td class="td-actions ">
-                                    <a href="{{ url('/intervention/fiche', $intervention) }}" class="btn btn-link"
+                                    <a href="{{ url('/intervention/fiche', $intervention) }}" class="btn  "
                                         data-bs-toggle="tooltip" data-bs-placement="left" title="Voir la fiche">
                                         <i class="fas fa-eye"></i>
                                     </a>
-                                    <a href="{{ url('/intervention/edit', $intervention) }}" class="btn btn-link {{ $btnedit }}"
+                                    <a href="{{ url('/intervention/edit', $intervention) }}" class="btn   {{ $btnedit }}"
                                         data-bs-toggle="tooltip" data-bs-placement="bottom" 
                                         title="Modifier la fiche">
                                         <i class="fas fa-edit"></i>
                                     </a>
-                                    {{-- <a href="{{ url('/intervention/devis', $intervention) }}" class="btn btn-link"
+                                    {{-- <a href="{{ url('/intervention/devis', $intervention) }}" class="btn  "
                                         data-bs-toggle="tooltip" data-bs-placement="top" {{ $devishidden }}
                                         title="Ajout un devis">
                                         <i class="fas fa-plus"></i>
@@ -136,7 +136,7 @@ use App\Models\Livraison;
                                         class="d-inline">
                                         @csrf
                                         @method('delete')
-                                        <button type="button" class="btn btn-link" data-bs-toggle="tooltip"
+                                        <button type="button" class="btn  " data-bs-toggle="tooltip"
                                             data-bs-placement="top" title="Supprimer la fiche"
                                             onclick="confirm('Etes vous sûr de supprimer la fiche ?') ? this.parentElement.submit() : ''">
                                             <i class="fas fa-trash-alt"></i>
@@ -149,14 +149,14 @@ use App\Models\Livraison;
                                         
                                     @endphp
                                     @if ($query)
-                                        <a href="{{ url('/livraison/show', $query->id) }}" class="btn btn-link"
+                                        <a href="{{ url('/livraison/show', $query->id) }}" class="btn  "
                                             data-bs-toggle="tooltip" data-bs-placement="bottom"
                                             title="Voir la fiche de livraison ">
                                             <i class="fas fa-truck-loading"></i>
                                         </a>
                                     @else
                                         <a href="{{ url('/intervention/livraison', $intervention) }}"
-                                            class="btn btn-link" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                            class="btn  " data-bs-toggle="tooltip" data-bs-placement="bottom"
                                             title="Générer une fiche de livraison " {{ $btnlivraison }}>
                                             <i class="fas fa-truck"></i>
                                         </a>

@@ -129,18 +129,19 @@ class InterventionsController extends Controller
     {
         $services = Service::all();
         $directions = Direction::all();
+        $materiels = Stock::all();
         if (session('userLevel') == '1') {
-            return view('1.intervention.newintervention', compact('services', 'directions'));
+            return view('1.intervention.newintervention', compact('services', 'directions','materiels'));
         } elseif (session('userLevel') == '2') {
             if (session('dir') == 'DSI') {
-                return view('2.sih.intervention.newintervention', compact('services', 'directions'));
+                return view('2.sih.intervention.newintervention', compact('services', 'directions','materiels'));
             } else {
-                return view('2.intervention.newintervention', compact('services', 'directions'));
+                return view('2.intervention.newintervention', compact('services', 'directions','materiels'));
             }
         } elseif (session('userLevel') == '3') {
-            return view('3.intervention.newintervention', compact('services'));
+            return view('3.intervention.newintervention', compact('services', 'directions','materiels'));
         } elseif (session('userLevel') == '4') {
-            return view('4.intervention.newintervention', compact('services'));
+            return view('4.intervention.newintervention', compact('services', 'directions','materiels'));
         }
     }
 

@@ -37,18 +37,18 @@
                             <td>{{ $direction->nom }}</td>
                             <td>{{ $direction->sigle }}</td>
                             <td class="td-actions ">
-                                <a href="{{ url('/admin/dirshow', $direction) }}" class="btn btn-link" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                <a href="{{ url('/admin/dirshow', $direction) }}" class="btn " data-bs-toggle="tooltip" data-bs-placement="bottom"
                                     title="Show Direction">
                                     <i class="fas fa-search"></i>
                                 </a>
-                                <a href="{{ url('/admin/diredit', $direction) }}" class="btn btn-link" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                <a href="{{ url('/admin/diredit', $direction) }}" class="btn " data-bs-toggle="tooltip" data-bs-placement="bottom"
                                     title="Edit Direction">
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 <form action="{{ url('/admin/dirdelete', $direction) }}" method="post" class="d-inline">
                                     @csrf
                                     @method('delete')
-                                    <button type="button" class="btn btn-link" data-bs-toggle="tooltip"
+                                    <button type="button" class="btn " data-bs-toggle="tooltip"
                                         data-bs-placement="bottom" title="Delete Direction"
                                         onclick="confirm('Etes vous sûr de supprimer la direction ?.') ? this.parentElement.submit() : ''">
                                         <i class="fas fa-trash-alt"></i>

@@ -63,7 +63,7 @@
                                 title="Voir la fiche d' {{ $fiche }} associée">{{ ucfirst($fiche) }}
                             </a></td>
                             <td class="td-actions ">
-                                <a href="{{ url('/livraison/show', $livraison) }}" class="btn btn-link" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                <a href="{{ url('/livraison/show', $livraison) }}" class="btn  " data-bs-toggle="tooltip" data-bs-placement="bottom"
                                     title="Voir la fiche ">
                                     <i class="fas fa-eye"></i>
                                 </a>
@@ -71,7 +71,7 @@
                                         class="d-inline">
                                         @csrf
                                         @method('delete')
-                                        <button type="button" class="btn btn-link" data-bs-toggle="tooltip"
+                                        <button type="button" class="btn  " data-bs-toggle="tooltip"
                                             data-bs-placement="top" title="Supprimer la fiche"
                                             onclick="confirm('Etes vous sûr de supprimer la fiche ?') ? this.parentElement.submit() : ''">
                                             <i class="fas fa-trash-alt"></i>

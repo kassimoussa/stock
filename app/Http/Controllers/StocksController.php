@@ -22,7 +22,7 @@ class StocksController extends Controller
             $search = $request['search'];
             $stocks = Stock::where('materiel', 'Like', '%' . $search . '%')->get();
         } else {
-            $stocks = Stock::all();
+            $stocks = Stock::orderBy('materiel', 'asc')->get();
         }
         //$stocks = compact('stocks');
 
