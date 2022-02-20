@@ -4,7 +4,7 @@
     <div class="row  py-3 px-3">
         <div class="d-flex justify-content-between mb-2">
             <h3 class="over-title mb-2">Stock des materiels  </h3>
-            {{-- <a href="/stocks/newmateriel" class="btn  btn-primary  fw-bold">Ajouter Materiel</a> --}}
+            <a href="/stocks/newmateriel" class="btn  btn-primary  fw-bold">Ajouter Materiel</a>
         </div>
 
         <div class="d-flex justify-content-start mb-2">
