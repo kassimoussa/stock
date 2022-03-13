@@ -242,8 +242,8 @@ class AcquisitionsController extends Controller
         $to_name = $user->name;
         $to_email = $user->email;
         if ($query) {
-           /*  Mail::to($to_email, $to_name)
-                ->later(now()->addSeconds(1), new Notif1($nom, $service, $direction, $submitby, $materiel)); */
+            Mail::to($to_email, $to_name)
+                ->later(now()->addSeconds(1), new Notif1($nom, $service, $direction, $submitby, $materiel));
             return back()->with('success', 'Ajout réussi');
         } else {
             return back()->with('fail', 'Echec de l\'ajout ');
@@ -336,8 +336,8 @@ class AcquisitionsController extends Controller
 
 
         $to_email = $user->email;
-        /* Mail::to($to_email)
-            ->later(now()->addSeconds(1), new Notif2($dirdemandeur, $date_submit)); */
+        Mail::to($to_email)
+            ->later(now()->addSeconds(1), new Notif2($dirdemandeur, $date_submit));
 
         return redirect('/acquisition')->with('success', 'Action éffectue');
         /* return back()->with('success', 'Modification réussie'); */
@@ -361,8 +361,8 @@ class AcquisitionsController extends Controller
 
 
         $to_email = $user->email;
-        /* Mail::to($to_email)
-            ->later(now()->addSeconds(1), new Notif2($dirdemandeur, $date_submit)); */
+        Mail::to($to_email)
+            ->later(now()->addSeconds(1), new Notif2($dirdemandeur, $date_submit));
 
         return redirect('/acquisition')->with('success', 'Action éffectue');
         /* return back()->with('success', 'Modification réussie'); */
