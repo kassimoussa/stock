@@ -190,8 +190,8 @@ class InterventionsController extends Controller
             if ($user != null) {
                 $to_name = $user->name;
                 $to_email = $user->email;
-                /* Mail::to($to_email, $to_name)
-                    ->later(now()->addSeconds(1), new NotifInter1($nom, $service)); */
+                Mail::to($to_email, $to_name)
+                    ->later(now()->addSeconds(1), new NotifInter1($nom, $service));
                 return back()->with('success', 'Ajout réussi !');
             } else {
                 return back()->with('success', 'Ajout réussi !');
@@ -246,8 +246,8 @@ class InterventionsController extends Controller
                 if ($user != null) {
                     $to_name = $user->name;
                     $to_email = $user->email;
-                    /* Mail::to($to_email, $to_name)
-                        ->later(now()->addSeconds(1), new NotifInter2($nom, $service, $dir, $fiche)); */
+                    Mail::to($to_email, $to_name)
+                        ->later(now()->addSeconds(1), new NotifInter2($nom, $service, $dir, $fiche));
                     return back()->with('success', 'Changement éffectué !');
                 } else {
                     return back()->with('success', 'Changement éffectué !');
@@ -262,8 +262,8 @@ class InterventionsController extends Controller
                 if ($user != null) {
                     $to_name = $user->name;
                     $to_email = $user->email;
-                    /* Mail::to($to_email, $to_name)
-                        ->later(now()->addSeconds(1), new NotifInter3($nom, $service, $dir, $fiche, $status)); */
+                    Mail::to($to_email, $to_name)
+                        ->later(now()->addSeconds(1), new NotifInter3($nom, $service, $dir, $fiche, $status));
                     return back()->with('success', 'Changement effectué !');
                 } else {
                     return back()->with('success', 'Changement effectué !');
@@ -300,8 +300,8 @@ class InterventionsController extends Controller
                     $to_name = $user->name;
                     $to_email = $user->email;
 
-                    /* Mail::to($to_email, $to_name)
-                        ->later(now()->addSeconds(1), new NotifInter4($nom, $service, $dir, $fiche)); */
+                    Mail::to($to_email, $to_name)
+                        ->later(now()->addSeconds(1), new NotifInter4($nom, $service, $dir, $fiche));
                         return back()->with('success', "Changement effectué  " );
                 } else {
                     return back()->with('success', "Changement effectué mais il n'y a pas d'user pour le chef de service " . $service);
@@ -315,8 +315,8 @@ class InterventionsController extends Controller
                 if ($user != null) {
                     $to_name = $user->name;
                     $to_email = $user->email;
-                    /* Mail::to($to_email, $to_name)
-                        ->later(now()->addSeconds(1), new NotifInter5($nom, $service, $dir, $fiche, $status)); */
+                    Mail::to($to_email, $to_name)
+                        ->later(now()->addSeconds(1), new NotifInter5($nom, $service, $dir, $fiche, $status));
                     return back()->with('success', 'Changement effectué !');
                 } else {
                     return back()->with('success', 'Changement effectué !');
@@ -344,8 +344,8 @@ class InterventionsController extends Controller
                 if ($user != null) {
                     $to_name = $user->name;
                     $to_email = $user->email;
-                    /* Mail::to($to_email, $to_name)
-                        ->later(now()->addSeconds(1), new NotifInter4($nom, $service, $dir, $fiche)); */
+                    Mail::to($to_email, $to_name)
+                        ->later(now()->addSeconds(1), new NotifInter4($nom, $service, $dir, $fiche));
                     return back()->with('success', 'Changement éffectué !');
                 } else {
                     return back()->with('success', 'Changement éffectué !');
@@ -361,8 +361,8 @@ class InterventionsController extends Controller
                 $to_name = $user->name;
                 $to_email = $user->email;
 
-                /* Mail::to($to_email, $to_name)
-                    ->later(now()->addSeconds(1), new NotifInter5($nom, $service, $dir, $fiche, $status)); */
+                Mail::to($to_email, $to_name)
+                    ->later(now()->addSeconds(1), new NotifInter5($nom, $service, $dir, $fiche, $status));
             }
             return back()->with('success', 'Modification effectué');
         }

@@ -231,16 +231,16 @@ class AcquisitionsController extends Controller
             $fileModel->path =  $filePath;
             $query2 =   $fileModel->save();
         }
-       /*  $user = User::where('level', '2')->where('direction', 'DSI')
-            ->where('service', 'IT HelpDesk')->first(); */
+        $user = User::where('level', '2')->where('direction', 'DSI')
+            ->where('service', 'IT HelpDesk')->first();
 
         $submitby = session('username');
         $nom = $request->nom_demandeur;
         $service = $request->service_demandeur;
         $direction = session('dir');
         $materiel = $request->materiel;
-        $to_name = "Kassim";
-        $to_email = "kassimdt1@gmail.com";
+        $to_name = $user->name;
+        $to_email = $user->email;
         if ($query) {
             Mail::to($to_email, $to_name)
                 ->later(now()->addSeconds(1), new Notif1($nom, $service, $direction, $submitby, $materiel));
