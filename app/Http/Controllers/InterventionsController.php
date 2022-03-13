@@ -296,6 +296,8 @@ class InterventionsController extends Controller
                 $user = User::where('level', '2')->where('direction',  $dir)
                     ->where('service', $service)->first();
 
+                $user2 = User::where('level', '4')->where('direction',  $dir)->first();
+
                 if ($user != null) {
                     $to_name = $user->name;
                     $to_email = $user->email;
@@ -303,8 +305,15 @@ class InterventionsController extends Controller
                     Mail::to($to_email, $to_name)
                         ->later(now()->addSeconds(1), new NotifInter4($nom, $service, $dir, $fiche));
                         return back()->with('success', "Changement effectué  " );
-                } else {
-                    return back()->with('success', "Changement effectué mais il n'y a pas d'user pour le chef de service " . $service);
+                } elseif($user2 != null)  {
+                    $to_name = $user2->name;
+                    $to_email = $user2->email;
+                    Mail::to($to_email, $to_name)
+                        ->later(now()->addSeconds(1), new NotifInter4($nom, $service, $dir, $fiche));
+                        return back()->with('success', "Changement effectué  " );
+                    return back()->with('success', "Changement effectué, pas de compte trouver pour le chef de service ". $service ." donc email envoyer au directeur de la " .$dir  );
+                }else{
+                    return back()->with('success', "Changement effectué mais pas de compte trouver pour le chef de service ". $service ." ni pour le directeur de la " .$dir  );
                 }
             } elseif ($status == 'attente' || $status == 'rejete') {
                 $user = $user = User::where('level', '1')->where('id', $intervention->submitbyID)->first();
