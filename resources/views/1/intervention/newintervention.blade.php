@@ -97,7 +97,7 @@
                                         </div>
                                         <div class="form-group control-label mb-1">
                                             <label class="control-label">Centre ou Service </label>
-                                            <select name="service_demandeur" id="serv" class="form-select js-select2" required></select>
+                                            <select name="service_demandeur" id="serv" class="form-select js-select2" ></select>
                                         </div>
                                     </div>
                                 </div>
@@ -158,7 +158,7 @@
                         if (res) {
 
                             $("#serv").empty();
-                            $("#serv").append('<option>Select Service</option>');
+                            $("#serv").append('<option value="">Select Service</option>');
                             $.each(res, function(key, value) {
                                 $("#serv").append('<option value="' + value + '">' + value +
                                     '</option>');
