@@ -78,7 +78,7 @@ class UserController extends Controller
                 $request->session()->put('userLevel', $user->level);
                 $request->session()->put('username', $user->name);
                 $request->session()->put('dir', $user->direction);
-                $request->session()->put('service', $user->service);
+                $request->session()->put('service', $user->service);  
                 return redirect('index');
             } else {
                 return back()->with('fail', 'Mot de passe incorrecte pour ce compte !');

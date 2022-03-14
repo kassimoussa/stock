@@ -1,7 +1,7 @@
 @extends('2.layout', ['page' => 'Accueil', 'pageSlug' => 'index'])
 @section('content')
     <div class="row">
-       {{--  <div class="col-sm-4 mt-4">
+        <div class="col-sm-4 mt-4">
             <div class="card border-primary no-radius text-center bg-white">
                 <div class="card-body">
                     <span class="fa-stack fa-2x">
@@ -16,7 +16,7 @@
                     </p>
                 </div>
             </div>
-        </div> --}}
+        </div>
         <div class="col-sm-4 mt-4">
             <div class="card border-primary no-radius text-center bg-white">
                 <div class="card-body">

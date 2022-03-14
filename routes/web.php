@@ -57,9 +57,15 @@ Route::group(['middleware'=> ['logged']], function(){
     Route::get('/stocks/sortie/{stock}', [StocksController::class, 'sortie']);
     Route::put('/stocks/retrait/{stock}', [StocksController::class, 'soustraction']);
     Route::put('/stocks/ajout/{stock}', [StocksController::class, 'addition']);
+    Route::get('/stocks/allsortie', [StocksController::class, 'allsortie']);
+    Route::post('/stocks/allsortieby', [StocksController::class, 'allsortieby']);
+    Route::get('/stocks/rentree/', [StocksController::class, 'rentree']);
+    Route::get('/stocks/allrentree', [StocksController::class, 'allrentree']);
+    Route::post('/stocks/allrentreeby', [StocksController::class, 'allrentreeby']);
 
     Route::get('stocks/newmateriel', [StocksController::class, 'create']);
     Route::post('stocks/store', [StocksController::class, 'store'])->name('stocks/store');
+    Route::post('/stocks/store2', [StocksController::class, 'store2']);
     Route::delete('/stocks/delete/{stock}', [StocksController::class, 'destroy']);
 
     Route::get('/acquisition', [AcquisitionsController::class, 'index']);

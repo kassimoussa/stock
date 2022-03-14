@@ -12,6 +12,8 @@ class Rentree extends Model
         'materiel',
         'quantite',
         'date_rentree',
-        'fournisseur'
+        'fournisseur',
+        'direction',
+        'service',
     ];
 }

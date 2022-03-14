@@ -11,5 +11,7 @@ class Stock extends Model
     protected $fillable = [
         'materiel',
         'quantite',
+        'direction',
+        'service',
     ];
 }

@@ -24,7 +24,8 @@ class User extends Authenticatable
         'level',
         'direction',
         'service',
-        'reset_pass'
+        'reset_pass',
+        'stock_class'
     ];
 
     /**

@@ -1,4 +1,4 @@
-@extends('2.sih.layout', ['page' => 'Gestion des stocks', 'pageSlug' => 'stocks'])
+@extends('2.layout', ['page' => 'Gestion des stocks', 'pageSlug' => 'stocks'])
 @section('content')
 
     <div class="row mt-3">
@@ -44,8 +44,8 @@
                             <div class="col-md-6">
                                 <div class="input-group mb-3 mb-3">
                                     <span class="input-group-text txt fw-bold ">Quantité</span>
-                                    <input type="text" class="form-control" name="quantite"
-                                        placeholder="Quantité disponible: {{ $stock->quantite }}">
+                                    <input type="number" class="form-control" name="quantite"
+                                        placeholder="Quantité disponible: {{ $stock->quantite }}" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -58,14 +58,14 @@
                             <div class="col-md-6">
                                 <div class="input-group mb-3 mb-3">
                                     <span class="input-group-text txt fw-bold ">Date</span>
-                                    <input type="date" class="form-control" name="date_sortie">
+                                    <input type="date" class="form-control" name="date_sortie" required
                                 </div>
                             </div>
 
                             <div class="row mt-3 mb-2">
                                 <div class="col-md-12 form-group text-center">
                                     <button type="submit" name="submit" class="btn btn-primary fw-bold">Soumettre</button>
-                                    <button type="reset" class="btn btn-outline-danger  fw-bold">Annuler</button>
+                                    <button type="reset" class="btn btn-outline-danger  fw-bold">Annuler</button> 
                                 </div>
                             </div>
 

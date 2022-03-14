@@ -14,5 +14,7 @@ class Sortie extends Model
         'raison',
         'numero_fiche',
         'date_sortie',
+        'direction',
+        'service',
     ];
 }

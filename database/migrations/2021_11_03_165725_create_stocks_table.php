@@ -17,6 +17,8 @@ class CreateStocksTable extends Migration
             $table->id();
             $table->string('materiel');
             $table->integer('quantite');
+            $table->string('direction')->nullable();
+            $table->integer('service')->nullable();
             $table->timestamps();
         });
     }

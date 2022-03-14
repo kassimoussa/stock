@@ -45,7 +45,7 @@ $user = User::where('id', session('Loggeduser'))->first();
                 <h3 style="font-weight: bold;">BIENVENUE DANS LE GESTIONNAIRE DE STOCK </h3>
             </div>
             <div class="navbar-nav float-end ">
-                <h5 class="fw-bold text-primary">{{ $user->service}} </h5>
+                <h5 class="fw-bold text-primary">{{ $user->name}} </h5>
             </div>
         </header>
         <!-- Page Sidebar -->
@@ -60,11 +60,11 @@ $user = User::where('id', session('Loggeduser'))->first();
                         <span class="nav_name">Accueil</span>
                     </a>
                     
-                    {{-- <a href="/stocks" class="nav_link @if ($pageSlug == 'stocks') {{ "activee" }} @endif ">
+                    <a href="/stocks" class="nav_link @if ($pageSlug == 'stocks') {{ "activee" }} @endif ">
                         <i class='fas fa-warehouse nav_icon' data-bs-toggle="tooltip" data-bs-placement="right"
                             title="Stock"></i>
                         <span class="nav_name">Stock</span>
-                    </a>  --}}
+                    </a> 
                     
                     <a href="/acquisition" class="nav_link @if ($pageSlug == 'acquisition') {{ "activee" }} @endif ">
                         <i class='fas fa-laptop nav_icon' data-bs-toggle="tooltip" data-bs-placement="right"

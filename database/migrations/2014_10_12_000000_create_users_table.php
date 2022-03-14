@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('level')->nullable();
             $table->string('direction')->nullable();
             $table->string('service')->nullable();
+            $table->string('stock_class')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -19,6 +19,8 @@ class CreateRentreesTable extends Migration
             $table->integer('quantite')->nullable();
             $table->string('fournisseur');
             $table->timestamp('date_rentree');
+            $table->string('direction')->nullable();
+            $table->string('service')->nullable();
             $table->timestamps();
         });
     }

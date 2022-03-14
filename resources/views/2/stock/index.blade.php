@@ -1,14 +1,10 @@
-@extends('2.sih.layout', ['page' => 'Gestion des stocks', 'pageSlug' => 'stocks' ])
+@extends('2.layout', ['page' => 'Gestion des stocks', 'pageSlug' => 'stocks' ])
 @section('content')
 
     <div class="row  py-3 px-3">
         <div class="d-flex justify-content-between mb-2">
             <h3 class="over-title ">Stock des materiels </h3>
-            <div>
-                <a href="/stocks/allrentree" class="btn  btn-primary  fw-bold">Rentrée</a>
-                <a href="/stocks/allsortie" class="btn  btn-primary  fw-bold">Sortie</a>
-                <a href="/stocks/newmateriel" class="btn  btn-primary  fw-bold">Ajouter Materiel</a>
-            </div> 
+            <a href="/stocks/newmateriel" class="btn  btn-primary  fw-bold">Ajouter Materiel</a>
         </div>
 
         <div class="d-flex justify-content-start mb-2">
