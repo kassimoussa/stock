@@ -12,8 +12,7 @@
                 <select name="annee" id="list" onchange="this.form.submit()" class="  form-group float-end mb-2 ">
                     <option disabled="disabled">Choisir une année</option>
                     <option selected="true" value="ALL" @if ('ALL' == $annee) selected="selected" @endif>Tout
-                    </option>
-                    <option value="2021" @if ('2021' == $annee) selected="selected" @endif>2021 </option>
+                    </option> 
                     <option value="2022" @if ('2022' == $annee) selected="selected" @endif>2022 </option>
                     <option value="2023" @if ('2023' == $annee) selected="selected" @endif>2023 </option>
                     <option value="2024" @if ('2024' == $annee) selected="selected" @endif>2024 </option>
@@ -28,62 +27,62 @@
             <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs" id="rentrees" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active fw-bold" href="#janvier" role="tab" aria-controls="janvier"
+                        <a class="nav-link  fw-bold @if (date('m') == "01") {{ 'active' }} @endif" href="#janvier" role="tab" aria-controls="janvier"
                             aria-selected="true" data-bs-toggle="tooltip" data-bs-placement="top"
                             title="Total = {{ $rentres[1] }}">Janvier</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link fw-bold" href="#fevrier" role="tab" aria-controls="fevrier"
+                        <a class="nav-link fw-bold @if (date('m') == "02") {{ 'active' }} @endif" href="#fevrier" role="tab" aria-controls="fevrier"
                             aria-selected="false" data-bs-toggle="tooltip" data-bs-placement="top"
                             title="Total = {{ $rentres[2] }}">Février</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link fw-bold" href="#mars" role="tab" aria-controls="mars"
+                        <a class="nav-link fw-bold @if (date('m') == "03") {{ 'active' }} @endif" href="#mars" role="tab" aria-controls="mars"
                             aria-selected="false" data-bs-toggle="tooltip" data-bs-placement="top"
                             title="Total = {{ $rentres[3] }}">Mars</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link fw-bold" href="#avril" role="tab" aria-controls="avril"
+                        <a class="nav-link fw-bold @if (date('m') == "04") {{ 'active' }} @endif" href="#avril" role="tab" aria-controls="avril"
                             aria-selected="false" data-bs-toggle="tooltip" data-bs-placement="top"
                             title="Total = {{ $rentres[4] }}">Avril</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link fw-bold" href="#mai" role="tab" aria-controls="mai"
+                        <a class="nav-link fw-bold @if (date('m') == "05") {{ 'active' }} @endif" href="#mai" role="tab" aria-controls="mai"
                             aria-selected="false" data-bs-toggle="tooltip" data-bs-placement="top"
                             title="Total = {{ $rentres[5] }}">Mai</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link fw-bold" href="#juin" role="tab" aria-controls="juin"
+                        <a class="nav-link fw-bold @if (date('m') == "06") {{ 'active' }} @endif" href="#juin" role="tab" aria-controls="juin"
                             aria-selected="false" data-bs-toggle="tooltip" data-bs-placement="top"
                             title="Total = {{ $rentres[6] }}">Juin</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link fw-bold" href="#juillet" role="tab" aria-controls="juillet"
+                        <a class="nav-link fw-bold @if (date('m') == "07") {{ 'active' }} @endif" href="#juillet" role="tab" aria-controls="juillet"
                             aria-selected="false" data-bs-toggle="tooltip" data-bs-placement="top"
                             title="Total = {{ $rentres[7] }}">Juillet</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link fw-bold" href="#aout" role="tab" aria-controls="aout"
+                        <a class="nav-link fw-bold @if (date('m') == "08") {{ 'active' }} @endif" href="#aout" role="tab" aria-controls="aout"
                             aria-selected="false" data-bs-toggle="tooltip" data-bs-placement="top"
                             title="Total = {{ $rentres[8] }}">Août</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link fw-bold" href="#septembre" role="tab" aria-controls="septembre"
+                        <a class="nav-link fw-bold @if (date('m') == "09") {{ 'active' }} @endif" href="#septembre" role="tab" aria-controls="septembre"
                             aria-selected="false" data-bs-toggle="tooltip" data-bs-placement="top"
                             title="Total = {{ $rentres[9] }}">Septembre</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link fw-bold" href="#octobre" role="tab" aria-controls="octobre"
+                        <a class="nav-link fw-bold @if (date('m') == "10") {{ 'active' }} @endif" href="#octobre" role="tab" aria-controls="octobre"
                             aria-selected="false" data-bs-toggle="tooltip" data-bs-placement="top"
                             title="Total = {{ $rentres[10] }}">Octobre</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link fw-bold" href="#novembre" role="tab" aria-controls="novembre"
+                        <a class="nav-link fw-bold @if (date('m') == "11") {{ 'active' }} @endif" href="#novembre" role="tab" aria-controls="novembre"
                             aria-selected="false" data-bs-toggle="tooltip" data-bs-placement="top"
                             title="Total = {{ $rentres[11] }}">Novembre</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link fw-bold" href="#decembre" role="tab" aria-controls="decembre"
+                        <a class="nav-link fw-bold @if (date('m') == "12") {{ 'active' }} @endif" href="#decembre" role="tab" aria-controls="decembre"
                             aria-selected="false" data-bs-toggle="tooltip" data-bs-placement="top"
                             title="Total = {{ $rentres[12] }}">Décembre</a>
                     </li>
@@ -92,7 +91,7 @@
 
             <div class="card-body">
                 <div class="tab-content mt-3">
-                    <div class="tab-pane active" id="janvier" role="tabpanel">  
+                    <div class="tab-pane @if (date('m') == "01") {{ 'active' }} @endif " id="janvier" role="tabpanel">  
                         <div class=" ">  
                             <table class="table table-bordered border-dark table-sm table-hover" id="">
                                 <thead class="  table-dark">
@@ -130,7 +129,7 @@
                         </div>
                     </div>
 
-                    <div class="tab-pane" id="fevrier" role="tabpanel">  
+                    <div class="tab-pane @if (date('m') == "02") {{ 'active' }} @endif" id="fevrier" role="tabpanel">  
                         <div class=" ">  
                             <table class="table table-bordered border-dark table-sm table-hover" id="">
                                 <thead class="  table-dark">
@@ -168,7 +167,7 @@
                         </div>
                     </div>
 
-                    <div class="tab-pane" id="mars" role="tabpanel">  
+                    <div class="tab-pane @if (date('m') == "03") {{ 'active' }} @endif" id="mars" role="tabpanel">  
                         <div class=" ">  
                             <table class="table table-bordered border-dark table-sm table-hover" id="">
                                 <thead class="  table-dark">
@@ -206,7 +205,7 @@
                         </div>
                     </div>
 
-                    <div class="tab-pane" id="avril" role="tabpanel">  
+                    <div class="tab-pane @if (date('m') == "04") {{ 'active' }} @endif" id="avril" role="tabpanel">  
                         <div class=" ">  
                             <table class="table table-bordered border-dark table-sm table-hover" id="">
                                 <thead class="  table-dark">
@@ -244,7 +243,7 @@
                         </div>
                     </div>
 
-                    <div class="tab-pane" id="mai" role="tabpanel">  
+                    <div class="tab-pane @if (date('m') == "05") {{ 'active' }} @endif" id="mai" role="tabpanel">  
                         <div class=" ">  
                             <table class="table table-bordered border-dark table-sm table-hover" id="">
                                 <thead class="  table-dark">
@@ -282,7 +281,7 @@
                         </div>
                     </div>
 
-                    <div class="tab-pane" id="juin" role="tabpanel">  
+                    <div class="tab-pane @if (date('m') == "06") {{ 'active' }} @endif" id="juin" role="tabpanel">  
                         <div class=" ">  
                             <table class="table table-bordered border-dark table-sm table-hover" id="">
                                 <thead class="  table-dark">
@@ -320,7 +319,7 @@
                         </div>
                     </div>
 
-                    <div class="tab-pane" id="juillet" role="tabpanel">  
+                    <div class="tab-pane @if (date('m') == "07") {{ 'active' }} @endif" id="juillet" role="tabpanel">  
                         <div class=" ">  
                             <table class="table table-bordered border-dark table-sm table-hover" id="">
                                 <thead class="  table-dark">
@@ -358,7 +357,7 @@
                         </div>
                     </div>
 
-                    <div class="tab-pane" id="aout" role="tabpanel">  
+                    <div class="tab-pane @if (date('m') == "08") {{ 'active' }} @endif" id="aout" role="tabpanel">  
                         <div class=" ">  
                             <table class="table table-bordered border-dark table-sm table-hover" id="">
                                 <thead class="  table-dark">
@@ -396,7 +395,7 @@
                         </div>
                     </div>
 
-                    <div class="tab-pane" id="septembre" role="tabpanel">  
+                    <div class="tab-pane @if (date('m') == "09") {{ 'active' }} @endif" id="septembre" role="tabpanel">  
                         <div class=" ">  
                             <table class="table table-bordered border-dark table-sm table-hover" id="">
                                 <thead class="  table-dark">
@@ -434,7 +433,7 @@
                         </div>
                     </div>
 
-                    <div class="tab-pane" id="octobre" role="tabpanel">  
+                    <div class="tab-pane @if (date('m') == "10") {{ 'active' }} @endif" id="octobre" role="tabpanel">  
                         <div class=" ">  
                             <table class="table table-bordered border-dark table-sm table-hover" id="">
                                 <thead class="  table-dark">
@@ -472,7 +471,7 @@
                         </div>
                     </div>
 
-                    <div class="tab-pane " id="novembre" role="tabpanel">  
+                    <div class="tab-pane @if (date('m') == "11") {{ 'active' }} @endif " id="novembre" role="tabpanel">  
                         <div class=" ">  
                             <table class="table table-bordered border-dark table-sm table-hover" id="">
                                 <thead class="  table-dark">
@@ -510,7 +509,7 @@
                         </div>
                     </div>
 
-                    <div class="tab-pane " id="decembre" role="tabpanel">  
+                    <div class="tab-pane @if (date('m') == "12") {{ 'active' }} @endif " id="decembre" role="tabpanel">  
                         <div class=" ">  
                             <table class="table table-bordered border-dark table-sm table-hover" id="">
                                 <thead class="  table-dark">
