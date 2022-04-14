@@ -33,14 +33,14 @@ use App\Models\Livraison;
 
         <div>
             <table class="table   border-dark table-sm table-hover " id="">
-                <thead class="table-dark text-primary text- ">
-                    <th scope="col">N° Fiche</th>
+                <thead class="table-dark text-primary  text-center ">
+                    <th scope="col">#</th>
                     <th scope="col">Demandeur</th>
                     <th scope="col">Direction</th>
                     <th scope="col">Service</th>
                     <th scope="col">Materiel</th>
                     <th scope="col" colspan="3">Status</th>
-                    <th scope="col">Date d'intervention</th>
+                    <th scope="col">Date </th>
                     <th scope="col">Action</th>
                 </thead>
                 <tbody>
@@ -50,7 +50,7 @@ use App\Models\Livraison;
                         @endphp
 
                         @foreach ($interventions as $key => $intervention)
-                            <tr>
+                            <tr class="text-center">
                                 @php
                                     $status_dir = '';
                                     $status_dir_txt = '';
