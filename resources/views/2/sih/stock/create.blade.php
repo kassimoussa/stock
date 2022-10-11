@@ -24,6 +24,7 @@
                                 aria-label="Close"></button>
                         </div>
                     @endif
+                    
                     <form action="store" role="form" method="post" class="form-card">
                         @csrf
                         <div class="field_wrapper col mb-2">

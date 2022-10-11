@@ -19,20 +19,27 @@ $user = User::where('id', session('Loggeduser'))->first();
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <!-- Scripts --> 
-     <script src="{{ asset('js/app.js') }}"></script>
-     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script> 
-     <script src="{{ asset('js/script.js') }}"></script>
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('js/script.js') }}"></script>
+    <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
 
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.2.0/dist/select2-bootstrap-5-theme.min.css" />
-   
+
+    <style>
+        .dropdown:hover .dropdown-menu {
+            display: block;
+            margin-top: 0; // remove the gap so it doesn't close
+        }
+    </style>
 </head>
 
-<body oncontextmenu='return false' class='snippet-body'>
+<body {{-- oncontextmenu='return false' --}} class='snippet-body'>
 
     <body class="body-pd" id="body-pd">
 
@@ -45,7 +52,7 @@ $user = User::where('id', session('Loggeduser'))->first();
                 <h3 style="font-weight: bold;">BIENVENUE DANS LE GESTIONNAIRE DE STOCK </h3>
             </div>
             <div class="navbar-nav float-end ">
-                <h5 class="fw-bold text-primary">{{ $user->name}} </h5>
+                <h5 class="fw-bold text-primary">{{ $user->name }} </h5>
             </div>
         </header>
         <!-- Page Sidebar -->
@@ -54,46 +61,59 @@ $user = User::where('id', session('Loggeduser'))->first();
             <nav class="nav nav_">
 
                 <div class="nav_list">
-                    <a href="/index" class="nav_link mb-5 mt-3 @if ($pageSlug == 'index') {{ "activee" }} @endif">
+                    <a href="/index"
+                        class="nav_link mb-5 mt-3 @if ($pageSlug == 'index') {{ 'activee' }} @endif">
                         <i class='fas fa-home nav_icon ' data-bs-toggle="tooltip" data-bs-placement="right"
                             title="Accueil"></i>
                         <span class="nav_name">Accueil</span>
                     </a>
-                    
-                    <a href="/stocks" class="nav_link @if ($pageSlug == 'stocks') {{ "activee" }} @endif ">
+
+                    <a href="/stocks" class="nav_link @if ($pageSlug == 'stocks') {{ 'activee' }} @endif ">
                         <i class='fas fa-warehouse nav_icon' data-bs-toggle="tooltip" data-bs-placement="right"
                             title="Stock"></i>
                         <span class="nav_name">Stock</span>
-                    </a> 
-                    
-                    <a href="/acquisition" class="nav_link @if ($pageSlug == 'acquisition') {{ "activee" }} @endif ">
+                    </a>
+
+                    @if (session('service') == 'IT HelpDesk')
+                    <a href="/acquisition"
+                        class="nav_link @if ($pageSlug == 'acquisition') {{ 'activee' }} @endif ">
                         <i class='fas fa-laptop nav_icon' data-bs-toggle="tooltip" data-bs-placement="right"
                             title="Acquisition"></i>
                         <span class="nav_name">Acquisition</span>
                     </a>
 
-                     <a href="{{ url('/intervention') }}" class="nav_link @if ($pageSlug == 'intervention') {{ "activee" }} @endif">
+                    <a href="{{ url('/intervention') }}"
+                        class="nav_link @if ($pageSlug == 'intervention') {{ 'activee' }} @endif">
                         <i class='fas fa-tools nav_icon' data-bs-toggle="tooltip" data-bs-placement="right"
                             title="Intervention"></i>
                         <span class="nav_name">Intervention</span>
                     </a>
-                    
-                    <a href="{{ url('/livraison') }}" class="nav_link @if ($pageSlug == 'livraison') {{ "activee" }} @endif">
+
+                    <a href="{{ url('/livraison') }}"
+                        class="nav_link @if ($pageSlug == 'livraison') {{ 'activee' }} @endif">
                         <i class='fas fa-truck nav_icon fa-2x' data-bs-toggle="tooltip" data-bs-placement="right"
                             title="Livraison"></i>
                         <span class="nav_name">Livraison</span>
-                    </a> 
+                    </a>
+                    @endif
+
+                    <a href="{{ url('/admin/listuser') }}"
+                        class="nav_link @if ($pageSlug == 'admin') {{ 'activee' }} @endif">
+                        <i class='fas fa-user-cog nav_icon fa-2x' data-bs-toggle="tooltip" data-bs-placement="right"
+                            title="Administration"></i>
+                        <span class="nav_name">Administration</span>
+                    </a>
                 </div>
                 <div>
-                    <a href="/profile" class="nav_link @if ($pageSlug == 'profile') {{ "activee" }} @endif">
+                    <a href="/profile" class="nav_link @if ($pageSlug == 'profile') {{ 'activee' }} @endif">
                         <i class='fas fa-user  nav_icon' data-bs-toggle="tooltip" data-bs-placement="right"
                             title="Profile"></i>
                         <span class="nav_name">Profile</span>
                     </a>
 
                     <a href="/logout" class="nav_link">
-                        <i class='fas fa-sign-out-alt  nav_icon' data-bs-toggle="tooltip"
-                            data-bs-placement="right" title="Déconnexion"></i>
+                        <i class='fas fa-sign-out-alt  nav_icon' data-bs-toggle="tooltip" data-bs-placement="right"
+                            title="Déconnexion"></i>
                         <span class="nav_name">Déconnexion</span>
                     </a>
                 </div>
@@ -103,7 +123,7 @@ $user = User::where('id', session('Loggeduser'))->first();
 
         <!-- Page Content -->
         <!--Container Main start-->
-        
+
         <div class="container-fluid  ">
             @yield('content')
         </div>
@@ -111,7 +131,7 @@ $user = User::where('id', session('Loggeduser'))->first();
         @stack('modals')
 
         @stack('scripts')
-        
+
         <script>
             var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
             var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {

@@ -1,9 +1,8 @@
 @extends('1.layout', ['page' => 'Gestion des stocks', 'pageSlug' => 'stocks'])
 @section('content')
 
-    <div class="row mt-3">
-        <h3 class="fw-bold mt-3">Gestion des stocks</h3>
-        <div class="row">
+    <div class="row mt-3"> 
+        <div class="row mt-3">
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -15,18 +14,17 @@
             @endif
 
             @if ($message = Session::get('success'))
-                <div class="alert alert-success alert-dismissible fade show " role="alert">
-                    <p>{{ $message }}</p>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
-            @if ($message = Session::get('fail'))
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <p>{{ $message }}</p>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
-            
+            <div class="alert alert-success alert-dismissible fade show " role="alert">
+                <p>{{ $message }}</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        @if ($message = Session::get('fail'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <p>{{ $message }}</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
             <form action="{{ url('/stocks/ajout', $stock) }}" role="form" method="post" class="form">
                 @csrf
                 @method('PUT')
@@ -45,14 +43,14 @@
                             <div class="col-md-6">
                                 <div class="input-group mb-3 mb-3">
                                     <span class="input-group-text txt fw-bold ">Quantité</span>
-                                    <input type="text" class="form-control" name="quantite"
+                                    <input type="number" class="form-control" name="quantite" min="1"
                                         placeholder="Quantité disponible: {{ $stock->quantite }}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="input-group mb-3 ">
                                     <span class="input-group-text txt fw-bold ">Fournisseur</span>
-                                    <input type="text" class="form-control" name="fournisseur">
+                                    <input type="text" class="form-control" name="fournisseur" >
                                 </div>
                             </div>
 
@@ -63,26 +61,28 @@
                                 </div>
                             </div>
 
-                        </div>
-                        <div class="row mt-3 mb-3 ">
-                            <div class="col-md-12 form-group text-center">
-                                <button type="submit" name="submit" class="btn btn-primary fw-bold">Soumettre</button>
-                                <button type="reset" class="btn btn-outline-danger fw-bold">Annuler</button>
+                            <div class="row mt-3 mb-2">
+                                <div class="col-md-12 form-group text-center">
+                                    <button type="submit" name="submit" class="btn btn-primary fw-bold">Soumettre</button>
+                                    <button type="reset" class="btn btn-outline-danger  fw-bold">Annuler</button>
+                                </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
-
+                
             </form>
         </div>
         <br>
         <div class="col-md-12">
             <h3>Dernières Rentrées pour {{ $stock->materiel }}</h3>
-            <table class="table table-bordered border-dark " id="">
+            <table class="table table-bordered border-dark table-sm table-hover " id="">
                 <thead class="  table-dark">
                     <th scope="col">#</th>
                     <th scope="col">Quantité</th>
                     <th scope="col">Fournisseur</th>
+                    <th scope="col">User</th>
                     <th scope="col">Date</th>
                 </thead>
                 <tbody>
@@ -96,6 +96,7 @@
                                 <td>{{ $cnt }}</td>
                                 <td>{{ $rentree->quantite }}</td>
                                 <td>{{ $rentree->fournisseur }}</td>
+                                <td>{{ $rentree->username }}</td>
                                 <td>{{ date('d/m/Y', strtotime($rentree->date_rentree)) }}</td>
                             </tr>
                             @php
@@ -117,15 +118,14 @@
             color: white;
         }
 
-        .btn-primary {
+        /* .btn-primary {
             color: white;
         }
 
         .card-header {
             background: #4F81BD;
             color: white;
-        }
-
+        } */
         .txt {
             width: 20%;
         }

@@ -1,51 +1,55 @@
 @extends('1.layout', ['page' => 'Gestion des stocks', 'pageSlug' => 'stocks'])
 @section('content')
-<br><br>
-    <div class="d-flex justify-content-start">
-        <div class="col-md-12">
-           <div class="card" >
+    <br><br>
+    <div class="mb-5">
+
+        @if ($message = Session::get('success'))
+            <div class="alert alert-success alert-dismissible fade show " role="alert">
+                <p>{{ $message }}</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        @if ($message = Session::get('fail'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <p>{{ $message }}</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
+        <div class="card">
             <div class="card-header d-flex justify-content-between">
                 <h3 class="fw-bold">Nouveau Matériel</h3>
-                <a href="{{ url('/stocks') }}" class="btn btn-primary fw-bold"> <i class="fas fa-arrow-left"></i> RETOURNER</a>
+                <a href="{{ url('/stocks') }}" class="btn btn-primary fw-bold"> <i class="fas fa-arrow-left"></i>
+                    RETOURNER</a>
             </div>
 
             <div class="card-body">
-                @if ($message = Session::get('success'))
-                    <div class="alert alert-success">
-                        <p>{{ $message }}</p>
-                    </div>
-                @endif
-                @if ($message = Session::get('fail'))
-                    <div class="alert alert-danger">
-                        <p>{{ $message }}</p>
-                    </div>
-                @endif
-                <form action="store" role="form" method="post" class="form-card">
+                <form action="/stocks/store" role="form" method="post" class="form-card">
                     @csrf
                     <div class="field_wrapper col mb-2">
-                            
+
                         <div class="input-group">
                             <a class="input-group-text icon add_button" onclick="addInput()">
                                 <i class="fa fa-plus" aria-hidden="true"></i>
                             </a>
                             {{-- <input type="text" class="form-control" name="nom_materiel[]" placeholder="Nom du Materiel" > --}}
-                            <input type="text" class="form-control" name="nom_materiel[]" placeholder="Nom du matériel" required>
-                            <input type="text" class="form-control" name="quantite[]" placeholder="Quantité" onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" required>
-                            
+                            <input type="text" class="form-control" name="nom_materiel[]" placeholder="Nom du matériel"
+                                required>
+                            <input type="text" class="form-control" name="quantite[]" placeholder="Quantité"
+                                onkeyup="if (/\D/g.test(this.value)) this.value = this.value.replace(/\D/g,'')" required>
+
                         </div>
                     </div>
                     <div class="row" style="text-align: center; margin-top: 2%;">
                         <div class=" form-group">
                             <button type="submit" name="submit" class="btn btn-primary fw-bold">Ajouter</button>
-                            <button type="reset" class="btn btn-outline-danger fw-bold">Annuler</button>
+                            <button type="reset" class="btn btn-outline-danger  fw-bold">Annuler</button>
 
                         </div>
                     </div>
                 </form>
             </div>
-        </div> 
         </div>
-        
 
     </div>
     <script>
@@ -85,9 +89,5 @@
         .btn-primary {
             color: white;
         }
-
-        
-
     </style>
-
 @endsection

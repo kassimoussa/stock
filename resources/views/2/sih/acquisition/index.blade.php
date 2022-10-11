@@ -42,7 +42,7 @@ use App\Models\Livraison;
                     <th scope="col">Materiel</th>
                     <th scope="col">Quantité</th>
                     <th scope="col">Date</th>
-                    <th scope="col" colspan="2">Status</th>
+                    <th scope="col" colspan="2" class="text-center">Status</th>
                     <th scope="col">Réçu</th>
                     <th scope="col">Livré</th>
                     <th scope="col" colspan="4">Actions</th>
@@ -100,22 +100,22 @@ use App\Models\Livraison;
                                             $btnlivrecolor = 'bg-danger text-white';
                                             $btnlivretitle = 'NON';
                                             $btnlivretxt = "Les matériels acquis n'ont pas encore été livré";
-                                        } else {
-                                            $btnlivrecolor = 'bg-success ';
-                                            $btnlivretitle = 'OUI';
-                                            $btnlivretxt = 'Les matériels acquis ont été livré';
-                                            $btnlivre = '';
-                                        }
-                                    }
-                                } elseif ($acquisition->status_dsi == 'attente') {
-                                    $status_dsi = 'bg-warning ';
-                                    $status_dsi_txt = 'Acquisition mise en attente par la DSI';
-                                } elseif ($acquisition->status_dsi == 'rejete') {
-                                    $status_dsi = 'bg-danger ';
-                                    $status_dsi_txt = 'Acquisition rejetée par la DSI';
-                                } elseif ($acquisition->status_dsi == null) {
-                                    $status_dsi = 'bg-white ';
-                                    $status_dsi_txt = 'Acquisition pas encore vu par la DSI';
+            } else {
+                $btnlivrecolor = 'bg-success ';
+                $btnlivretitle = 'OUI';
+                $btnlivretxt = 'Les matériels acquis ont été livré';
+                $btnlivre = '';
+            }
+        }
+    } elseif ($acquisition->status_dsi == 'attente') {
+        $status_dsi = 'bg-warning ';
+        $status_dsi_txt = 'Acquisition mise en attente par la DSI';
+    } elseif ($acquisition->status_dsi == 'rejete') {
+        $status_dsi = 'bg-danger ';
+        $status_dsi_txt = 'Acquisition rejetée par la DSI';
+    } elseif ($acquisition->status_dsi == null) {
+        $status_dsi = 'bg-white ';
+        $status_dsi_txt = 'Acquisition pas encore vu par la DSI';
                                 }
                                 
                             @endphp
@@ -135,65 +135,75 @@ use App\Models\Livraison;
                                         class="d-inline">
                                         @csrf
                                         @method('put')
-                                        <button type="button" class="{{ $btnrecuoutline }}" style="display:block;width:100%;"
-                                            {{ $btnrecushow }} {{ $btnrecuclick }}
+                                        <button type="button" class="{{ $btnrecuoutline }}"
+                                            style="display:block;width:100%;" {{ $btnrecushow }} {{ $btnrecuclick }}
                                             onclick="confirm('Clique sur oui si vous avez réçu le materiel ?') ? this.parentElement.submit() : ''">
                                             {{ $btnrecutitle }}
                                         </button>
                                     </form>
                                 </td>
-                                <td class="{{ $btnlivrecolor }}" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                <td class="{{ $btnlivrecolor }} text-center align-middle" data-bs-toggle="tooltip" data-bs-placement="bottom"
                                     title="{{ $btnlivretxt }}"> {{ $btnlivretitle }}</td>
                                 <td>
-                                    <a href="{{ url('/acquisition/fiche', $acquisition) }}" class="btn "
-                                        data-bs-toggle="tooltip" data-bs-placement="bottom" title="Voir la fiche">
-                                        <i class="fas fa-eye"></i>
-                                    </a>
-                                    <a href="{{ url('/acquisition/edit', $acquisition) }}"
-                                        class="btn   {{ $btnedit }}" data-bs-toggle="tooltip"
-                                        data-bs-placement="bottom" title="Modifier la fiche">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    {{-- <form action="{{ url('/acquisition/change_status', $acquisition) }}" method="post"
+                                    <div class="dropdown dropstart">
+                                        <button type="button" class="btn btn-icon dropdown-toggle" data-bs-toggle="dropdown"
+                                            aria-expanded="false" id="dropdownMenu2">
+                                            <span class="badge rounded-pill bg-primary"><i class="fas fa-ellipsis-h"></i></span>
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                            <a href="{{ url('/acquisition/fiche', $acquisition) }}"
+                                                class="btn " data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                title="Voir la fiche">
+                                                <i class="fas fa-eye"></i> Voir la fiche
+                                            </a>
+                                            <a href="{{ url('/acquisition/edit', $acquisition) }}"
+                                                class="btn   {{ $btnedit }} dropdown-item" data-bs-toggle="tooltip"
+                                                data-bs-placement="bottom" title="Modifier la fiche">
+                                                <i class="fas fa-edit"></i> Modifier la fiche
+                                            </a>
+                                            {{-- <form action="{{ url('/acquisition/change_status', $acquisition) }}" method="post"
                                         class="d-inline">
                                         @csrf
                                         @method('put')
-                                        <button type="button" class="btn btn-link" data-bs-toggle="tooltip"
+                                        <button type="button" class="btn btn-link dropdown-item" data-bs-toggle="tooltip"
                                             data-bs-placement="top" title="{{ $titre }}" {{ $btnshow }}
                                             onclick="confirm('Vous étes sur le point de changé la visibilité de la fiche ?') ? this.parentElement.submit() : ''">
                                             <i class="fas fa-{{ $icon }}"></i>
                                         </button>
                                     </form> --}}
 
-                                    <form action="{{ url('/acquisition/delete', $acquisition) }}" method="post"
-                                        class="d-inline">
-                                        @csrf
-                                        @method('delete')
-                                        <button type="button" class="btn " data-bs-toggle="tooltip"
-                                            data-bs-placement="top" title="Supprimer la fiche"
-                                            onclick="confirm('Etes vous sûr de supprimer la fiche ?') ? this.parentElement.submit() : ''">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </button>
-                                    </form>
-                                    @php
-                                        $query = Livraison::where('fiche', 'acquisition')
-                                            ->where('numero_fiche', $acquisition->id)
-                                            ->first();
-                                        
-                                    @endphp
-                                    @if ($query)
-                                        <a href="{{ url('/livraison/show', $query->id) }}" class="btn "
-                                            data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                            title="Voir la fiche de livraison ">
-                                            <i class="fas fa-truck-loading"></i>
-                                        </a>
-                                    @else
-                                        <a href="{{ url('/acquisition/livraison', $acquisition) }}"
-                                            class="btn " data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                            title="Générer une fiche de livraison " {{ $btnlivraison }}>
-                                            <i class="fas fa-truck"></i>
-                                        </a>
-                                    @endif
+                                            <form action="{{ url('/acquisition/delete', $acquisition) }}" method="post"
+                                                class="d-inline">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="button" class="btn dropdown-item" data-bs-toggle="tooltip"
+                                                    data-bs-placement="top" title="Supprimer la fiche"
+                                                    onclick="confirm('Etes vous sûr de supprimer la fiche ?') ? this.parentElement.submit() : ''">
+                                                    <i class="fas fa-trash-alt"></i> Supprimer la fiche
+                                                </button>
+                                            </form>
+                                            @php
+                                                $query = Livraison::where('fiche', 'acquisition')
+                                                    ->where('numero_fiche', $acquisition->id)
+                                                    ->first();
+                                                
+                                            @endphp
+                                            @if ($query)
+                                                <a href="{{ url('/livraison/show', $query->id) }}" class="btn dropdown-item"
+                                                    data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                    title="Voir la fiche de livraison ">
+                                                    <i class="fas fa-truck-loading"></i> Voir la fiche de livraison
+                                                </a>
+                                            @else
+                                                <a href="{{ url('/acquisition/livraison', $acquisition) }}"
+                                                    class="btn dropdown-item" data-bs-toggle="tooltip"
+                                                    data-bs-placement="bottom" title="Générer une fiche de livraison "
+                                                    {{ $btnlivraison }}>
+                                                    <i class="fas fa-truck"></i> Générer une fiche de livraison
+                                                </a>
+                                            @endif
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                             @php

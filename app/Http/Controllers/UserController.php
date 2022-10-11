@@ -212,10 +212,19 @@ class UserController extends Controller
     public function admin(Request $request)
     {
         $users = User::where('id', session('Loggeduser'))->first();
+        
+        $sih = 'IT HelpDesk'; 
+        $service = session('service');
+        $level = session('userLevel');
 
-        if (session('userLevel') == '2') {
-            return view('2.sih.admin.index', compact('users'));
-        } elseif (session('userLevel') == '3') {
+        if ($level == '2') {
+            if($service == $sih)
+            {
+                return view('2.sih.admin.index', compact('users'));
+            }else {
+                return view('2.admin.listusers', compact('users'));
+            }
+        } elseif ($level == '3') {
             return view('3.admin.index');
         }
     }

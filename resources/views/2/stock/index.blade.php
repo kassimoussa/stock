@@ -4,18 +4,20 @@
     <div class="row  py-3 px-3">
         <div class="d-flex justify-content-between mb-2">
             <h3 class="over-title ">Stock des materiels </h3>
-            <a href="/stocks/newmateriel" class="btn  btn-primary  fw-bold">Ajouter Materiel</a>
+            <div class="btn-group" role="group" aria-label="Basic outlined example">
+                <a href="/stocks/newmateriel" type="button" class="btn  btn-outline-dark fw-bold">Ajouter Materiel</a>
+                <a href="/stocks/allrentree" type="button" class="btn  btn-outline-dark fw-bold">Rentrées</a>
+                <a href="/stocks/allsortie" type="button" class="btn  btn-outline-dark fw-bold">Sorties</a>
+              </div>
         </div>
 
-        <div class="d-flex justify-content-start mb-2">
-            <div class="row">
-                <form action="" class="">
+        <div class="d-flex justify-content-start mb-2"> 
+                <form action="" class="col-md-6">
                     <div class="input-group  mb-3">
                         <button class="btn btn-dark" type="submit">Chercher</button>
                         <input type="text" class="form-control " name="search" placeholder="Par matériel" value="{{ $search }}">
                     </div>
-                </form>
-            </div>
+                </form> 
         </div>
 
         @if ($message = Session::get('success'))
@@ -34,14 +36,14 @@
         
 
         <div>
-            <table class="table   border-dark table-sm table-hover " id="">
-                <thead class="table-dark text-primary  ">
+            <table class="table table-bordered border- table-striped table-hover table-sm align-middle " id="">
+                <thead class="bg-dark text-white text-center">
                     <th scope="col">#</th>
                     <th scope="col">Materiels</th>
                     <th scope="col">Quantité</th>
                     <th scope="col">Action</th>
                 </thead>
-                <tbody>
+                <tbody class="text-center">
                     @if (!empty($stocks) && $stocks->count())
                         @php
                             $cnt = 1;

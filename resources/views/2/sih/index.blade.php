@@ -74,7 +74,7 @@
                 <div class="card-body">
                     <span class="fa-stack fa-2x">
                         <i class="fa fa-square fa-stack-2x blciel"></i>
-                        <i class="fa fa-truck fa-stack-1x dore"></i>
+                        <i class="fa fa-user-cog fa-stack-1x dore"></i>
                     </span>
                     <h2 class="card-title">Administration</h2>
 

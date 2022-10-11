@@ -2,11 +2,7 @@
 @section('content')
     <br>
     <div class="row">
-        <div>
-            <div class="card mb-3" style="width: 100%;">
-                <h3 class="card-header fw-bold">Informations personnelles</h3>
-
-                @if ($message = Session::get('success'))
+        @if ($message = Session::get('success'))
             <div class="alert alert-success alert-dismissible fade show " role="alert">
                 <p>{{ $message }}</p>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -18,7 +14,11 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
-        
+
+        <div>
+            <div class="card mb-3" style="width: 100%;">
+                <h3 class="card-header fw-bold">Informations personnelles</h3>
+
                 <div class="card-body">
                     <form action="{{ url('/change_infos', $user) }}" role="form" method="post" class="form-card">
                         @csrf
@@ -49,7 +49,7 @@
         </div>
 
 
-        <div>
+        <div class="mb-5">
             <div class="card" style="width: 100%;">
                 <h3 class="card-header fw-bold">Mot de passe</h3>
                 <div class="card-body">
@@ -89,19 +89,17 @@
             color: white;
         }
 
-        .btn-primary {
+        /* .btn-primary {
             color: white;
         }
 
         .card-header {
             background: #4F81BD;
             color: white;
-        }
+        } */
 
         .txt {
             width: 10%;
         }
-
     </style>
-
 @endsection

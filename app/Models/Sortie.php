@@ -16,5 +16,6 @@ class Sortie extends Model
         'date_sortie',
         'direction',
         'service',
+        'username'
     ];
 }

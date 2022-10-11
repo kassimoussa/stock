@@ -173,6 +173,7 @@ class StocksController extends Controller
         $sortie->date_sortie = $request->date_sortie;
         $sortie->direction = $dir;
         $sortie->service = $service;
+        $sortie->username = session('username');
         $query2 = $sortie->save();
         if ($query1 && $query2) {
             return back()->with('success', 'Rétrait effectué');
@@ -196,6 +197,7 @@ class StocksController extends Controller
         $rentree->date_rentree = $request->date_rentree;
         $rentree->direction = $dir;
         $rentree->service = $service;
+        $rentree->username = session('username');
         $query2 = $rentree->save();
         if ($query1 && $query2) {
             return back()->with('success', 'Ajout effectué');

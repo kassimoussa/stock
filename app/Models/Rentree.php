@@ -15,5 +15,6 @@ class Rentree extends Model
         'fournisseur',
         'direction',
         'service',
+        'username'
     ];
 }

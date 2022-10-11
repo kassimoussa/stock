@@ -17,6 +17,8 @@
                 </div>
             </div>
         </div>
+
+        @if (session('service') == 'IT HelpDesk')
         <div class="col-sm-4 mt-4">
             <div class="card border-primary no-radius text-center bg-white">
                 <div class="card-body">
@@ -68,6 +70,24 @@
                 </div>
             </div>
         </div>
+       @endif    
 
+       <div class="col-sm-4 mt-4">
+        <div class="card border-primary no-radius text-center bg-white">
+            <div class="card-body">
+                <span class="fa-stack fa-2x">
+                    <i class="fa fa-square fa-stack-2x blciel"></i>
+                    <i class="fa fa-user-cog fa-stack-1x dore"></i>
+                </span>
+                <h2 class="card-title">Administration</h2>
+
+                <p class="cl-effect-1">
+                    <a href="/admin/listuser">
+                       admin
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
     </div>
 @endsection

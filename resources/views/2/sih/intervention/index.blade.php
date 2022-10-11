@@ -33,14 +33,14 @@ use App\Models\Livraison;
 
         <div>
             <table class="table   border-dark table-sm table-hover " id="">
-                <thead class="table-dark text-primary  text-center ">
+                <thead class="table-dark text-primary    ">
                     <th scope="col">#</th>
                     <th scope="col">Demandeur</th>
                     <th scope="col">Direction</th>
                     <th scope="col">Service</th>
                     <th scope="col">Materiel</th>
-                    <th scope="col" colspan="3">Status</th>
-                    <th scope="col">Date </th>
+                    <th scope="col" colspan="3" class="text-center">Status</th>
+                    <th scope="col" >Date </th>
                     <th scope="col">Action</th>
                 </thead>
                 <tbody>
@@ -50,7 +50,7 @@ use App\Models\Livraison;
                         @endphp
 
                         @foreach ($interventions as $key => $intervention)
-                            <tr class="text-center">
+                            <tr >
                                 @php
                                     $status_dir = '';
                                     $status_dir_txt = '';
@@ -110,57 +110,67 @@ use App\Models\Livraison;
                                 <td>{{ $intervention->dir_demandeur }}</td>
                                 <td>{{ $intervention->service_demandeur }}</td>
                                 <td>{{ $intervention->materiel }}</td>
-                                <td class="{{ $status_sih }} " data-bs-toggle="tooltip" data-bs-placement="bottom" 
-                                title="{{ $status_sih_txt }}">SIH</td>
-                                <td class="{{ $status_dir }}" data-bs-toggle="tooltip" data-bs-placement="bottom" 
-                                title="{{ $status_dir_txt }}">{{ $intervention->dir_demandeur }}</td>
-                                <td class="{{ $status_din }}" data-bs-toggle="tooltip" data-bs-placement="bottom" 
-                                title="{{ $status_din_txt }}">DIN</td>
+                                <td class="{{ $status_sih }} " data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                    title="{{ $status_sih_txt }}">SIH</td>
+                                <td class="{{ $status_dir }}" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                    title="{{ $status_dir_txt }}">{{ $intervention->dir_demandeur }}</td>
+                                <td class="{{ $status_din }}" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                    title="{{ $status_din_txt }}">DIN</td>
                                 <td>{{ date('d/m/Y', strtotime($intervention->date_intervention)) }}</td>
                                 <td class="td-actions ">
-                                    <a href="{{ url('/intervention/fiche', $intervention) }}" class="btn  "
-                                        data-bs-toggle="tooltip" data-bs-placement="left" title="Voir la fiche">
-                                        <i class="fas fa-eye"></i>
-                                    </a>
-                                    <a href="{{ url('/intervention/edit', $intervention) }}" class="btn   {{ $btnedit }}"
-                                        data-bs-toggle="tooltip" data-bs-placement="bottom" 
-                                        title="Modifier la fiche">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    {{-- <a href="{{ url('/intervention/devis', $intervention) }}" class="btn  "
+                                    <div class="dropdown dropstart">
+                                        <button type="button" class="btn btn-icon dropdown-toggle" data-bs-toggle="dropdown"
+                                            aria-expanded="false" id="dropdownMenu2">
+                                            <span class="badge rounded-pill bg-primary"><i class="fas fa-ellipsis-h"></i></span>
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                            <a href="{{ url('/intervention/fiche', $intervention) }}"
+                                                class="btn dropdown-item " data-bs-toggle="tooltip" data-bs-placement="left"
+                                                title="Voir la fiche">
+                                                <i class="fas fa-eye"></i>  Voir la Fiche
+                                            </a> 
+                                            <a href="{{ url('/intervention/edit', $intervention) }}"
+                                                class="btn   {{ $btnedit }} dropdown-item" data-bs-toggle="tooltip"
+                                                data-bs-placement="bottom" title="Modifier la fiche">
+                                                <i class="fas fa-edit"></i> Modifier la Fiche
+                                            </a>
+                                            {{-- <a href="{{ url('/intervention/devis', $intervention) }}" class="btn  "
                                         data-bs-toggle="tooltip" data-bs-placement="top" {{ $devishidden }}
                                         title="Ajout un devis">
                                         <i class="fas fa-plus"></i>
                                     </a> --}}
-                                    <form action="{{ url('/intervention/delete', $intervention) }}" method="post"
-                                        class="d-inline">
-                                        @csrf
-                                        @method('delete')
-                                        <button type="button" class="btn  " data-bs-toggle="tooltip"
-                                            data-bs-placement="top" title="Supprimer la fiche"
-                                            onclick="confirm('Etes vous sûr de supprimer la fiche ?') ? this.parentElement.submit() : ''">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </button>
-                                    </form>
-                                    @php
-                                        $query = Livraison::where('fiche', 'intervention')
-                                            ->where('numero_fiche', $intervention->id)
-                                            ->first();
-                                        
-                                    @endphp
-                                    @if ($query)
-                                        <a href="{{ url('/livraison/show', $query->id) }}" class="btn  "
-                                            data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                            title="Voir la fiche de livraison ">
-                                            <i class="fas fa-truck-loading"></i>
-                                        </a>
-                                    @else
-                                        <a href="{{ url('/intervention/livraison', $intervention) }}"
-                                            class="btn  " data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                            title="Générer une fiche de livraison " {{ $btnlivraison }}>
-                                            <i class="fas fa-truck"></i>
-                                        </a>
-                                    @endif
+                                            <form action="{{ url('/intervention/delete', $intervention) }}" method="post"
+                                                class="d-inline">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="button" class="btn  dropdown-item" data-bs-toggle="tooltip"
+                                                    data-bs-placement="top" title="Supprimer la fiche"
+                                                    onclick="confirm('Etes vous sûr de supprimer la fiche ?') ? this.parentElement.submit() : ''">
+                                                    <i class="fas fa-trash-alt"></i>  Supprimer la Fiche
+                                                </button>
+                                            </form>
+                                            @php
+                                                $query = Livraison::where('fiche', 'intervention')
+                                                    ->where('numero_fiche', $intervention->id)
+                                                    ->first();
+                                                
+                                            @endphp
+                                            @if ($query)
+                                                <a href="{{ url('/livraison/show', $query->id) }}"
+                                                    class="btn dropdown-item " data-bs-toggle="tooltip"
+                                                    data-bs-placement="bottom" title="Voir la fiche de livraison ">
+                                                    <i class="fas fa-truck-loading"></i>  Voir la fiche de livraison
+                                                </a>
+                                            @else
+                                                <a href="{{ url('/intervention/livraison', $intervention) }}"
+                                                    class="btn  dropdown-item" data-bs-toggle="tooltip"
+                                                    data-bs-placement="bottom" title="Générer une fiche de livraison "
+                                                    {{ $btnlivraison }}>
+                                                    <i class="fas fa-truck"></i> Générer une fiche de livraison
+                                                </a>
+                                            @endif
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                             @php

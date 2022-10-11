@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AcquisitionsController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DevisController;
 use App\Http\Controllers\InterventionsController;
 use App\Http\Controllers\LivraisonsController;
@@ -135,11 +136,14 @@ Route::group(['middleware'=> ['logged']], function(){
     Route::delete('/admin/servicedelete/{service}', [ServicesController::class, 'destroy']);
     Route::put('/admin/updateservice/{service}', [ServicesController::class, 'update']);
 
-     
-
     Route::post('/admin/addir', [DirectionsController::class, 'store']);
     Route::post('/admin/addservice', [ServicesController::class, 'store']);
     Route::post('/admin/adduser', [UserController::class, 'store']);
+
+    Route::get('/admin/listuser', [AdminController::class, 'admin']);
+    Route::get('/admin/createuser', [AdminController::class, 'createuser']);
+    Route::post('/admin/storeuser', [AdminController::class, 'storeuser']);
+    Route::get('/admin/edituser/{user}', [AdminController::class, 'edituser']);
 
 });
 

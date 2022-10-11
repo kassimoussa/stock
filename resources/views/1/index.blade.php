@@ -17,41 +17,44 @@
                 </div>
             </div>
         </div>
-        
-        <div class="col-sm-4 mt-4">
-            <div class="card border-primary rounded text-center bg-white">
-                <div class="card-body">
-                    <span class="fa-stack fa-2x">
-                        <i class="fa fa-square fa-stack-2x blciel"> </i>
-                        <i class="fas fa-tools fa-stack-1x dore">  </i>
-                    </span>
-                    <h2 class="card-title">Intervention </h2>
 
-                    <p class="cl-effect-1">
-                        <a href="/intervention">
-                            Fiche d'intervention
-                        </a>
-                    </p>
+        @if (session('service') == 'IT HelpDesk')
+            <div class="col-sm-4 mt-4">
+                <div class="card border-primary rounded text-center bg-white">
+                    <div class="card-body">
+                        <span class="fa-stack fa-2x">
+                            <i class="fa fa-square fa-stack-2x blciel"> </i>
+                            <i class="fas fa-tools fa-stack-1x dore"> </i>
+                        </span>
+                        <h2 class="card-title">Intervention </h2>
+
+                        <p class="cl-effect-1">
+                            <a href="/intervention">
+                                Fiche d'intervention
+                            </a>
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-sm-4 mt-4">
-            <div class="card border-primary no-radius text-center bg-white">
-                <div class="card-body">
-                    <span class="fa-stack fa-2x">
-                        <i class="fa fa-square fa-stack-2x blciel"></i>
-                        <i class="fa fa-truck fa-stack-1x dore"></i>
-                    </span>
-                    <h2 class="card-title">Livraison</h2>
+            <div class="col-sm-4 mt-4">
+                <div class="card border-primary no-radius text-center bg-white">
+                    <div class="card-body">
+                        <span class="fa-stack fa-2x">
+                            <i class="fa fa-square fa-stack-2x blciel"></i>
+                            <i class="fa fa-truck fa-stack-1x dore"></i>
+                        </span>
+                        <h2 class="card-title">Livraison</h2>
 
-                    <p class="cl-effect-1">
-                        <a href="/livraison">
-                            Fiche de livraison
-                        </a>
-                    </p>
+                        <p class="cl-effect-1">
+                            <a href="/livraison">
+                                Fiche de livraison
+                            </a>
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
+        @endif
+
 
     </div>
 @endsection

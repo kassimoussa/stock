@@ -21,6 +21,7 @@ class CreateSortiesTable extends Migration
             $table->timestamp('date_sortie');
             $table->string('direction')->nullable();
             $table->string('service')->nullable();
+            $table->string('username')->nullable();
             $table->timestamps();
         });
     }

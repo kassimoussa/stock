@@ -2,8 +2,7 @@
 @section('content')
 
     <div class="row mt-3">
-        <h3 class="fw-bold mt-3">Gestion des stocks</h3>
-        <div class="row">
+        <div class="row mt-3">
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -44,7 +43,7 @@
                             <div class="col-md-6">
                                 <div class="input-group mb-3 mb-3">
                                     <span class="input-group-text txt fw-bold ">Quantité</span>
-                                    <input type="number" class="form-control" name="quantite"
+                                    <input type="number" class="form-control" name="quantite" min="1" max="{{ $stock->quantite }}"
                                         placeholder="Quantité disponible: {{ $stock->quantite }}" required>
                                 </div>
                             </div>
@@ -58,7 +57,7 @@
                             <div class="col-md-6">
                                 <div class="input-group mb-3 mb-3">
                                     <span class="input-group-text txt fw-bold ">Date</span>
-                                    <input type="date" class="form-control" name="date_sortie" required
+                                    <input type="date" class="form-control" name="date_sortie" required >
                                 </div>
                             </div>
 
@@ -76,41 +75,7 @@
 
             </form>
         </div>
-        <br>
-        {{-- <div class="col-md-6">
-            <h3>Dernières Rentrées pour {{ $stock->materiel }}</h3>
-            <table class="table table-bordered border-dark " id="">
-                <thead class="  table-dark">
-                    <th scope="col">#</th>
-                    <th scope="col">Quantité</th>
-                    <th scope="col">Fournisseur</th>
-                    <th scope="col">Date</th>
-                </thead>
-                <tbody>
-                    @if (!empty($rentrees) && $rentrees->count())
-                        @php
-                            $cnt = 1;
-                        @endphp
-
-                        @foreach ($rentrees as $key => $rentree)
-                            <tr>
-                                <td>{{ $cnt }}</td>
-                                <td>{{ $rentree->quantite }}</td>
-                                <td>{{ $rentree->fournisseur }}</td>
-                                <td>{{ date('d/m/Y', strtotime($rentree->date_rentree)) }}</td>
-                            </tr>
-                            @php
-                                $cnt = $cnt + 1;
-                            @endphp
-                        @endforeach
-                    @else
-                        <tr>
-                            <td colspan="10">There are no data.</td>
-                        </tr>
-                    @endif
-                </tbody>
-            </table>
-        </div> --}}
+        <br> 
         <div class="col-md-12">
             <h3>Dernières Sorties pour {{ $stock->materiel }}</h3>
             <table class="table table-bordered border-dark table-sm table-hover" id="">
@@ -118,6 +83,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Quantité</th>
                     <th scope="col">Raison</th>
+                    <th scope="col">User</th>
                     <th scope="col">Date</th>
                 </thead>
                 <tbody>
@@ -130,17 +96,8 @@
                             <tr>
                                 <td>{{ $cnt }}</td>
                                 <td>{{ $sortie->quantite }}</td>
-                                <td>
-                                    @if ($sortie->raison == 'livraison')
-                                        <a href="{{ url('/livraison/show', $sortie->numero_fiche) }}"
-                                            class="" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                            title="Voir la fiche de livraison  ">
-                                            {{ ucfirst($sortie->raison) }}</i>
-                                        </a>
-                                    @else
-                                        {{ ucfirst($sortie->raison) }}
-                                    @endif
-                                </td>
+                                <td>{{ ucfirst($sortie->raison) }}</td>
+                                <td>{{ $sortie->username }}</td>
                                 <td>{{ date('d/m/Y', strtotime($sortie->date_sortie)) }}</td>
                             </tr>
                             @php
@@ -163,14 +120,14 @@
             color: white;
         }
 
-        .btn-primary {
+        /* .btn-primary {
             color: white;
         }
 
         .card-header {
             background: #4F81BD;
             color: white;
-        }
+        } */
 
         .txt {
             width: 20%;

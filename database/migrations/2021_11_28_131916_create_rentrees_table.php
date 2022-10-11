@@ -21,6 +21,7 @@ class CreateRentreesTable extends Migration
             $table->timestamp('date_rentree');
             $table->string('direction')->nullable();
             $table->string('service')->nullable();
+            $table->string('username')->nullable();
             $table->timestamps();
         });
     }

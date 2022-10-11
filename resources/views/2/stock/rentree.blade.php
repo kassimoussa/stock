@@ -1,9 +1,8 @@
 @extends('2.layout', ['page' => 'Gestion des stocks', 'pageSlug' => 'stocks'])
 @section('content')
 
-    <div class="row mt-3">
-        <h3 class="fw-bold mt-3">Gestion des stocks</h3>
-        <div class="row">
+    <div class="row mt-3"> 
+        <div class="row mt-3">
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -44,7 +43,7 @@
                             <div class="col-md-6">
                                 <div class="input-group mb-3 mb-3">
                                     <span class="input-group-text txt fw-bold ">Quantité</span>
-                                    <input type="number" class="form-control" name="quantite"
+                                    <input type="number" class="form-control" name="quantite" min="1"
                                         placeholder="Quantité disponible: {{ $stock->quantite }}">
                                 </div>
                             </div>
@@ -83,6 +82,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Quantité</th>
                     <th scope="col">Fournisseur</th>
+                    <th scope="col">User</th>
                     <th scope="col">Date</th>
                 </thead>
                 <tbody>
@@ -96,6 +96,7 @@
                                 <td>{{ $cnt }}</td>
                                 <td>{{ $rentree->quantite }}</td>
                                 <td>{{ $rentree->fournisseur }}</td>
+                                <td>{{ $rentree->username }}</td>
                                 <td>{{ date('d/m/Y', strtotime($rentree->date_rentree)) }}</td>
                             </tr>
                             @php
@@ -117,14 +118,14 @@
             color: white;
         }
 
-        .btn-primary {
+        /* .btn-primary {
             color: white;
         }
 
         .card-header {
             background: #4F81BD;
             color: white;
-        }
+        } */
         .txt {
             width: 20%;
         }
