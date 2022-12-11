@@ -1,6 +1,5 @@
 @extends('2.layout', ['page' => 'Liste des utilisateurs', 'pageSlug' => 'admin'])
 @section('content')
-
     <div class="row  py-3 px-3">
 
         @if ($message = Session::get('success'))
@@ -18,7 +17,7 @@
 
         <div class="d-flex justify-content-between mb-5">
             <h3 class="over-title mb-2">La liste des utilisateurs </h3>
- 
+
             <a href="/admin/createuser" class="btn  btn-outline-dark  fw-bold">Nouvelle Utilisateur</a>
 
         </div>
@@ -33,7 +32,7 @@
             </form>
         </div> --}}
 
-        
+
 
         {{-- <div class="card">
             <div class="card-header d-flex justify-content-between">
@@ -88,7 +87,7 @@
                 </thead>
                 <tbody class="text-center">
                     @php
-                        $cnt = 1 ;
+                        $cnt = 1;
                     @endphp
                     @foreach ($users as $user)
                         <tr>
@@ -96,28 +95,29 @@
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td class="td-actions ">
-                                <a href="{{ url('/admin/edituser', $user) }}" class="btn " data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                    title="Edit User">
+                                <a href="{{ url('/admin/edituser', $user) }}" class="btn " data-bs-toggle="tooltip"
+                                    data-bs-placement="bottom" title="Edit User">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <form action="{{ url('/admin/deleteuser', $user) }}" method="post" class="d-inline">
-                                    @csrf
-                                    @method('delete')
-                                    <button type="button" class="btn " data-bs-toggle="tooltip"
-                                        data-bs-placement="bottom" title="Delete User"
-                                        onclick="confirm('Etes vous sûr de supprimer le user ?.') ? this.parentElement.submit() : ''">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
-                                </form>
+                                @if (session('level') == 2)
+                                    <form action="{{ url('/admin/deleteuser', $user) }}" method="post" class="d-inline">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="button" class="btn " data-bs-toggle="tooltip"
+                                            data-bs-placement="bottom" title="Delete User"
+                                            onclick="confirm('Etes vous sûr de supprimer le user ?.') ? this.parentElement.submit() : ''">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </form>
+                                @endif
                             </td>
                         </tr>
                         @php
-                            $cnt = $cnt +1 ;
+                            $cnt = $cnt + 1;
                         @endphp
                     @endforeach
                 </tbody>
             </table>
         </div>
     </div>
-
 @endsection

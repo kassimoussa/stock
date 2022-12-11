@@ -144,6 +144,6 @@ Route::group(['middleware'=> ['logged']], function(){
     Route::get('/admin/createuser', [AdminController::class, 'createuser']);
     Route::post('/admin/storeuser', [AdminController::class, 'storeuser']);
     Route::get('/admin/edituser/{user}', [AdminController::class, 'edituser']);
-
+ 
 });
 
